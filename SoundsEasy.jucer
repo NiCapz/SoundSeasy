@@ -11,6 +11,12 @@
       <FILE id="aZN4AM" name="Snare.wav" compile="0" resource="1" file="AudioFiles/Snare.wav"/>
     </GROUP>
     <GROUP id="{66096B8B-93AC-8C2F-5968-D813BE26D7F8}" name="Source">
+      <FILE id="rQPVGX" name="Utils.h" compile="0" resource="0" file="Source/Utils.h"/>
+      <FILE id="pPcv8m" name="SamplerTrack.cpp" compile="1" resource="0"
+            file="Source/SamplerTrack.cpp"/>
+      <FILE id="JUb5J7" name="SamplerTrack.h" compile="0" resource="0" file="Source/SamplerTrack.h"/>
+      <FILE id="lV0SdJ" name="DrumSampler.cpp" compile="1" resource="0" file="Source/DrumSampler.cpp"/>
+      <FILE id="YSUx2C" name="DrumSampler.h" compile="0" resource="0" file="Source/DrumSampler.h"/>
       <FILE id="QeeTjn" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="xc0ltm" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="PIHhfp" name="MainComponent.cpp" compile="1" resource="0"
@@ -18,11 +24,16 @@
     </GROUP>
   </MAINGROUP>
   <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
   <EXPORTFORMATS>
@@ -37,6 +48,11 @@
         <MODULEPATH id="juce_events" path="../JUCE/modules"/>
         <MODULEPATH id="juce_core" path="../JUCE/modules"/>
         <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </VS2022>
     <XCODE_IPHONE targetFolder="Builds/iOS">
@@ -50,6 +66,11 @@
         <MODULEPATH id="juce_events" path="../../juce"/>
         <MODULEPATH id="juce_graphics" path="../../juce"/>
         <MODULEPATH id="juce_gui_basics" path="../../juce"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_IPHONE>
     <XCODE_MAC targetFolder="Builds/MacOSX">
@@ -63,6 +84,11 @@
         <MODULEPATH id="juce_events" path="../../juce"/>
         <MODULEPATH id="juce_graphics" path="../../juce"/>
         <MODULEPATH id="juce_gui_basics" path="../../juce"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <ANDROIDSTUDIO targetFolder="Builds/Android">
@@ -76,6 +102,11 @@
         <MODULEPATH id="juce_events" path="../../juce"/>
         <MODULEPATH id="juce_graphics" path="../../juce"/>
         <MODULEPATH id="juce_gui_basics" path="../../juce"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </ANDROIDSTUDIO>
   </EXPORTFORMATS>
