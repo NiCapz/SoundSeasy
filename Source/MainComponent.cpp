@@ -15,9 +15,14 @@ MainComponent::MainComponent()
     std::function<void(bool)> playButtonCallback = [&] (bool state)
     {
         if(state)
-            stepSequencer.start();
+        {
+            this->startTimerHz(6.0);
+            stepSequencer.reset();
+        }
         else
-            stepSequencer.stop();
+        {
+            this->stopTimer();
+        }
     };
     
     playButtonListener = new PlayButton::PlayButtonListener(playButtonCallback);
@@ -70,4 +75,9 @@ void MainComponent::resized()
         stepSequencer.setBounds(sY, sX, sH, sW);
         playButton.setBounds(0.8 * height, sX, 40, 40);
     }
+}
+
+void MainComponent::timerCallback()
+{
+    stepSequencer.nextStep();
 }
