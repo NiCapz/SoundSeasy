@@ -1,7 +1,10 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "StepSequencer.h"
+#include "PlayButton.h"
 
+using namespace juce;
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
@@ -24,4 +27,7 @@ private:
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
+    StepSequencer stepSequencer{4, 16};
+    PlayButton playButton{"PlayButton"};
+    PlayButton::Listener* playButtonListener;
 };

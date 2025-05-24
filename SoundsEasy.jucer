@@ -4,6 +4,12 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="arNiCt" name="SoundsEasy">
     <GROUP id="{66096B8B-93AC-8C2F-5968-D813BE26D7F8}" name="Source">
+      <FILE id="fmzzLj" name="SequencerButton.h" compile="0" resource="0"
+            file="Source/SequencerButton.h"/>
+      <FILE id="Opl5eF" name="PlayButton.h" compile="0" resource="0" file="Source/PlayButton.h"/>
+      <FILE id="vMhXxe" name="StepSequencer.cpp" compile="1" resource="0"
+            file="Source/StepSequencer.cpp"/>
+      <FILE id="x1zPjM" name="StepSequencer.h" compile="0" resource="0" file="Source/StepSequencer.h"/>
       <FILE id="QeeTjn" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="xc0ltm" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="PIHhfp" name="MainComponent.cpp" compile="1" resource="0"
