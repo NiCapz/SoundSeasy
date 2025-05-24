@@ -4,10 +4,49 @@
 MainComponent::MainComponent()
 {
     setSize (600, 400);
+    setAudioChannels(0, 2);
+    startTime = Time::getMillisecondCounterHiRes() * 0.001;
+    
+    startTimerHz(1);
 }
 
 MainComponent::~MainComponent()
 {
+}
+
+void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
+{
+    drumSampler.setSampleRate(sampleRate);
+    midiCollector.reset(sampleRate);
+}
+
+void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
+{
+    // Your audio-processing code goes here!
+
+    // For more details, see the help for AudioProcessor::getNextAudioBlock()
+
+    // Right now we are not producing any data, in which case we need to clear the buffer
+    // (to prevent the output of random noise)
+    bufferToFill.clearActiveBufferRegion();
+    
+    MidiBuffer midiBuffer{};
+    midiCollector.removeNextBlockOfMessages(midiBuffer, bufferToFill.numSamples);
+    
+    drumSampler.addToBuffer(*(bufferToFill.buffer), midiBuffer);
+}
+
+void MainComponent::releaseResources()
+{
+    
+}
+
+void MainComponent::timerCallback()
+{
+    MidiMessage message = MidiMessage::noteOn (1, 60, (juce::uint8) 100);
+    message.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 - startTime);
+    
+    midiCollector.addMessageToQueue(message);
 }
 
 //==============================================================================

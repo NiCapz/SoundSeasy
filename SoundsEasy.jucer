@@ -25,8 +25,10 @@
   </MAINGROUP>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
@@ -34,6 +36,7 @@
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_midi_ci" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
   <EXPORTFORMATS>
@@ -53,6 +56,9 @@
         <MODULEPATH id="juce_audio_processors" path="../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_dsp" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_midi_ci" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </VS2022>
     <XCODE_IPHONE targetFolder="Builds/iOS">
@@ -71,6 +77,9 @@
         <MODULEPATH id="juce_audio_processors" path="../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_dsp" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_midi_ci" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_IPHONE>
     <XCODE_MAC targetFolder="Builds/MacOSX">
@@ -89,6 +98,9 @@
         <MODULEPATH id="juce_audio_processors" path="../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_dsp" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_midi_ci" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <ANDROIDSTUDIO targetFolder="Builds/Android">
@@ -107,6 +119,9 @@
         <MODULEPATH id="juce_audio_processors" path="../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_dsp" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_midi_ci" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </ANDROIDSTUDIO>
   </EXPORTFORMATS>
