@@ -3,6 +3,13 @@
 <JUCERPROJECT id="FCkXQC" name="SoundsEasy" projectType="guiapp" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="arNiCt" name="SoundsEasy">
+    <GROUP id="{8D1E330C-D155-11A4-6B41-4157CC310D1B}" name="AudioFiles">
+      <FILE id="ufIyIf" name="Crash.wav" compile="0" resource="1" file="AudioFiles/Crash.wav"/>
+      <FILE id="JzwC6U" name="HiHat.wav" compile="0" resource="1" file="AudioFiles/HiHat.wav"/>
+      <FILE id="VYGQgK" name="Kick.wav" compile="0" resource="1" file="AudioFiles/Kick.wav"/>
+      <FILE id="kx43uD" name="OpenHat.wav" compile="0" resource="1" file="AudioFiles/OpenHat.wav"/>
+      <FILE id="aZN4AM" name="Snare.wav" compile="0" resource="1" file="AudioFiles/Snare.wav"/>
+    </GROUP>
     <GROUP id="{66096B8B-93AC-8C2F-5968-D813BE26D7F8}" name="Source">
       <FILE id="QeeTjn" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="xc0ltm" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
