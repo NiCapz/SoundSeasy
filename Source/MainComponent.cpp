@@ -4,7 +4,20 @@
 MainComponent::MainComponent()
 {
     setSize (600, 400);
-    setAudioChannels(0, 2);
+    
+    // Some platforms require permissions to open input channels so request that here
+    if (juce::RuntimePermissions::isRequired (juce::RuntimePermissions::recordAudio)
+        && ! juce::RuntimePermissions::isGranted (juce::RuntimePermissions::recordAudio))
+    {
+        juce::RuntimePermissions::request (juce::RuntimePermissions::recordAudio,
+                                           [&] (bool granted) { setAudioChannels (granted ? 2 : 0, 2); });
+    }
+    else
+    {
+        // Specify the number of input and output channels that we want to open
+        setAudioChannels (0, 2);
+    }
+    
     startTime = Time::getMillisecondCounterHiRes() * 0.001;
     
     startTimerHz(1);
@@ -12,6 +25,7 @@ MainComponent::MainComponent()
 
 MainComponent::~MainComponent()
 {
+    shutdownAudio();
 }
 
 void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
