@@ -40,8 +40,7 @@ void BodyComponent::resized()
     auto area = getLocalBounds();
     auto trackHeight = area.getHeight() * 0.25;
 
-    for (int i = 0; i <= tracks.size(); i++) {
-        auto* track = tracks[i];
-        track -> setBounds(area.removeFromTop(trackHeight));
+    for (auto* track : tracks) {
+        track->setBounds(area.removeFromTop(trackHeight));
     }
 }

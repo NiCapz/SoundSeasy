@@ -40,8 +40,9 @@ public:
 
         inst.setBounds(area.removeFromLeft(instWidth));
 
-        for (int i = 0; i <= steps.size(); i++) {
-            steps[i]->setBounds(area.removeFromLeft(stepWidth));
+        for (auto* step : steps) {
+            step->setBounds(area.removeFromLeft(stepWidth));
+
         }
     }
 
