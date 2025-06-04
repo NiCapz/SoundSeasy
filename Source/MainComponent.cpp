@@ -3,7 +3,14 @@
 //==============================================================================
 MainComponent::MainComponent()
 {
-    setSize (600, 400);
+    for (int i = 0; i < 4; i++) 
+    {
+        auto* track = new TrackComponent();
+        tracks.add(track);
+        addAndMakeVisible(track);
+    }
+
+    setSize(860, 400);
 }
 
 MainComponent::~MainComponent()
@@ -13,17 +20,17 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::paint (juce::Graphics& g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-
-    g.setFont (juce::FontOptions (50.0f));
-    g.setColour (juce::Colours::white);
-    g.drawText ("HELLO WORLD AHHHH!", getLocalBounds(), juce::Justification::centred, true);
+    using namespace juce;
+    g.fillAll(Colours::antiquewhite);
 }
 
 void MainComponent::resized()
 {
-    // This is called when the MainComponent is resized.
-    // If you add any child components, this is where you should
-    // update their positions.
+    auto bounds = getLocalBounds();
+    int trackHeight = bounds.getHeight() / 4;
+    
+    for (int i = 0; i < tracks.size(); i++) 
+    {
+        tracks[i]->setBounds(0, i * trackHeight, bounds.getWidth(), trackHeight);
+    }
 }

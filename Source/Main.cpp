@@ -64,13 +64,13 @@ public:
                                                           .findColour (juce::ResizableWindow::backgroundColourId),
                               DocumentWindow::allButtons)
         {
-            setUsingNativeTitleBar (true);
+            //setUsingNativeTitleBar (true);
             setContentOwned (new MainComponent(), true);
 
            #if JUCE_IOS || JUCE_ANDROID
             setFullScreen (true);
            #else
-            setResizable (true, true);
+            setResizable (false, false);
             centreWithSize (getWidth(), getHeight());
            #endif
 
