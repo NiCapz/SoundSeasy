@@ -11,6 +11,28 @@
       <FILE id="jGkM05" name="StepComponent.h" compile="0" resource="0" file="Source/StepComponent.h"/>
       <FILE id="EKOJL0" name="TrackComponent.h" compile="0" resource="0"
             file="Source/TrackComponent.h"/>
+      <FILE id="ru51ur" name="BodyComponent.cpp" compile="1" resource="0"
+            file="Source/BodyComponent.cpp"/>
+      <FILE id="z3K0Fs" name="BodyComponent.h" compile="0" resource="0" file="Source/BodyComponent.h"/>
+      <FILE id="fcuzkN" name="BpmComponent.cpp" compile="1" resource="0"
+            file="Source/BpmComponent.cpp"/>
+      <FILE id="Lz57Md" name="BpmComponent.h" compile="0" resource="0" file="Source/BpmComponent.h"/>
+      <FILE id="QBcqHh" name="HeaderComponent.cpp" compile="1" resource="0"
+            file="Source/HeaderComponent.cpp"/>
+      <FILE id="Oebikm" name="HeaderComponent.h" compile="0" resource="0"
+            file="Source/HeaderComponent.h"/>
+      <FILE id="P3AJXi" name="PlayPauseComponent.cpp" compile="1" resource="0"
+            file="Source/PlayPauseComponent.cpp"/>
+      <FILE id="A1YGaW" name="PlayPauseComponent.h" compile="0" resource="0"
+            file="Source/PlayPauseComponent.h"/>
+      <FILE id="TvQ5u8" name="SwitchComponent.cpp" compile="1" resource="0"
+            file="Source/SwitchComponent.cpp"/>
+      <FILE id="HJjOCp" name="SwitchComponent.h" compile="0" resource="0"
+            file="Source/SwitchComponent.h"/>
+      <FILE id="jS5W09" name="InstrumentSelectorComponent.cpp" compile="1"
+            resource="0" file="Source/InstrumentSelectorComponent.cpp"/>
+      <FILE id="RwvO8r" name="InstrumentSelectorComponent.h" compile="0"
+            resource="0" file="Source/InstrumentSelectorComponent.h"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>

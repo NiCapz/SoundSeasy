@@ -11,28 +11,41 @@
 #pragma once
 #include <JuceHeader.h>
 #include "StepComponent.h"
+#include "InstrumentSelectorComponent.h"
 
 class TrackComponent : public juce::Component
 {
 public:
     TrackComponent() {
-        for (int i = 0; i < 8; i++) {
+
+        addAndMakeVisible(inst);
+
+        for (int i = 0; i <= 8; i++) {
             auto* step = new StepComponent();
             steps.add(step);
             addAndMakeVisible(step);
         }
     }
 
+    void paint(juce::Graphics &g) override 
+    {
+        g.drawRoundedRectangle(getLocalBounds().toFloat(), 0.0f, 1.0f);
+    }
+
     void resized() override
     {
-        auto bounds = getLocalBounds();
-        int stepWidth = bounds.getWidth() / 8;
+        auto area = getLocalBounds();
+        auto stepWidth = area.getWidth() * 0.1;
+        auto instWidth = stepWidth * 2;
 
-        for (int i = 0; i < steps.size(); i++) 
-        {
-            steps[i]->setBounds(i * stepWidth + 10, 10, stepWidth - 20, bounds.getHeight() - 20);
+        inst.setBounds(area.removeFromLeft(instWidth));
+
+        for (int i = 0; i <= steps.size(); i++) {
+            steps[i]->setBounds(area.removeFromLeft(stepWidth));
         }
     }
+
 private:
     juce::OwnedArray<StepComponent> steps;
+    InstrumentSelectorComponent inst;
 };

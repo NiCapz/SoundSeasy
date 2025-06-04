@@ -3,14 +3,9 @@
 //==============================================================================
 MainComponent::MainComponent()
 {
-    for (int i = 0; i < 4; i++) 
-    {
-        auto* track = new TrackComponent();
-        tracks.add(track);
-        addAndMakeVisible(track);
-    }
-
-    setSize(860, 400);
+    addAndMakeVisible(header);
+    addAndMakeVisible(body);
+    setSize(1600/2, 720/2);
 }
 
 MainComponent::~MainComponent()
@@ -21,16 +16,14 @@ MainComponent::~MainComponent()
 void MainComponent::paint (juce::Graphics& g)
 {
     using namespace juce;
-    g.fillAll(Colours::antiquewhite);
 }
 
 void MainComponent::resized()
 {
-    auto bounds = getLocalBounds();
-    int trackHeight = bounds.getHeight() / 4;
+    auto area = getLocalBounds();
+    auto headerHeight = area.getHeight() * 0.2;
+    auto bodyheight = area.getHeight() * 0.8;
     
-    for (int i = 0; i < tracks.size(); i++) 
-    {
-        tracks[i]->setBounds(0, i * trackHeight, bounds.getWidth(), trackHeight);
-    }
+    header.setBounds(area.removeFromTop(headerHeight));
+    body.setBounds(area.removeFromBottom(bodyheight));
 }
