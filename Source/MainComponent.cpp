@@ -16,7 +16,7 @@ MainComponent::MainComponent()
     {
         if(state)
         {
-            this->startTimerHz(6.0);
+            this->startTimerHz((float) tempoBPM / 60);
             stepSequencer.reset();
         }
         else
