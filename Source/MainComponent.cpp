@@ -22,8 +22,8 @@ void MainComponent::resized()
 {
     auto area = getLocalBounds();
     auto headerHeight = area.getHeight() * 0.2;
-    auto bodyheight = area.getHeight() * 0.8;
+    auto bodyheight = area.getHeight() * 0.75;
     
     header.setBounds(area.removeFromTop(headerHeight));
-    body.setBounds(area.removeFromBottom(bodyheight));
+    body.setBounds(area.removeFromTop(bodyheight));
 }

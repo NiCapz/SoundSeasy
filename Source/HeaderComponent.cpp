@@ -25,7 +25,7 @@ HeaderComponent::~HeaderComponent()
 
 void HeaderComponent::paint (juce::Graphics& g)
 {
-    g.setColour (juce::Colours::darkgrey);
+    g.setColour (juce::Colours::black);
     
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
     g.setColour(juce::Colours::white);

@@ -14,19 +14,30 @@
 //==============================================================================
 InstrumentSelectorComponent::InstrumentSelectorComponent()
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
-
 }
 
 InstrumentSelectorComponent::~InstrumentSelectorComponent()
 {
 }
 
+
+
 void InstrumentSelectorComponent::paint (juce::Graphics& g)
 {
-    g.setColour(juce::Colours::darkslategrey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
+    g.setColour(juce::Colours::white);
+    auto lb = getLocalBounds();
+    //g.drawRoundedRectangle(lb.getX() + lb.getWidth() * .1, lb.getY() + lb.getY() * .1, lb.getWidth() * .9, lb.getHeight() * .9, 10.0f, 1.0f);
+    
+	//g.drawRect(lb, 1.0f);
+
+    auto padding = lb.getHeight()*.1;
+    lb.removeFromTop(padding);
+    lb.removeFromBottom(padding);
+    g.drawRoundedRectangle(lb.getX(), lb.getY(), lb.getWidth(), lb.getHeight(), 10.0f, 1.0f);
+
+    
+    g.drawText("Kickdrum", lb, juce::Justification::centred, true);
+
 }
 
 void InstrumentSelectorComponent::resized()
