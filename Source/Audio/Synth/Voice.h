@@ -21,7 +21,7 @@ typedef juce::dsp::StateVariableFilter::Filter<float> SVFilter;
 class Voice
 {
 public:
-    Voice(juce::AudioProcessorValueTreeState&);
+    Voice();
     Voice(Voice&& other);
     ~Voice();
     Voice& operator= (Voice& other);

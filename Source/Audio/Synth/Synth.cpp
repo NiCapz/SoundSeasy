@@ -10,10 +10,10 @@
 
 #include "Synth.h"
 
-Synth::Synth(juce::AudioProcessorValueTreeState& parameters)
+Synth::Synth()
 {
     for(int i = 0; i < numVoices; i++)
-        voices.emplace_back(parameters);
+        voices.emplace_back();
 }
 
 Synth::~Synth()

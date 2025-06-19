@@ -10,20 +10,20 @@
 
 #include "Voice.h"
 
-Voice::Voice(juce::AudioProcessorValueTreeState& parameters):
-ampEnvelope(parameters.getRawParameterValue("ampAtk"),
-            parameters.getRawParameterValue("ampDec"),
-            parameters.getRawParameterValue("ampSus"),
-            parameters.getRawParameterValue("ampRel")),
-    filEnvelope(parameters.getRawParameterValue("filAtk"),
-                parameters.getRawParameterValue("filDec"),
-                parameters.getRawParameterValue("filSus"),
-                parameters.getRawParameterValue("filRel")),
-    filterCutoff(parameters.getRawParameterValue("filCut")),
-    filterRes(parameters.getRawParameterValue("filRes")),
-    filEnvDepth(parameters.getRawParameterValue("filEnvDepth")),
-    unison(parameters.getRawParameterValue("unison")),
-    detune(parameters.getRawParameterValue("detune"))
+Voice::Voice() :
+ampEnvelope(new std::atomic<float>{0.5},
+            new std::atomic<float>{5.0},
+            new std::atomic<float>{0.7},
+            new std::atomic<float>{2.0}),
+filEnvelope(new std::atomic<float>{0.5},
+            new std::atomic<float>{6.0},
+            new std::atomic<float>{0.2},
+            new std::atomic<float>{2.5}),
+filterCutoff(new std::atomic<float>{800}),
+filterRes(new std::atomic<float>{0.5}),
+filEnvDepth(new std::atomic<float>{0.6}),
+unison(new std::atomic<float>{4}),
+detune(new std::atomic<float>{0.2})
 {
     svFilter = std::make_unique<SVFilter>();
 }

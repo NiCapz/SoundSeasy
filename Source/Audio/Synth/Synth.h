@@ -15,7 +15,7 @@
 class Synth
 {
 public:
-    Synth(juce::AudioProcessorValueTreeState&);
+    Synth();
     ~Synth();
     
     void setSampleRate(float);
