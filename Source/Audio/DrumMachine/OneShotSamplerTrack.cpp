@@ -1,33 +1,33 @@
 /*
   ==============================================================================
 
-    SamplerTrack.cpp
+    OneShotSamplerTrack.cpp
     Created: 12 May 2025 8:17:34pm
     Author:  Karl Diedrichsen
 
   ==============================================================================
 */
 
-#include "SamplerTrack.h"
-#include "Utils.h"
+#include "OneShotSamplerTrack.h"
+#include "../Utils.h"
 
-SamplerTrack::SamplerTrack()
+OneShotSamplerTrack::OneShotSamplerTrack()
 {
     
 }
 
-SamplerTrack::~SamplerTrack()
+OneShotSamplerTrack::~OneShotSamplerTrack()
 {
     
 }
 
-void SamplerTrack::setSampleRate(float val)
+void OneShotSamplerTrack::setSampleRate(float val)
 {
     projectSampleRate = val;
     calculateIncrement();
 }
 
-void SamplerTrack::setSample(const std::vector<float>& sample, float sampleRate)
+void OneShotSamplerTrack::setSample(const std::vector<float>& sample, float sampleRate)
 {
     sampleSize = sample.size();
     sampleData = std::vector<float>(sampleSize + 2 * padding);
@@ -40,19 +40,19 @@ void SamplerTrack::setSample(const std::vector<float>& sample, float sampleRate)
     calculateIncrement();
 }
 
-void SamplerTrack::setReferencePitch(float val)
+void OneShotSamplerTrack::setReferencePitch(float val)
 {
     referencePitch = val;
     calculateIncrement();
 }
 
-void SamplerTrack::setPitch(float val)
+void OneShotSamplerTrack::setPitch(float val)
 {
     pitch = val;
     calculateIncrement();
 }
 
-float SamplerTrack::getNextValue()
+float OneShotSamplerTrack::getNextValue()
 {
     float val = 0;
     
@@ -72,12 +72,12 @@ float SamplerTrack::getNextValue()
     return val;
 }
 
-void SamplerTrack::trigger()
+void OneShotSamplerTrack::trigger()
 {
     playIndex = padding;
 }
 
-void SamplerTrack::calculateIncrement()
+void OneShotSamplerTrack::calculateIncrement()
 {
     playIncrement = (sampleSampleRate / projectSampleRate) * (pitch / referencePitch);
 }

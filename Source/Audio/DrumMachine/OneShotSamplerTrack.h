@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    SamplerTrack.h
+    OneShotSamplerTrack.h
     Created: 12 May 2025 8:17:21pm
     Author:  Karl Diedrichsen
 
@@ -11,11 +11,11 @@
 #pragma once
 #include <vector>
 
-class SamplerTrack
+class OneShotSamplerTrack
 {
 public:
-    SamplerTrack();
-    ~SamplerTrack();
+    OneShotSamplerTrack();
+    ~OneShotSamplerTrack();
     
     void setSampleRate(float);
     void setSample(const std::vector<float>& sampleData, float sampleRate);

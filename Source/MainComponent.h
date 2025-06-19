@@ -1,7 +1,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "DrumSampler.h"
+#include "./Audio/DrumMachine/DrumSampler.h"
 
 using namespace juce;
 //==============================================================================

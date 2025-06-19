@@ -47,6 +47,8 @@ void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
     MidiBuffer midiBuffer{};
     midiCollector.removeNextBlockOfMessages(midiBuffer, bufferToFill.numSamples);
     
+    
+    
     drumSampler.addToBuffer(*(bufferToFill.buffer), midiBuffer);
 }
 
@@ -59,6 +61,18 @@ void MainComponent::timerCallback()
 {
     MidiMessage message = MidiMessage::noteOn (1, 60, (juce::uint8) 100);
     message.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 - startTime);
+    
+    MidiMessage synthMessageOn = MidiMessage::noteOn (2, 60, (juce::uint8) 100);
+    synthMessageOn.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 - startTime);
+    
+    MidiMessage synthMessageOff = MidiMessage::noteOn (2, 60, (juce::uint8) 100);
+    synthMessageOff.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 - startTime + 0.5);
+    
+    MidiMessage pianoMessageOn = MidiMessage::noteOn (3, 60, (juce::uint8) 100);
+    pianoMessageOn.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 - startTime);
+    
+    MidiMessage pianoMessageOff = MidiMessage::noteOn (3, 60, (juce::uint8) 100);
+    pianoMessageOff.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 - startTime + 0.75);
     
     midiCollector.addMessageToQueue(message);
 }

@@ -13,7 +13,7 @@
 
 namespace Utils
 {
-    float cubicLagrangeInterpolation(std::array<float, 4> y, float x)
+    inline float cubicLagrangeInterpolation(std::array<float, 4> y, float x)
     {
         float basisPolynomial[4] = {1, 1, 1, 1};
         for(int i = 0; i < 4; i++)

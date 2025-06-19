@@ -10,7 +10,7 @@
 
 #pragma once
 #include <JuceHeader.h>
-#include "SamplerTrack.h"
+#include "OneShotSamplerTrack.h"
 
 class DrumSampler
 {
@@ -25,7 +25,7 @@ public:
 private:
     float sampleRate = 44100;
     
-    std::array<SamplerTrack, 5> samplerTracks{};
+    std::array<OneShotSamplerTrack, 5> samplerTracks{};
     std::unordered_map<int, int> trackMapping =
     {
         { 60, 0 },
