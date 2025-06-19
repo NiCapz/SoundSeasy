@@ -201,7 +201,7 @@ void PianoSampler::addToBuffer(juce::AudioBuffer<float>& buffer, juce::MidiBuffe
     
     for(int channel = 1; channel < numChannels; channel++)
     {
-        float* channelData = buffer.getWritePointer(0);
+        float* channelData = buffer.getWritePointer(channel);
         for(int sample = 0; sample < numSamples; sample++)
             channelData[sample] = channel0Data[sample];
     }
