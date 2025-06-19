@@ -19,6 +19,7 @@ MainComponent::MainComponent()
     }
     
     startTime = Time::getMillisecondCounterHiRes() * 0.001;
+    midiManager.setStartTimeS(startTime);
     
     startTimerHz(1);
 }
@@ -31,7 +32,7 @@ MainComponent::~MainComponent()
 void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 {
     drumSampler.setSampleRate(sampleRate);
-    midiCollector.reset(sampleRate);
+    midiManager.reset(sampleRate);
 }
 
 void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
@@ -45,11 +46,13 @@ void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
     bufferToFill.clearActiveBufferRegion();
     
     MidiBuffer midiBuffer{};
-    midiCollector.removeNextBlockOfMessages(midiBuffer, bufferToFill.numSamples);
+    midiManager.removeNextBlockOfMessages(midiBuffer, bufferToFill.numSamples);
     
     
     
-    drumSampler.addToBuffer(*(bufferToFill.buffer), midiBuffer);
+    //drumSampler.addToBuffer(*(bufferToFill.buffer), midiBuffer);
+    //synth.addToBuffer(*(bufferToFill.buffer), midiBuffer);
+    piano.addToBuffer(*(bufferToFill.buffer), midiBuffer);
 }
 
 void MainComponent::releaseResources()
@@ -60,21 +63,13 @@ void MainComponent::releaseResources()
 void MainComponent::timerCallback()
 {
     MidiMessage message = MidiMessage::noteOn (1, 60, (juce::uint8) 100);
-    message.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 - startTime);
+    message.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001);
     
-    MidiMessage synthMessageOn = MidiMessage::noteOn (2, 60, (juce::uint8) 100);
-    synthMessageOn.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 - startTime);
+    MidiMessage messageOff = MidiMessage::noteOff (1, 60, (juce::uint8) 100);
+    messageOff.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 + 0.3);
     
-    MidiMessage synthMessageOff = MidiMessage::noteOn (2, 60, (juce::uint8) 100);
-    synthMessageOff.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 - startTime + 0.5);
-    
-    MidiMessage pianoMessageOn = MidiMessage::noteOn (3, 60, (juce::uint8) 100);
-    pianoMessageOn.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 - startTime);
-    
-    MidiMessage pianoMessageOff = MidiMessage::noteOn (3, 60, (juce::uint8) 100);
-    pianoMessageOff.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 - startTime + 0.75);
-    
-    midiCollector.addMessageToQueue(message);
+    midiManager.addMessageToQueue(message);
+    midiManager.addMessageToQueue(messageOff);
 }
 
 //==============================================================================

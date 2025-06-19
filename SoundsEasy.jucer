@@ -21,6 +21,8 @@
     </GROUP>
     <GROUP id="{66096B8B-93AC-8C2F-5968-D813BE26D7F8}" name="Source">
       <GROUP id="{FF469CEF-9C3B-5FAA-6A2F-E2DAFD8CCA9F}" name="Audio">
+        <FILE id="wEbyC6" name="MidiManager.cpp" compile="1" resource="0" file="Source/Audio/MidiManager.cpp"/>
+        <FILE id="UoDvNH" name="MidiManager.h" compile="0" resource="0" file="Source/Audio/MidiManager.h"/>
         <FILE id="BlbnCl" name="Envelope.cpp" compile="1" resource="0" file="Source/Audio/Envelope.cpp"/>
         <FILE id="IbMKKS" name="Envelope.h" compile="0" resource="0" file="Source/Audio/Envelope.h"/>
         <FILE id="IkY4Ie" name="SmoothedParameter.h" compile="0" resource="0"

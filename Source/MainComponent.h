@@ -2,6 +2,9 @@
 
 #include <JuceHeader.h>
 #include "./Audio/DrumMachine/DrumSampler.h"
+#include "./Audio/Synth/Synth.h"
+#include "./Audio/Piano/PianoSampler.h"
+#include "./Audio/MidiManager.h"
 
 using namespace juce;
 //==============================================================================
@@ -34,7 +37,10 @@ private:
 
 
     DrumSampler drumSampler{};
-    MidiMessageCollector midiCollector{};
+    Synth synth{};
+    PianoSampler piano{};
+    
+    MidiManager midiManager{};
     double startTime;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
