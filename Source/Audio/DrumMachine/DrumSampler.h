@@ -10,21 +10,20 @@
 
 #pragma once
 #include <JuceHeader.h>
+#include "../MidiInstrument.h"
 #include "OneShotSamplerTrack.h"
 
-class DrumSampler
+class DrumSampler : public MidiInstrument
 {
 public:
     DrumSampler();
     ~DrumSampler();
     
-    void setSampleRate(float);
+    void setSampleRate(double) override;
     
-    void addToBuffer(juce::AudioBuffer<float>&, juce::MidiBuffer&);
+    void addToBuffer(juce::AudioBuffer<float>&, const juce::MidiBuffer&) override;
     
 private:
-    float sampleRate = 44100;
-    
     std::array<OneShotSamplerTrack, 5> samplerTracks{};
     std::unordered_map<int, int> trackMapping =
     {

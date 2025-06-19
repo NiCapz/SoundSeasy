@@ -48,7 +48,7 @@ PianoSampler::~PianoSampler()
     
 }
 
-void PianoSampler::setSampleRate(float val)
+void PianoSampler::setSampleRate(double val)
 {
     sampleRate = val;
     
@@ -56,13 +56,13 @@ void PianoSampler::setSampleRate(float val)
         samplerTrack.setSampleRate(val);
 }
 
-void PianoSampler::addToBuffer(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiBuffer)
+void PianoSampler::addToBuffer(juce::AudioBuffer<float>& buffer, const juce::MidiBuffer& midiBuffer)
 {
     using namespace juce;
     std::queue<MidiMessage> noteEvents{};
     
     for(MidiMessageMetadata m : midiBuffer)
-        if(m.getMessage().isNoteOnOrOff())
+        if(m.getMessage().isNoteOnOrOff() && m.getMessage().getChannel() == midiChannel)
             noteEvents.push(m.getMessage());
     
     const int numSamples = buffer.getNumSamples();
@@ -149,13 +149,15 @@ void PianoSampler::addToBuffer(juce::AudioBuffer<float>& buffer, juce::MidiBuffe
         noteEvents.pop();
     }
     
-    float* channel0Data = buffer.getWritePointer(0);
+    juce::AudioBuffer<float> processBuffer(1, numSamples);
+    processBuffer.clear();
+    float* processChannelData = processBuffer.getWritePointer(0);
     
     for(int track = 0; track < numTracks; track++)
     {
         if(trackNoteEvents[track].empty())
         {
-            samplerTracks[track].processBlock(channel0Data, 0, numSamples);
+            samplerTracks[track].processBlock(processChannelData, 0, numSamples);
         }
         else
         {
@@ -166,7 +168,7 @@ void PianoSampler::addToBuffer(juce::AudioBuffer<float>& buffer, juce::MidiBuffe
                 MidiMessage noteEvent = trackNoteEvents[track].front();
                 int timeStamp = (int) noteEvent.getTimeStamp();
                 
-                samplerTracks[track].processBlock(channel0Data, startSample, timeStamp - startSample);
+                samplerTracks[track].processBlock(processChannelData, startSample, timeStamp - startSample);
                 
                 float notePitch = 440 * pow(2.0, (float) (noteEvent.getNoteNumber() - 69) / 12);
                 
@@ -195,14 +197,14 @@ void PianoSampler::addToBuffer(juce::AudioBuffer<float>& buffer, juce::MidiBuffe
                 
             }
             
-            samplerTracks[track].processBlock(channel0Data, startSample, numSamples - startSample);
+            samplerTracks[track].processBlock(processChannelData, startSample, numSamples - startSample);
         }
     }
     
-    for(int channel = 1; channel < numChannels; channel++)
+    for(int channel = 0; channel < numChannels; channel++)
     {
         float* channelData = buffer.getWritePointer(channel);
         for(int sample = 0; sample < numSamples; sample++)
-            channelData[sample] = channel0Data[sample];
+            channelData[sample] += outputGain * processChannelData[sample];
     }
 }

@@ -10,21 +10,20 @@
 
 #pragma once
 #include <JuceHeader.h>
+#include "../MidiInstrument.h"
 #include "SamplerTrack.h"
 
-class PianoSampler
+class PianoSampler : public MidiInstrument
 {
 public:
     PianoSampler();
     ~PianoSampler();
     
-    void setSampleRate(float);
+    void setSampleRate(double) override;
     
-    void addToBuffer(juce::AudioBuffer<float>&, juce::MidiBuffer&);
+    void addToBuffer(juce::AudioBuffer<float>&, const juce::MidiBuffer&) override;
     
 private:
-    float sampleRate = 44100;
-    
     struct BinaryDataFile
     {
         const char* data;

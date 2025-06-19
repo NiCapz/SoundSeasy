@@ -48,7 +48,7 @@ DrumSampler::~DrumSampler()
     
 }
 
-void DrumSampler::setSampleRate(float val)
+void DrumSampler::setSampleRate(double val)
 {
     sampleRate = val;
     
@@ -56,57 +56,57 @@ void DrumSampler::setSampleRate(float val)
         samplerTrack.setSampleRate(val);
 }
 
-void DrumSampler::addToBuffer(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiBuffer)
+void DrumSampler::addToBuffer(juce::AudioBuffer<float>& buffer, const juce::MidiBuffer& midiBuffer)
 {
     using namespace juce;
     std::queue<MidiMessage> noteEvents{};
     
     for(MidiMessageMetadata m : midiBuffer)
-        if(m.getMessage().isNoteOn())
+        if(m.getMessage().isNoteOn() && m.getMessage().getChannel() == midiChannel)
             noteEvents.push(m.getMessage());
     
     const int numSamples = buffer.getNumSamples();
     const int numChannels = buffer.getNumChannels();
     
-    if(numChannels > 0)
+    juce::AudioBuffer<float> processBuffer(1, numSamples);
+    processBuffer.clear();
+    float* processChannelData = processBuffer.getWritePointer(0);
+    
+
+    for(int sample = 0; sample < numSamples; sample++)
     {
-        float* channelData = buffer.getWritePointer(0);
-        
-        for(int sample = 0; sample < numSamples; sample++)
+        while(!(noteEvents.empty()))
         {
-            while(!(noteEvents.empty()))
+            MidiMessage event = noteEvents.front();
+            if(sample < event.getTimeStamp())
             {
-                MidiMessage event = noteEvents.front();
-                if(sample < event.getTimeStamp())
-                {
-                    break;
-                }
-                else
-                {
-                    auto trackNumberIt = trackMapping.find(event.getNoteNumber());
-                    
-                    if(trackNumberIt != trackMapping.end())
-                    {
-                        int trackNumber = trackNumberIt->second;
-                        samplerTracks[trackNumber].trigger();
-                    }
-                    noteEvents.pop();
-                }
+                break;
             }
-            
-            for(auto& track : samplerTracks)
+            else if(event.getChannel())
             {
-                channelData[sample] += 0.5 * track.getNextValue();
+                auto trackNumberIt = trackMapping.find(event.getNoteNumber());
+                
+                if(trackNumberIt != trackMapping.end())
+                {
+                    int trackNumber = trackNumberIt->second;
+                    samplerTracks[trackNumber].trigger();
+                }
+                noteEvents.pop();
             }
+        }
+        
+        for(auto& track : samplerTracks)
+        {
+            processChannelData[sample] += 0.5 * track.getNextValue();
         }
     }
     
-    for(int channel = 1; channel < numChannels; channel++)
+    
+    for(int channel = 0; channel < numChannels; channel++)
     {
-        float* channelData0 = buffer.getWritePointer(0);
         float* channelData = buffer.getWritePointer(channel);
         
         for(int sample = 0; sample < numSamples; sample++)
-            channelData[sample] = channelData0[sample];
+            channelData[sample] += outputGain * processChannelData[sample];
     }
 }

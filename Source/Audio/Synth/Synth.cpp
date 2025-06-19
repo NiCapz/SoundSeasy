@@ -21,7 +21,7 @@ Synth::~Synth()
     
 }
 
-void Synth::setSampleRate(float val)
+void Synth::setSampleRate(double val)
 {
     for(auto& voice : voices)
         voice.setSampleRate(val);
@@ -33,7 +33,7 @@ void Synth::addToBuffer(juce::AudioBuffer<float>& buffer, const juce::MidiBuffer
     std::queue<MidiMessage> noteEvents{};
     
     for(MidiMessageMetadata m : midiBuffer)
-        if(m.getMessage().isNoteOnOrOff())
+        if(m.getMessage().isNoteOnOrOff() && m.getMessage().getChannel() == midiChannel)
             noteEvents.push(m.getMessage());
     
     const int numSamples = buffer.getNumSamples();
@@ -120,14 +120,16 @@ void Synth::addToBuffer(juce::AudioBuffer<float>& buffer, const juce::MidiBuffer
         noteEvents.pop();
     }
     
-    float* channel0Data = buffer.getWritePointer(0);
+    juce::AudioBuffer<float> processBuffer(1, numSamples);
+    processBuffer.clear();
+    float* processChannelData = processBuffer.getWritePointer(0);
     
     for(int voice = 0; voice < numVoices; voice++)
     {
         if(voiceNoteEvents[voice].empty())
         {
             if(voices[voice].getGate() || voices[voice].getAmplitude() > 0.00001)
-                voices[voice].processBlock(channel0Data, 0, numSamples);
+                voices[voice].processBlock(processChannelData, 0, numSamples);
         }
         else
         {
@@ -138,7 +140,7 @@ void Synth::addToBuffer(juce::AudioBuffer<float>& buffer, const juce::MidiBuffer
                 MidiMessage noteEvent = voiceNoteEvents[voice].front();
                 int timeStamp = (int) noteEvent.getTimeStamp();
                 
-                voices[voice].processBlock(channel0Data, startSample, timeStamp - startSample);
+                voices[voice].processBlock(processChannelData, startSample, timeStamp - startSample);
                 
                 if(voices[voice].getGate() && noteEvent.isNoteOn())
                     voices[voice].resetEnvelope();
@@ -150,56 +152,15 @@ void Synth::addToBuffer(juce::AudioBuffer<float>& buffer, const juce::MidiBuffer
                 voiceNoteEvents[voice].pop();
             }
             
-            voices[voice].processBlock(channel0Data, startSample, numSamples - startSample);
+            voices[voice].processBlock(processChannelData, startSample, numSamples - startSample);
         }
     }
-    /*
-    for(int sample = 0; sample < numSamples; sample++)
-    {
-        while(!(noteEvents.empty()))
-        {
-            MidiMessage noteEvent = noteEvents.front();
-            double timeStamp = noteEvent.getTimeStamp();
-            int noteNumber = noteEvent.getNoteNumber();
-            
-            if(sample < timeStamp)
-            {
-                break;
-            }
-            else
-            {
-                if(noteEvent.isNoteOn())
-                {
-                    int freeVoiceIndex = findIndexOfFreeVoice();
-                    
-                    voices[freeVoiceIndex].setNoteNumber(noteNumber);
-                    voices[freeVoiceIndex].setGate(true);
-                    voices[freeVoiceIndex].resetEnvelope();
-                }
-                else if(noteEvent.isNoteOff())
-                {
-                    for(auto& voice : voices)
-                        if(voice.getNoteNumber() == noteNumber)
-                            voice.setGate(false);
-                }
-                
-                noteEvents.pop();
-            }
-        }
-        
-        for(auto& voice : voices)
-            if(voice.getAmplitude() > 0.001 || voice.getGate() == true)
-                channel0Data[sample] += voice.getNextValue();
-        
-        channel0Data[sample] /= numChannels;
-    }
-    */
     
-    for(int channel = 1; channel < numChannels; channel++)
+    for(int channel = 0; channel < numChannels; channel++)
     {
-        float* channelData = buffer.getWritePointer(0);
+        float* channelData = buffer.getWritePointer(channel);
         for(int sample = 0; sample < numSamples; sample++)
-            channelData[sample] = channel0Data[sample];
+            channelData[sample] += outputGain * processChannelData[sample];
     }
 }
 

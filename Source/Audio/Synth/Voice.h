@@ -73,6 +73,6 @@ private:
     static constexpr int oversampling = 4;
     const float antiAliasingCutoff = 15000;
     
-    static constexpr int maxBufferSize = (1<<7);
+    static constexpr int maxBufferSize = (1<<10);
     
 };

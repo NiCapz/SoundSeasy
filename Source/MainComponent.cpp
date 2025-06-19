@@ -21,6 +21,11 @@ MainComponent::MainComponent()
     startTime = Time::getMillisecondCounterHiRes() * 0.001;
     midiManager.setStartTimeS(startTime);
     
+    drumSampler.setMidiChannel(1);
+    synth.setMidiChannel(2);
+    piano.setMidiChannel(3);
+
+    
     startTimerHz(1);
 }
 
@@ -32,6 +37,8 @@ MainComponent::~MainComponent()
 void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 {
     drumSampler.setSampleRate(sampleRate);
+    piano.setSampleRate(sampleRate);
+    synth.setSampleRate(sampleRate);
     midiManager.reset(sampleRate);
 }
 
@@ -48,10 +55,8 @@ void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
     MidiBuffer midiBuffer{};
     midiManager.removeNextBlockOfMessages(midiBuffer, bufferToFill.numSamples);
     
-    
-    
-    //drumSampler.addToBuffer(*(bufferToFill.buffer), midiBuffer);
-    //synth.addToBuffer(*(bufferToFill.buffer), midiBuffer);
+    drumSampler.addToBuffer(*(bufferToFill.buffer), midiBuffer);
+    synth.addToBuffer(*(bufferToFill.buffer), midiBuffer);
     piano.addToBuffer(*(bufferToFill.buffer), midiBuffer);
 }
 
@@ -62,14 +67,21 @@ void MainComponent::releaseResources()
 
 void MainComponent::timerCallback()
 {
-    MidiMessage message = MidiMessage::noteOn (1, 60, (juce::uint8) 100);
+    static int counter = 0;
+    
+    const double noteLengthS = 0.3;
+    
+    MidiMessage message = MidiMessage::noteOn (1 + counter, 60, (juce::uint8) 100);
     message.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001);
     
-    MidiMessage messageOff = MidiMessage::noteOff (1, 60, (juce::uint8) 100);
-    messageOff.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 + 0.3);
+    MidiMessage messageOff = MidiMessage::noteOff (1 + counter, 60, (juce::uint8) 100);
+    messageOff.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001 + noteLengthS);
     
     midiManager.addMessageToQueue(message);
     midiManager.addMessageToQueue(messageOff);
+    
+    counter++;
+    counter %= 3;
 }
 
 //==============================================================================

@@ -10,17 +10,19 @@
 
 #pragma once
 #include <JuceHeader.h>
+#include "../MidiInstrument.h"
 #include "Voice.h"
 
-class Synth
+
+class Synth : public MidiInstrument
 {
 public:
     Synth();
     ~Synth();
     
-    void setSampleRate(float);
+    void setSampleRate(double) override;
     
-    void addToBuffer(juce::AudioBuffer<float>& buffer, const juce::MidiBuffer& midiBuffer);
+    void addToBuffer(juce::AudioBuffer<float>& buffer, const juce::MidiBuffer& midiBuffer) override;
     
 private:
     static const int numVoices = 8;
