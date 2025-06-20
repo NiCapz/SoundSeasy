@@ -16,7 +16,15 @@ HeaderComponent::HeaderComponent()
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
+    addAndMakeVisible(pp);
+    addAndMakeVisible(rw);
+    addAndMakeVisible(bpmLabel);
+    addAndMakeVisible(plus);
+    addAndMakeVisible(minus);
 
+    bpmLabel.setJustification(juce::Justification::centred);
+    bpmLabel.setInputRestrictions(3, "1234567890");
+    bpmLabel.setText("138");
 }
 
 HeaderComponent::~HeaderComponent()
@@ -33,11 +41,23 @@ void HeaderComponent::paint (juce::Graphics& g)
     g.setFont(juce::FontOptions(14.0f));
     g.drawText ("HeaderComponent", getLocalBounds(),
                 juce::Justification::centred, true);   // draw some placeholder text
+
 }
 
 void HeaderComponent::resized()
 {
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
+    auto area = getLocalBounds();
+
+    auto paddingWidth = area.getWidth() / 4;
+    auto buttonWidth = paddingWidth / 4;
+
+    area.removeFromLeft(paddingWidth);
+    rw.setBounds(area.removeFromLeft(buttonWidth));
+    pp.setBounds(area.removeFromLeft(buttonWidth));
+
+    area.removeFromRight(paddingWidth/2);
+    minus.setBounds(area.removeFromRight(buttonWidth));
+    bpmLabel.setBounds(area.removeFromRight(buttonWidth * 2));
+    plus.setBounds(area.removeFromRight(buttonWidth));
 
 }

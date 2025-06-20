@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    BpmComponent.h
-    Created: 4 Jun 2025 11:29:10am
+    BpmButton.h
+    Created: 18 Jun 2025 3:46:33pm
     Author:  Niko
 
   ==============================================================================
@@ -15,15 +15,16 @@
 //==============================================================================
 /*
 */
-class BpmComponent  : public juce::Component
+class BpmButton  : public juce::Component
 {
 public:
-    BpmComponent();
-    ~BpmComponent() override;
+    BpmButton(bool isPlus);
+    ~BpmButton() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BpmComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BpmButton)
+        bool isPlus;
 };

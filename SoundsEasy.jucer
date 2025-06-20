@@ -14,9 +14,6 @@
       <FILE id="ru51ur" name="BodyComponent.cpp" compile="1" resource="0"
             file="Source/BodyComponent.cpp"/>
       <FILE id="z3K0Fs" name="BodyComponent.h" compile="0" resource="0" file="Source/BodyComponent.h"/>
-      <FILE id="fcuzkN" name="BpmComponent.cpp" compile="1" resource="0"
-            file="Source/BpmComponent.cpp"/>
-      <FILE id="Lz57Md" name="BpmComponent.h" compile="0" resource="0" file="Source/BpmComponent.h"/>
       <FILE id="QBcqHh" name="HeaderComponent.cpp" compile="1" resource="0"
             file="Source/HeaderComponent.cpp"/>
       <FILE id="Oebikm" name="HeaderComponent.h" compile="0" resource="0"
@@ -33,6 +30,12 @@
             resource="0" file="Source/InstrumentSelectorComponent.cpp"/>
       <FILE id="RwvO8r" name="InstrumentSelectorComponent.h" compile="0"
             resource="0" file="Source/InstrumentSelectorComponent.h"/>
+      <FILE id="d5eMcP" name="RewindComponent.cpp" compile="1" resource="0"
+            file="Source/RewindComponent.cpp"/>
+      <FILE id="lsaGfb" name="RewindComponent.h" compile="0" resource="0"
+            file="Source/RewindComponent.h"/>
+      <FILE id="D7jgsF" name="BpmButton.cpp" compile="1" resource="0" file="Source/BpmButton.cpp"/>
+      <FILE id="bWMwdI" name="BpmButton.h" compile="0" resource="0" file="Source/BpmButton.h"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
