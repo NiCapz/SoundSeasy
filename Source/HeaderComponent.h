@@ -30,9 +30,10 @@ public:
     void setTempoIncrementCallback(std::function<void()>);
     void setTempoDecrementCallback(std::function<void()>);
 
-    void setPlayPauseCallback(std::function<void()>);
+    void setPlayPauseCallback(std::function<void(bool)>);
 
     void setTempoLabelText(int);
+
 
     juce::String ppComponentName = "pp";
     PlayPauseComponent pp{ ppComponentName };

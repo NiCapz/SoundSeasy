@@ -19,8 +19,8 @@ MainComponent::MainComponent()
         header.setTempoLabelText(bpm);
     });
 
-    header.setPlayPauseCallback([&]() {
-        isPlaying = !isPlaying;
+    header.setPlayPauseCallback([&](bool buttonPlaying) {
+        isPlaying = buttonPlaying;
     });
 }
 
@@ -41,7 +41,6 @@ void MainComponent::paint (juce::Graphics& g)
     else {
         isPlayingString = "paused";
     }
-    g.drawText(isPlayingString, area, juce::Justification::centred, false);
 }
 
 void MainComponent::timerCallback() {

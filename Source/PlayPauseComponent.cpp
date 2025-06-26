@@ -21,7 +21,13 @@ PlayPauseComponent::~PlayPauseComponent()
 {
 }
 
-void PlayPauseComponent::clicked() {
+
+
+bool PlayPauseComponent::getState() {
+	return isPlaying;
+}
+
+void PlayPauseComponent::toggleState() {
 	isPlaying = !isPlaying;
 }
 

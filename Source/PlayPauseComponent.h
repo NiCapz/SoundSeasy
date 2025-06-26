@@ -26,8 +26,9 @@ public:
 
     void paintButton(juce::Graphics&, bool, bool) override;
 
-    void clicked() override;
 
+    bool getState();
+    void toggleState();
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PlayPauseComponent)

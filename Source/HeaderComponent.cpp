@@ -30,7 +30,8 @@ HeaderComponent::~HeaderComponent()
 {
 }
 
-void HeaderComponent::setTempoLabelText(int bpm) {
+void HeaderComponent::setTempoLabelText(int bpm) 
+{
     bpmLabel.setText((juce::String) bpm);
 }
 
@@ -55,8 +56,12 @@ void HeaderComponent::setTempoDecrementCallback(std::function <void()> callback)
     minus.onClick = callback;
 }
 
-void HeaderComponent::setPlayPauseCallback(std::function <void()> callback) {
-    pp.onClick = callback;
+void HeaderComponent::setPlayPauseCallback(std::function <void(bool isButtonPlaying)> callback) 
+{
+    pp.onClick = [this, callback]() {
+        pp.toggleState();
+        callback(pp.getState());
+    };
 }
 
 
