@@ -9,21 +9,19 @@ MainComponent::MainComponent()
 
     header.setTempoLabelText(bpm);
 
-    header.setTempoIncrementCallback([this]() {
-        this->bpm += 1;
-        this->header.setTempoLabelText(this->bpm);
+    header.setTempoIncrementCallback([&]() {
+        bpm += 1;
+        header.setTempoLabelText(bpm);
     });
 
-    header.setTempoDecrementCallback([this]() {
-        this->bpm -= 1;
-        this->header.setTempoLabelText(this->bpm);
+    header.setTempoDecrementCallback([&]() {
+        bpm -= 1;
+        header.setTempoLabelText(bpm);
     });
 
-    header.setPlayPauseCallback([this]() {
-        this->isPlaying = !this->isPlaying;
+    header.setPlayPauseCallback([&]() {
+        isPlaying = !isPlaying;
     });
-
-;
 }
 
 MainComponent::~MainComponent()
@@ -34,6 +32,16 @@ MainComponent::~MainComponent()
 void MainComponent::paint (juce::Graphics& g)
 {
     using namespace juce;
+    
+    auto area = getLocalBounds();
+    juce::String isPlayingString;
+    if (isPlaying) {
+        isPlayingString = "playing...";
+    }
+    else {
+        isPlayingString = "paused";
+    }
+    g.drawText(isPlayingString, area, juce::Justification::centred, false);
 }
 
 void MainComponent::timerCallback() {
