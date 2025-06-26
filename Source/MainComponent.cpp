@@ -8,15 +8,18 @@ MainComponent::MainComponent()
     setSize(1600/2, 720/2);
 
     header.setTempoLabelText(bpm);
+    header.bpmLabel.addListener(this);
 
     header.setTempoIncrementCallback([&]() {
         bpm += 1;
         header.setTempoLabelText(bpm);
+        bpmChanged();
     });
 
     header.setTempoDecrementCallback([&]() {
         bpm -= 1;
         header.setTempoLabelText(bpm);
+        bpmChanged();
     });
 
     header.setPlayPauseCallback([&](bool buttonPlaying) {
@@ -29,10 +32,30 @@ MainComponent::MainComponent()
             stopTimer();
         }
     });
+
+    header.setRewindCallback([&]() {
+        currentStepIndex = 0;
+        body.updateStepIndexes(currentStepIndex);
+    });
 }
 
 MainComponent::~MainComponent()
 {
+}
+
+void MainComponent::bpmChanged() {
+    repaint();
+    if (isPlaying) {
+        stopTimer();
+        startTimer((60.0 / bpm) * 1000);
+    }
+}
+
+void MainComponent::textEditorTextChanged(juce::TextEditor& editor) {
+    juce::String value = editor.getText();
+    int intValue = value.getIntValue();
+    bpm = intValue;
+    bpmChanged();
 }
 
 //==============================================================================
@@ -47,9 +70,6 @@ void MainComponent::timerCallback() {
     repaint();
 }
 
-void MainComponent::startPlayback() {
-    
-}
 
 void MainComponent::resized()
 {

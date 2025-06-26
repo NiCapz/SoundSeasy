@@ -15,13 +15,14 @@
 //==============================================================================
 /*
 */
-class RewindComponent  : public juce::Component
+class RewindComponent  : public juce::Button
 {
 public:
-    RewindComponent();
+    RewindComponent(juce::String&);
     ~RewindComponent() override;
 
-    void paint (juce::Graphics&) override;
+    void paintButton(juce::Graphics&, bool, bool) override;
+
     void resized() override;
 
 private:

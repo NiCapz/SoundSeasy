@@ -25,15 +25,16 @@ public:
         if (highlighted) 
         {
             g.setColour(juce::Colours::white);
+            g.drawEllipse(bounds.reduced(5.0f), 5.0f);
         }
         else
         {
-            g.setColour(juce::Colours::lightgrey);
+            g.setColour(juce::Colours::darkgrey);
+            g.drawEllipse(bounds.reduced(5.0f), 3.0f);
         }
 
-        g.drawEllipse(bounds.reduced(5.0f), 5.0f);
 
-    }
+	}
 
     void setHighlighted(bool highlighted) {
         this->highlighted = highlighted;

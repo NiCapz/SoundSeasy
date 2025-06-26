@@ -32,17 +32,26 @@ public:
 
     void setPlayPauseCallback(std::function<void(bool)>);
 
+    void setRewindCallback(std::function <void()>);
+
     void setTempoLabelText(int);
 
 
-    juce::String ppComponentName = "pp";
-    PlayPauseComponent pp{ ppComponentName };
+    juce::TextEditor bpmLabel;
+    
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(HeaderComponent)
-    RewindComponent rw;
-    juce::TextEditor bpmLabel;
+    
+    
+    juce::String rwComponentName = "pp";
+    RewindComponent rw { rwComponentName };
+
+    juce::String ppComponentName = "pp";
+    PlayPauseComponent pp{ ppComponentName };
+    
     juce::String plusName = "plus";
-    juce::String minusName = "minus";
     BpmButton plus { plusName, true};
+    
+    juce::String minusName = "minus";
     BpmButton minus { minusName, false};
 };
