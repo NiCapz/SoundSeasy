@@ -29,18 +29,20 @@ public:
 
     void paint(juce::Graphics &g) override 
     {
-		g.setColour(juce::Colours::white);
     }
 
     void setStepIndex(int index) {
         steps[currentStepIndex]->setHighlighted(false);
         currentStepIndex = index;
         steps[currentStepIndex]->setHighlighted(true);
+        repaint();
     }
 
     void resized() override
     {
         auto area = getLocalBounds();
+
+
         auto stepWidth = area.getWidth() / 12;
         auto instWidth = stepWidth;
         auto padding = stepWidth/5;
@@ -55,6 +57,7 @@ public:
             step->setBounds(area.removeFromLeft(stepWidth));
         }
     }
+
 
 private:
     juce::OwnedArray<StepComponent> steps;

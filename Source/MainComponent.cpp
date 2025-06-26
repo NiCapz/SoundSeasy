@@ -21,6 +21,13 @@ MainComponent::MainComponent()
 
     header.setPlayPauseCallback([&](bool buttonPlaying) {
         isPlaying = buttonPlaying;
+        if (buttonPlaying) {
+            startTimer((60.0 / bpm) * 1000);
+        }
+        else
+        {
+            stopTimer();
+        }
     });
 }
 
@@ -31,25 +38,17 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::paint (juce::Graphics& g)
 {
-    using namespace juce;
-    
-    auto area = getLocalBounds();
-    juce::String isPlayingString;
-    if (isPlaying) {
-        isPlayingString = "playing...";
-    }
-    else {
-        isPlayingString = "paused";
-    }
 }
 
 void MainComponent::timerCallback() {
-    currentStepindex++;
-    currentStepindex %= stepsTotal;
+    currentStepIndex++;
+    currentStepIndex %= stepsTotal;
+    body.updateStepIndexes(currentStepIndex);
+    repaint();
 }
 
 void MainComponent::startPlayback() {
-    startTimer(60 / bpm * 1000);
+    
 }
 
 void MainComponent::resized()

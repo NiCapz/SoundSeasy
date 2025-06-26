@@ -20,12 +20,17 @@ public:
     {
         auto bounds = getLocalBounds().toFloat();
 
-        g.setColour(juce::Colours::darkgreen);
-        //g.drawRect(bounds, 1.0f);
-        
         bounds.setRight(bounds.getHeight());
 
-        g.setColour(juce::Colours::lightgrey);
+        if (highlighted) 
+        {
+            g.setColour(juce::Colours::white);
+        }
+        else
+        {
+            g.setColour(juce::Colours::lightgrey);
+        }
+
         g.drawEllipse(bounds.reduced(5.0f), 5.0f);
 
     }

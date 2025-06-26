@@ -29,6 +29,12 @@ void BodyComponent::paint (juce::Graphics& g)
 {
 }
 
+void BodyComponent::updateStepIndexes(int index) {
+    for (auto* track : tracks) {
+        track->setStepIndex(index);
+    }
+}
+
 void BodyComponent::resized()
 {
     auto area = getLocalBounds();

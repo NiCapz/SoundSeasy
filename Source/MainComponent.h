@@ -30,7 +30,7 @@ private:
     HeaderComponent header;
     BodyComponent body;
     int bpm = 120;
-    int currentStepindex = 0;
+    int currentStepIndex = 0;
     const int stepsTotal = 8;
     bool isPlaying = false;
     
