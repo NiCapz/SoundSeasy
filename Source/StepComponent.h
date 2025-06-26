@@ -11,12 +11,14 @@
 #pragma once
 #include <JuceHeader.h>
 
-class StepComponent : public juce::Component
+class StepComponent : public juce::Button
 {
 public:
-    StepComponent() {}
+    StepComponent(juce::String& name) : Button(name)
+    {
+    }
 
-    void paint(juce::Graphics& g) override
+    void paintButton(juce::Graphics& g, bool isHighlighted, bool isDown) override
     {
         auto bounds = getLocalBounds().toFloat();
 
@@ -33,8 +35,18 @@ public:
             g.drawEllipse(bounds.reduced(5.0f), 3.0f);
         }
 
+        if (isSample) {
+            g.setColour(juce::Colours::beige);
+            g.fillEllipse(bounds.reduced(7.0f));
+        }
+
 
 	}
+   
+    void clicked() override
+    {
+        isSample = !isSample;
+    }
 
     void setHighlighted(bool highlighted) {
         this->highlighted = highlighted;
@@ -42,4 +54,5 @@ public:
 
 private:
     bool highlighted = false;
+    bool isSample = false;
 };

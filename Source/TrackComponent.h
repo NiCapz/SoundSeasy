@@ -21,7 +21,8 @@ public:
         addAndMakeVisible(inst);
 
         for (int i = 0; i < 8; i++) {
-            auto* step = new StepComponent();
+            juce::String stepName = "Step " + (juce::String)i;
+            auto* step = new StepComponent(stepName);
             steps.add(step);
             addAndMakeVisible(step);
         }
