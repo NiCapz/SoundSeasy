@@ -12,21 +12,19 @@
 #include "BpmButton.h"
 
 //==============================================================================
-BpmButton::BpmButton(bool isPlus)
+BpmButton::BpmButton(juce::String& name, bool isPlus) : Button(name), isPlus(isPlus)
 {
-    this->isPlus = isPlus;
 }
 
 BpmButton::~BpmButton()
 {
 }
 
-void BpmButton::paint (juce::Graphics& g)
-{
-    g.setColour (juce::Colours::white);
-    
+void BpmButton::paintButton(juce::Graphics& g, bool isHighlighted, bool isDown) {
+    g.setColour(juce::Colours::white);
+
     auto area = getLocalBounds();
-    
+
     auto padding = (area.getHeight() - area.getWidth()) / 2;
 
     area.removeFromTop(padding);
@@ -37,8 +35,8 @@ void BpmButton::paint (juce::Graphics& g)
 
     g.drawEllipse(area.toFloat(), 3.0f);
 
-    g.setFont (juce::FontOptions (50.0f));
-    
+    g.setFont(juce::FontOptions(50.0f));
+
     juce::String buttonText = "-";
 
     if (isPlus) {

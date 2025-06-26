@@ -8,7 +8,7 @@
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
-class MainComponent  : public juce::Component
+class MainComponent : public juce::Component, juce::Timer
 {
 public:
     //==============================================================================
@@ -19,10 +19,19 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
 
+    void timerCallback() override;
+
+    void startPlayback();
+
 private:
     //==============================================================================
     // Your private member variables go here...
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
     HeaderComponent header;
     BodyComponent body;
+    int bpm = 120;
+    int currentStepindex = 0;
+    const int stepsTotal = 8;
+    bool isPlaying = false;
+    
 };

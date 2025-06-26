@@ -15,16 +15,22 @@
 //==============================================================================
 /*
 */
-class PlayPauseComponent  : public juce::Component
+class PlayPauseComponent  : public juce::Button
 {
 public:
-    PlayPauseComponent();
+    PlayPauseComponent(juce::String&);
     ~PlayPauseComponent() override;
 
-    void paint (juce::Graphics&) override;
+    //void paint (juce::Graphics&) override;
     void resized() override;
 
+    void paintButton(juce::Graphics&, bool, bool) override;
+
+    void clicked() override;
+
+
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PlayPauseComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PlayPauseComponent)
+        bool isPlaying = false;
 
 };

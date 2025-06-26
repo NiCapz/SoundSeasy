@@ -15,14 +15,16 @@
 //==============================================================================
 /*
 */
-class BpmButton  : public juce::Component
+class BpmButton  : public juce::Button
 {
 public:
-    BpmButton(bool isPlus);
+    BpmButton(juce::String& name, bool isPlus);
     ~BpmButton() override;
 
-    void paint (juce::Graphics&) override;
     void resized() override;
+
+protected:
+    void paintButton(juce::Graphics&, bool, bool) override;
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BpmButton)

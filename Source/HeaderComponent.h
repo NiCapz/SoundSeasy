@@ -27,11 +27,21 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
 
+    void setTempoIncrementCallback(std::function<void()>);
+    void setTempoDecrementCallback(std::function<void()>);
+
+    void setPlayPauseCallback(std::function<void()>);
+
+    void setTempoLabelText(int);
+
+    juce::String ppComponentName = "pp";
+    PlayPauseComponent pp{ ppComponentName };
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(HeaderComponent)
-    PlayPauseComponent pp;
     RewindComponent rw;
     juce::TextEditor bpmLabel;
-    BpmButton plus { true };
-    BpmButton minus { false };
+    juce::String plusName = "plus";
+    juce::String minusName = "minus";
+    BpmButton plus { plusName, true};
+    BpmButton minus { minusName, false};
 };

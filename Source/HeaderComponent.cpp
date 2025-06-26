@@ -24,25 +24,42 @@ HeaderComponent::HeaderComponent()
 
     bpmLabel.setJustification(juce::Justification::centred);
     bpmLabel.setInputRestrictions(3, "1234567890");
-    bpmLabel.setText("138");
 }
 
 HeaderComponent::~HeaderComponent()
 {
 }
 
-void HeaderComponent::paint (juce::Graphics& g)
+void HeaderComponent::setTempoLabelText(int bpm) {
+    bpmLabel.setText((juce::String) bpm);
+}
+
+void HeaderComponent::paint(juce::Graphics& g)
 {
-    g.setColour (juce::Colours::black);
-    
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
+    g.setColour(juce::Colours::black);
+
+    g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
     g.setColour(juce::Colours::white);
-    
+
     g.setFont(juce::FontOptions(14.0f));
-    g.drawText ("HeaderComponent", getLocalBounds(),
-                juce::Justification::centred, true);   // draw some placeholder text
+    g.drawText("HeaderComponent", getLocalBounds(),
+        juce::Justification::centred, true);   // draw some placeholder text
 
 }
+
+void HeaderComponent::setTempoIncrementCallback(std::function <void()> callBack) {
+    plus.onClick = callBack;
+}
+
+void HeaderComponent::setTempoDecrementCallback(std::function <void()> callback) {
+    minus.onClick = callback;
+}
+
+void HeaderComponent::setPlayPauseCallback(std::function <void()> callback) {
+    pp.onClick = callback;
+}
+
+
 
 void HeaderComponent::resized()
 {

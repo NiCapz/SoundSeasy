@@ -30,7 +30,12 @@ public:
     void paint(juce::Graphics &g) override 
     {
 		g.setColour(juce::Colours::white);
-		//g.drawRect(getLocalBounds(), 1); // Draw a border around the track
+    }
+
+    void setStepIndex(int index) {
+        steps[currentStepIndex]->setHighlighted(false);
+        currentStepIndex = index;
+        steps[currentStepIndex]->setHighlighted(true);
     }
 
     void resized() override
@@ -54,4 +59,5 @@ public:
 private:
     juce::OwnedArray<StepComponent> steps;
     InstrumentSelectorComponent inst;
+    int currentStepIndex = 0;
 };

@@ -30,5 +30,10 @@ public:
 
     }
 
+    void setHighlighted(bool highlighted) {
+        this->highlighted = highlighted;
+    }
+
 private:
+    bool highlighted = false;
 };
