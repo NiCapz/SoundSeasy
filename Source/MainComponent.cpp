@@ -58,7 +58,6 @@ void MainComponent::textEditorTextChanged(juce::TextEditor& editor) {
     bpmChanged();
 }
 
-//==============================================================================
 void MainComponent::paint (juce::Graphics& g)
 {
 }
@@ -69,7 +68,6 @@ void MainComponent::timerCallback() {
     body.updateStepIndexes(currentStepIndex);
     repaint();
 }
-
 
 void MainComponent::resized()
 {
