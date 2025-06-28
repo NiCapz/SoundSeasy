@@ -30,21 +30,26 @@ HeaderComponent::~HeaderComponent()
 {
 }
 
-void HeaderComponent::setTempoLabelText(int bpm) {
+
+void HeaderComponent::setTempoLabelText(int bpm) 
+{
     bpmLabel.setText((juce::String) bpm);
 }
 
 void HeaderComponent::paint(juce::Graphics& g)
 {
     g.setColour(juce::Colours::black);
-
     g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
     g.setColour(juce::Colours::white);
 
     g.setFont(juce::FontOptions(14.0f));
-    g.drawText("HeaderComponent", getLocalBounds(),
+    g.drawText("SoundsEasy", getLocalBounds(),
         juce::Justification::centred, true);   // draw some placeholder text
 
+}
+
+void HeaderComponent::setRewindCallback(std::function <void()> callback) {
+    rw.onClick = callback;
 }
 
 void HeaderComponent::setTempoIncrementCallback(std::function <void()> callBack) {
@@ -55,8 +60,12 @@ void HeaderComponent::setTempoDecrementCallback(std::function <void()> callback)
     minus.onClick = callback;
 }
 
-void HeaderComponent::setPlayPauseCallback(std::function <void()> callback) {
-    pp.onClick = callback;
+void HeaderComponent::setPlayPauseCallback(std::function <void(bool isButtonPlaying)> callback) 
+{
+    pp.onClick = [this, callback]() {
+        pp.toggleState();
+        callback(pp.getState());
+    };
 }
 
 

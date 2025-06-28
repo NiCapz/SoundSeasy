@@ -8,19 +8,34 @@ MainComponent::MainComponent()
     setSize(1600/2, 720/2);
 
     header.setTempoLabelText(bpm);
+    header.bpmLabel.addListener(this);
 
     header.setTempoIncrementCallback([&]() {
         bpm += 1;
         header.setTempoLabelText(bpm);
+        bpmChanged();
     });
 
     header.setTempoDecrementCallback([&]() {
         bpm -= 1;
         header.setTempoLabelText(bpm);
+        bpmChanged();
     });
 
-    header.setPlayPauseCallback([&]() {
-        isPlaying = !isPlaying;
+    header.setPlayPauseCallback([&](bool buttonPlaying) {
+        isPlaying = buttonPlaying;
+        if (buttonPlaying) {
+            startTimer((60.0 / bpm) * 1000);
+        }
+        else
+        {
+            stopTimer();
+        }
+    });
+
+    header.setRewindCallback([&]() {
+        currentStepIndex = 0;
+        body.updateStepIndexes(currentStepIndex);
     });
 }
 
@@ -28,29 +43,30 @@ MainComponent::~MainComponent()
 {
 }
 
-//==============================================================================
+void MainComponent::bpmChanged() {
+    repaint();
+    if (isPlaying) {
+        stopTimer();
+        startTimer((60.0 / bpm) * 1000);
+    }
+}
+
+void MainComponent::textEditorTextChanged(juce::TextEditor& editor) {
+    juce::String value = editor.getText();
+    int intValue = value.getIntValue();
+    bpm = intValue;
+    bpmChanged();
+}
+
 void MainComponent::paint (juce::Graphics& g)
 {
-    using namespace juce;
-    
-    auto area = getLocalBounds();
-    juce::String isPlayingString;
-    if (isPlaying) {
-        isPlayingString = "playing...";
-    }
-    else {
-        isPlayingString = "paused";
-    }
-    g.drawText(isPlayingString, area, juce::Justification::centred, false);
 }
 
 void MainComponent::timerCallback() {
-    currentStepindex++;
-    currentStepindex %= stepsTotal;
-}
-
-void MainComponent::startPlayback() {
-    startTimer(60 / bpm * 1000);
+    currentStepIndex++;
+    currentStepIndex %= stepsTotal;
+    body.updateStepIndexes(currentStepIndex);
+    repaint();
 }
 
 void MainComponent::resized()

@@ -8,7 +8,7 @@
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
-class MainComponent : public juce::Component, juce::Timer
+class MainComponent : public juce::Component, juce::Timer, juce::TextEditor::Listener
 {
 public:
     //==============================================================================
@@ -21,7 +21,9 @@ public:
 
     void timerCallback() override;
 
-    void startPlayback();
+    void textEditorTextChanged(juce::TextEditor& editor) override;
+
+    void bpmChanged();
 
 private:
     //==============================================================================
@@ -30,7 +32,7 @@ private:
     HeaderComponent header;
     BodyComponent body;
     int bpm = 120;
-    int currentStepindex = 0;
+    int currentStepIndex = 0;
     const int stepsTotal = 8;
     bool isPlaying = false;
     

@@ -12,18 +12,15 @@
 #include "RewindComponent.h"
 
 //==============================================================================
-RewindComponent::RewindComponent()
+RewindComponent::RewindComponent(juce::String& name) : juce::Button(name)
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
-
 }
 
 RewindComponent::~RewindComponent()
 {
 }
 
-void RewindComponent::paint (juce::Graphics& g)
+void RewindComponent::paintButton (juce::Graphics& g, bool isHighlighted, bool isDown)
 {
     g.setColour (juce::Colours::white);
     
