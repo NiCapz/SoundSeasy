@@ -3,7 +3,56 @@
 <JUCERPROJECT id="FCkXQC" name="SoundsEasy" projectType="guiapp" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="arNiCt" name="SoundsEasy">
+    <GROUP id="{8D1E330C-D155-11A4-6B41-4157CC310D1B}" name="AudioFiles">
+      <FILE id="lbXDMY" name="29-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/29-Mezzo.flac"/>
+      <FILE id="gF7GHt" name="32-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/32-Mezzo.flac"/>
+      <FILE id="dMi1O7" name="35-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/35-Mezzo.flac"/>
+      <FILE id="N27DPd" name="38-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/38-Mezzo.flac"/>
+      <FILE id="hmpMfZ" name="41-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/41-Mezzo.flac"/>
+      <FILE id="bX9Utz" name="44-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/44-Mezzo.flac"/>
+      <FILE id="T3M5LL" name="47-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/47-Mezzo.flac"/>
+      <FILE id="tfhYCL" name="50-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/50-Mezzo.flac"/>
+      <FILE id="lCIiFT" name="53-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/53-Mezzo.flac"/>
+      <FILE id="qrvfmt" name="Crash.wav" compile="0" resource="1" file="AudioFiles/DrumMachine/Crash.wav"/>
+      <FILE id="q1hM5Y" name="HiHat.wav" compile="0" resource="1" file="AudioFiles/DrumMachine/HiHat.wav"/>
+      <FILE id="aFCEQL" name="Kick.wav" compile="0" resource="1" file="AudioFiles/DrumMachine/Kick.wav"/>
+      <FILE id="suHuoz" name="OpenHat.wav" compile="0" resource="1" file="AudioFiles/DrumMachine/OpenHat.wav"/>
+      <FILE id="JpXPDq" name="Snare.wav" compile="0" resource="1" file="AudioFiles/DrumMachine/Snare.wav"/>
+    </GROUP>
     <GROUP id="{66096B8B-93AC-8C2F-5968-D813BE26D7F8}" name="Source">
+      <GROUP id="{FF469CEF-9C3B-5FAA-6A2F-E2DAFD8CCA9F}" name="Audio">
+        <FILE id="j8k9mK" name="MidiInstrument.h" compile="0" resource="0"
+              file="Source/Audio/MidiInstrument.h"/>
+        <FILE id="wEbyC6" name="MidiManager.cpp" compile="1" resource="0" file="Source/Audio/MidiManager.cpp"/>
+        <FILE id="UoDvNH" name="MidiManager.h" compile="0" resource="0" file="Source/Audio/MidiManager.h"/>
+        <FILE id="BlbnCl" name="Envelope.cpp" compile="1" resource="0" file="Source/Audio/Envelope.cpp"/>
+        <FILE id="IbMKKS" name="Envelope.h" compile="0" resource="0" file="Source/Audio/Envelope.h"/>
+        <FILE id="IkY4Ie" name="SmoothedParameter.h" compile="0" resource="0"
+              file="Source/Audio/SmoothedParameter.h"/>
+        <FILE id="Egd7b4" name="Utils.h" compile="0" resource="0" file="Source/Audio/Utils.h"/>
+        <GROUP id="{9F186B73-BDBA-C1BA-8879-A4BADCC00314}" name="Synth">
+          <FILE id="vs90bh" name="Synth.cpp" compile="1" resource="0" file="Source/Audio/Synth/Synth.cpp"/>
+          <FILE id="FftVIB" name="Synth.h" compile="0" resource="0" file="Source/Audio/Synth/Synth.h"/>
+          <FILE id="gKvtoV" name="Voice.cpp" compile="1" resource="0" file="Source/Audio/Synth/Voice.cpp"/>
+          <FILE id="T0jKCZ" name="Voice.h" compile="0" resource="0" file="Source/Audio/Synth/Voice.h"/>
+        </GROUP>
+        <GROUP id="{6A93FDD2-9620-C6CC-7744-9B3243A5B42D}" name="Piano">
+          <FILE id="C9diz7" name="PianoSampler.cpp" compile="1" resource="0"
+                file="Source/Audio/Piano/PianoSampler.cpp"/>
+          <FILE id="sKQ6IQ" name="PianoSampler.h" compile="0" resource="0" file="Source/Audio/Piano/PianoSampler.h"/>
+          <FILE id="W4emML" name="SamplerTrack.cpp" compile="1" resource="0"
+                file="Source/Audio/Piano/SamplerTrack.cpp"/>
+          <FILE id="NNmwdJ" name="SamplerTrack.h" compile="0" resource="0" file="Source/Audio/Piano/SamplerTrack.h"/>
+        </GROUP>
+        <GROUP id="{47B1D1E2-B52E-037D-FDA2-9CAEEDB9B4CA}" name="DrumMachine">
+          <FILE id="V7dBXx" name="DrumSampler.cpp" compile="1" resource="0" file="Source/Audio/DrumMachine/DrumSampler.cpp"/>
+          <FILE id="RZBIWv" name="DrumSampler.h" compile="0" resource="0" file="Source/Audio/DrumMachine/DrumSampler.h"/>
+          <FILE id="w7ZM3F" name="OneShotSamplerTrack.cpp" compile="1" resource="0"
+                file="Source/Audio/DrumMachine/OneShotSamplerTrack.cpp"/>
+          <FILE id="Et3xT0" name="OneShotSamplerTrack.h" compile="0" resource="0"
+                file="Source/Audio/DrumMachine/OneShotSamplerTrack.h"/>
+        </GROUP>
+      </GROUP>
       <FILE id="QeeTjn" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="xc0ltm" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="PIHhfp" name="MainComponent.cpp" compile="1" resource="0"
@@ -39,8 +88,11 @@
     </GROUP>
   </MAINGROUP>
   <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
@@ -58,6 +110,9 @@
         <MODULEPATH id="juce_events" path="../JUCE/modules"/>
         <MODULEPATH id="juce_core" path="../JUCE/modules"/>
         <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </VS2022>
     <XCODE_IPHONE targetFolder="Builds/iOS">
@@ -71,6 +126,9 @@
         <MODULEPATH id="juce_events" path="../../juce"/>
         <MODULEPATH id="juce_graphics" path="../../juce"/>
         <MODULEPATH id="juce_gui_basics" path="../../juce"/>
+        <MODULEPATH id="juce_dsp" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_IPHONE>
     <XCODE_MAC targetFolder="Builds/MacOSX">
@@ -84,6 +142,9 @@
         <MODULEPATH id="juce_events" path="../../juce"/>
         <MODULEPATH id="juce_graphics" path="../../juce"/>
         <MODULEPATH id="juce_gui_basics" path="../../juce"/>
+        <MODULEPATH id="juce_dsp" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <ANDROIDSTUDIO targetFolder="Builds/Android">
@@ -97,6 +158,9 @@
         <MODULEPATH id="juce_events" path="../../juce"/>
         <MODULEPATH id="juce_graphics" path="../../juce"/>
         <MODULEPATH id="juce_gui_basics" path="../../juce"/>
+        <MODULEPATH id="juce_dsp" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </ANDROIDSTUDIO>
   </EXPORTFORMATS>
