@@ -16,9 +16,11 @@
 class TrackComponent : public juce::Component
 {
 public:
-    TrackComponent() {
+    TrackComponent(juce::String instrumentName) {
 
         addAndMakeVisible(inst);
+
+        inst.setName(instrumentName);
 
         for (int i = 0; i < 8; i++) {
             juce::String stepName = "Step " + (juce::String)i;
@@ -57,6 +59,10 @@ public:
 			area.removeFromLeft(padding);
             step->setBounds(area.removeFromLeft(stepWidth));
         }
+    }
+
+    bool isCurrentStepActive() {
+        return steps[currentStepIndex]->checkActive();
     }
 
 

@@ -35,7 +35,7 @@ public:
             g.drawEllipse(bounds.reduced(5.0f), 3.0f);
         }
 
-        if (isSample) {
+        if (isActive) {
             g.setColour(juce::Colours::beige);
             g.fillEllipse(bounds.reduced(7.0f));
         }
@@ -45,14 +45,18 @@ public:
    
     void clicked() override
     {
-        isSample = !isSample;
+        isActive = !isActive;
     }
 
     void setHighlighted(bool highlighted) {
         this->highlighted = highlighted;
     }
 
+    bool checkActive() {
+        return isActive;
+    }
+
 private:
     bool highlighted = false;
-    bool isSample = false;
+    bool isActive = false;
 };

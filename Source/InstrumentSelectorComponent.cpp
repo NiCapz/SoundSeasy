@@ -20,7 +20,9 @@ InstrumentSelectorComponent::~InstrumentSelectorComponent()
 {
 }
 
-
+void InstrumentSelectorComponent::setName(juce::String name) {
+    this->name = name;
+}
 
 void InstrumentSelectorComponent::paint (juce::Graphics& g)
 {
@@ -36,7 +38,7 @@ void InstrumentSelectorComponent::paint (juce::Graphics& g)
     g.drawRoundedRectangle(area.getX(), area.getY(), area.getWidth(), area.getHeight(), 10.0f, 1.0f);
 
     
-    g.drawText("Kickdrum", area, juce::Justification::centred, true);
+    g.drawText(name, area, juce::Justification::centred, true);
 
 }
 

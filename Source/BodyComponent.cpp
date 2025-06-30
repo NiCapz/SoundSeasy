@@ -14,8 +14,8 @@
 //==============================================================================
 BodyComponent::BodyComponent()
 {
-    for (int i = 0; i < 4; i++) {
-        auto* track = new TrackComponent();
+    for (int i = 0; i < 5; i++) {
+        auto* track = new TrackComponent(trackNames[i]);
         tracks.add(track);
         addAndMakeVisible(track);
     }
@@ -39,7 +39,7 @@ void BodyComponent::resized()
 {
     auto area = getLocalBounds();
     auto padding = area.getHeight() / 20;
-    auto trackHeight = (area.getHeight() - padding * tracks.size()) / 4;
+    auto trackHeight = (area.getHeight() - padding * tracks.size()) / 5;
 
     for (auto* track : tracks) {
 		area.removeFromTop(padding);
