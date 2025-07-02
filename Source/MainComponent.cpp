@@ -5,7 +5,7 @@ MainComponent::MainComponent()
 {
     addAndMakeVisible(header);
     addAndMakeVisible(body);
-    setSize(1600/2, 720/2);
+    setSize(1600, 720);
 
     header.setTempoLabelText(bpm);
     header.bpmLabel.addListener(this);
