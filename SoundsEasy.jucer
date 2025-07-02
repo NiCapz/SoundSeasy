@@ -21,6 +21,13 @@
     </GROUP>
     <GROUP id="{66096B8B-93AC-8C2F-5968-D813BE26D7F8}" name="Source">
       <GROUP id="{FF469CEF-9C3B-5FAA-6A2F-E2DAFD8CCA9F}" name="Audio">
+        <GROUP id="{93F643A4-BB9D-8DFF-2E86-EC729CD2479F}" name="Reverb">
+          <FILE id="b1ORWl" name="AllPass.cpp" compile="1" resource="0" file="Source/Audio/Reverb/AllPass.cpp"/>
+          <FILE id="fyqSoa" name="AllPass.h" compile="0" resource="0" file="Source/Audio/Reverb/AllPass.h"/>
+          <FILE id="rEH2Gh" name="MatrixReverb.cpp" compile="1" resource="0"
+                file="Source/Audio/Reverb/MatrixReverb.cpp"/>
+          <FILE id="ePw35d" name="MatrixReverb.h" compile="0" resource="0" file="Source/Audio/Reverb/MatrixReverb.h"/>
+        </GROUP>
         <FILE id="j8k9mK" name="MidiInstrument.h" compile="0" resource="0"
               file="Source/Audio/MidiInstrument.h"/>
         <FILE id="wEbyC6" name="MidiManager.cpp" compile="1" resource="0" file="Source/Audio/MidiManager.cpp"/>

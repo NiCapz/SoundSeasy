@@ -5,6 +5,7 @@
 #include "./Audio/Synth/Synth.h"
 #include "./Audio/Piano/PianoSampler.h"
 #include "./Audio/MidiManager.h"
+#include "./Audio/Reverb/MatrixReverb.h"
 
 using namespace juce;
 //==============================================================================
@@ -39,6 +40,8 @@ private:
     DrumSampler drumSampler{};
     Synth synth{};
     PianoSampler piano{};
+    
+    MatrixReverb reverb;
     
     MidiManager midiManager{};
     double startTime;

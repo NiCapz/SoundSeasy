@@ -1,7 +1,11 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent()
+MainComponent::MainComponent() : reverb(new std::atomic<float> {0.3},
+                                        new std::atomic<float> {0.5},
+                                        new std::atomic<float> {2.7},
+                                        new std::atomic<float> {0.3},
+                                        new std::atomic<float> {0.5})
 {
     setSize (600, 400);
     
@@ -40,6 +44,7 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
     piano.setSampleRate(sampleRate);
     synth.setSampleRate(sampleRate);
     midiManager.reset(sampleRate);
+    reverb.setSamplerate(sampleRate);
 }
 
 void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
@@ -52,12 +57,28 @@ void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
     // (to prevent the output of random noise)
     bufferToFill.clearActiveBufferRegion();
     
+    const int numSamples = bufferToFill.numSamples;
+    const int numChannels = bufferToFill.buffer->getNumChannels();
+    
+    auto* const buffer = bufferToFill.buffer;
+    
     MidiBuffer midiBuffer{};
     midiManager.removeNextBlockOfMessages(midiBuffer, bufferToFill.numSamples);
     
-    drumSampler.addToBuffer(*(bufferToFill.buffer), midiBuffer);
-    synth.addToBuffer(*(bufferToFill.buffer), midiBuffer);
-    piano.addToBuffer(*(bufferToFill.buffer), midiBuffer);
+    
+    synth.addToBuffer(*buffer, midiBuffer);
+    piano.addToBuffer(*buffer, midiBuffer);
+    drumSampler.addToBuffer(*buffer, midiBuffer);
+    
+    AudioBuffer<float> reverbBuffer{};
+    reverbBuffer.makeCopyOf(*buffer);
+    
+    reverb.processBlock(reverbBuffer);
+    
+    for(int channel = 0; channel < numChannels; channel++)
+        buffer->addFrom(channel, 0, reverbBuffer, channel, 0, numSamples, 1.0);
+    
+    
 }
 
 void MainComponent::releaseResources()
