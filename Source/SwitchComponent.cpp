@@ -25,11 +25,12 @@ SwitchComponent::~SwitchComponent()
 
 void SwitchComponent::paint (juce::Graphics& g)
 {
-        auto area = getLocalBounds();
-        g.setColour(juce::Colours::white);
-        auto height = area.getHeight();
-        auto paddingLeft = area.getWidth() * 0.3;
-        juce::Path p;
+    /* This demo code just fills the component's background and
+       draws some placeholder text to get you started.
+
+       You should replace everything in this method with your own
+       drawing code..
+    */
 
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
 
