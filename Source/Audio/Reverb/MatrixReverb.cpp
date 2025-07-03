@@ -10,6 +10,7 @@
 
 #include "MatrixReverb.h"
 #include "../Utils.h"
+#include <juce_audio_formats/codecs/flac/compat.h>
 
 MatrixReverb::MatrixReverb(std::atomic<float>* distance,
                            std::atomic<float>* chorus,

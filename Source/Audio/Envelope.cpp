@@ -9,6 +9,7 @@
 */
 
 #include "Envelope.h"
+#include <cmath>
 
 Envelope::Envelope(std::atomic<float>* attackParam,
                    std::atomic<float>* decayParam,
