@@ -37,6 +37,8 @@ public:
 
     void setTempoLabelText(int);
 
+    void setupBpmLabel(juce::TextEditor&);
+
     // modify this to change the state from drumsampler to cord helper
     bool showDrumSampler = true;
 

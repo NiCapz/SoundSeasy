@@ -24,17 +24,12 @@ HeaderComponent::HeaderComponent()
     addAndMakeVisible(plus);
     addAndMakeVisible(minus);
 
-
-
-    bpmLabel.setJustification(juce::Justification::centred);
-    bpmLabel.setInputRestrictions(3, "1234567890");
-    bpmLabel.applyColourToAllText(juce::Colours::black);
+    setupBpmLabel(bpmLabel);
 }
 
 HeaderComponent::~HeaderComponent()
 {
 }
-
 
 void HeaderComponent::setTempoLabelText(int bpm) 
 {
@@ -49,7 +44,24 @@ void HeaderComponent::paint(juce::Graphics& g)
     auto bpmBounds = minus.getBounds();
     bpmBounds = bpmBounds.getUnion(bpmLabel.getBounds());
     bpmBounds = bpmBounds.getUnion(plus.getBounds());
-    bpmBounds.reduce(0, 25);
+    
+    juce::DropShadow Shadow(juce::Colours::black.withAlpha(.7f), 100, { 0, 0 });
+    
+    juce::Path swShadowPath;
+    juce::Path rwShadowPath;
+    juce::Path ppShadowPath;
+    juce::Path bpmShadowPath;
+
+    swShadowPath.addRoundedRectangle(sw.getBounds(), 25.0f);
+    rwShadowPath.addRoundedRectangle(rw.getBounds().reduced(10, 0), 25.0f);
+    ppShadowPath.addRoundedRectangle(pp.getBounds().reduced(10, 0), 25.0f);
+    bpmShadowPath.addRoundedRectangle(bpmBounds, 25.0f);
+    
+    Shadow.drawForPath(g, swShadowPath);
+    Shadow.drawForPath(g, rwShadowPath);
+    Shadow.drawForPath(g, ppShadowPath);
+    Shadow.drawForPath(g, bpmShadowPath);
+
     g.setColour(juce::Colour(0xffb9b9b9));
     g.fillRoundedRectangle(bpmBounds.toFloat(), 25);
 }
@@ -76,19 +88,54 @@ void HeaderComponent::setPlayPauseCallback(std::function <void(bool isButtonPlay
 
 void HeaderComponent::resized()
 {
-    juce::FlexBox fb;
-    fb.flexDirection = juce::FlexBox::Direction::row;
-    fb.flexWrap = juce::FlexBox::Wrap::noWrap;
-    fb.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
+    juce::FlexBox mainFlex;
+    mainFlex.flexDirection = juce::FlexBox::Direction::row;
+    mainFlex.flexWrap = juce::FlexBox::Wrap::noWrap;
+    mainFlex.justifyContent = juce::FlexBox::JustifyContent::spaceBetween;
 
-    fb.items.add(
-        juce::FlexItem(sw).withMinWidth(150.0f),
-        juce::FlexItem(rw).withMinWidth(150.0f),
-        juce::FlexItem(pp).withMinWidth(150.0f),
-        juce::FlexItem(minus).withMinWidth(150.0f),
-        juce::FlexItem(bpmLabel).withMinWidth(150.0f),
-        juce::FlexItem(plus).withMinWidth(150.0f)
+    juce::FlexBox switchGroup;
+    switchGroup.flexDirection = juce::FlexBox::Direction::row;
+    switchGroup.items.add(juce::FlexItem(sw).withMinWidth(150));
+
+    juce::FlexBox ppGroup;
+    ppGroup.flexDirection = juce::FlexBox::Direction::row;
+    ppGroup.items.add(
+        juce::FlexItem(rw).withMinWidth(150),
+        juce::FlexItem(pp).withMinWidth(150)
     );
 
-    fb.performLayout(getLocalBounds());
+    juce::FlexBox bpmGroup;
+    bpmGroup.flexDirection = juce::FlexBox::Direction::row;
+    //bpmGroup.alignItems = juce::FlexBox::AlignItems::center;
+    bpmGroup.items.add(
+        juce::FlexItem(minus).withMinWidth(150),
+        juce::FlexItem(bpmLabel).withMinWidth(150),
+        juce::FlexItem(plus).withMinWidth(150)
+    );
+
+    mainFlex.items.add(
+        juce::FlexItem(switchGroup).withFlex(1),
+        juce::FlexItem(ppGroup).withFlex(1),
+        juce::FlexItem(bpmGroup).withFlex(1)
+    );
+
+    auto area = getLocalBounds();
+    area.reduce(70, 35);
+    mainFlex.performLayout(area);
+}
+
+void HeaderComponent::setupBpmLabel(juce::TextEditor& bpmLabel) {
+    bpmLabel.setJustification(juce::Justification::centred);
+    bpmLabel.setInputRestrictions(3, "1234567890");
+    bpmLabel.setColour(juce::TextEditor::backgroundColourId, juce::Colours::transparentWhite);
+    bpmLabel.setColour(juce::TextEditor::outlineColourId, juce::Colours::transparentWhite);
+    bpmLabel.setColour(juce::TextEditor::focusedOutlineColourId, juce::Colours::transparentWhite);
+    bpmLabel.setColour(juce::TextEditor::textColourId, juce::Colours::black);
+    /*
+    juce::Font interFont = 
+        juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::InterVariableFont_opszwght_ttf, 
+            BinaryData::InterVariableFont_opszwght_ttfSize));
+    bpmLabel.setFont(interFont.withPointHeight(32.0f));
+    */
+    bpmLabel.setFont(40.0f);
 }

@@ -112,6 +112,14 @@ void MainComponent::textEditorTextChanged(juce::TextEditor& editor) {
 
 void MainComponent::paint (juce::Graphics& g)
 {
+
+    g.setColour(juce::Colour(0xff585858));
+    g.fillAll();
+
+    juce::DropShadow headerShadow(juce::Colours::black.withAlpha(.7f), 100, { 0, 0 });
+    juce::Path headerPath;
+    headerPath.addRectangle(header.getBounds());
+    headerShadow.drawForPath(g, headerPath);
 }
 
 void MainComponent::timerCallback() {

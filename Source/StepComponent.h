@@ -24,6 +24,12 @@ public:
 
         bounds.setRight(bounds.getHeight());
 
+        g.setColour(juce::Colour(0xff414141));
+        g.fillEllipse(bounds);
+        
+        
+        /*
+        
         if (highlighted) 
         {
             g.setColour(juce::Colours::white);
@@ -39,6 +45,7 @@ public:
             g.setColour(juce::Colours::beige);
             g.fillEllipse(bounds.reduced(7.0f));
         }
+        */
 
 
 	}

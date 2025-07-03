@@ -52,6 +52,12 @@
       <FILE id="suHuoz" name="OpenHat.wav" compile="0" resource="1" file="AudioFiles/DrumMachine/OpenHat.wav"/>
       <FILE id="JpXPDq" name="Snare.wav" compile="0" resource="1" file="AudioFiles/DrumMachine/Snare.wav"/>
     </GROUP>
+    <GROUP id="{ED311484-6833-DEE9-3A11-8FD3BC578115}" name="Fonts">
+      <FILE id="uLsPno" name="Inter-Italic-VariableFont_opsz,wght.ttf" compile="0"
+            resource="1" file="Fonts/Inter-Italic-VariableFont_opsz,wght.ttf"/>
+      <FILE id="WCoC0X" name="Inter-VariableFont_opsz,wght.ttf" compile="0"
+            resource="1" file="Fonts/Inter-VariableFont_opsz,wght.ttf"/>
+    </GROUP>
     <GROUP id="{72DD2416-2784-5111-93C5-9CFBBE1FC899}" name="Icons">
       <FILE id="IdeLNd" name="minus.svg" compile="0" resource="1" file="Icons/minus.svg"/>
       <FILE id="OMDHSZ" name="plus.svg" compile="0" resource="1" file="Icons/plus.svg"/>

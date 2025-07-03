@@ -25,7 +25,6 @@ void SwitchComponent::paint (juce::Graphics& g)
 {
     auto area = getLocalBounds().toFloat();
 
-    area.reduce(0, 25);
     g.setColour(juce::Colour(0xffb9b9b9));
     g.fillRoundedRectangle(area, 25);
 

@@ -33,9 +33,7 @@ void PlayPauseComponent::toggleState() {
 void PlayPauseComponent::paintButton(juce::Graphics& g, bool isHighlighted, bool isDown)
 {
 	auto area = getLocalBounds().toFloat();
-	g.drawRect(area, 1.0f);
-	
-	area.reduce(0, 25);
+	area.reduce(10, 0);
 	g.setColour(juce::Colour(0xffb9b9b9));
 	g.fillRoundedRectangle(area, 25);
 	

@@ -25,8 +25,7 @@ BpmButton::~BpmButton()
 void BpmButton::paintButton(juce::Graphics& g, bool isHighlighted, bool isDown) {
 
     auto area = getLocalBounds().toFloat();
-
-    area.reduce(0, 50);
+    area.reduce(65, 25);
     
     if (isPlus) {
         plusIcon->drawWithin(g, area, juce::RectanglePlacement::centred, 1);

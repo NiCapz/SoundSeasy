@@ -22,24 +22,43 @@ InstrumentSelectorComponent::~InstrumentSelectorComponent()
 
 void InstrumentSelectorComponent::setName(juce::String name) {
     this->name = name;
+
+    if (name == "Crash")
+    {
+        icon = juce::Drawable::createFromImageData(BinaryData::crash_svg, BinaryData::crash_svgSize);
+    }
+    else if (name == "Hi-Hat 1")
+    {
+        icon = juce::Drawable::createFromImageData(BinaryData::hihat_svg, BinaryData::hihat_svgSize);
+
+    }
+    else if (name == "Hi-Hat2")
+    {
+        icon = juce::Drawable::createFromImageData(BinaryData::hihat_open_svg, BinaryData::hihat_open_svgSize);
+    } 
+    else if (name == "Snare") 
+    {
+        icon = juce::Drawable::createFromImageData(BinaryData::snare_svg, BinaryData::snare_svgSize);
+    }
+    else if (name == "Kick")
+    {
+        icon = juce::Drawable::createFromImageData(BinaryData::kick_svg, BinaryData::kick_svgSize);
+    }
 }
 
 void InstrumentSelectorComponent::paint (juce::Graphics& g)
 {
-    g.setColour(juce::Colours::white);
-    auto area = getLocalBounds();
-    //g.drawRoundedRectangle(lb.getX() + lb.getWidth() * .1, lb.getY() + lb.getY() * .1, lb.getWidth() * .9, lb.getHeight() * .9, 10.0f, 1.0f);
-    
-	//g.drawRect(lb, 1.0f);
+    auto area = getLocalBounds().toFloat();
 
-    auto padding = area.getHeight() * 0.1;
-    area.removeFromTop(padding);
-    area.removeFromBottom(padding);
-    g.drawRoundedRectangle(area.getX(), area.getY(), area.getWidth(), area.getHeight(), 10.0f, 1.0f);
+    g.setColour(juce::Colour(0xffb9b9b9));
+    g.fillRoundedRectangle(area, 25.0f);
 
-    
-    g.drawText(name, area, juce::Justification::centred, true);
+    if (icon != nullptr)
+    {
+        icon->drawWithin(g, area.reduced(30), juce::RectanglePlacement::centred, 1.0f);
+    }
 
+    g.setColour(juce::Colours::black);
 }
 
 void InstrumentSelectorComponent::resized()

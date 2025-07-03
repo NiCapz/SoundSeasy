@@ -27,8 +27,8 @@ public:
     void setName(juce::String);
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(InstrumentSelectorComponent)
-
-        juce::String name;
-
     
+    juce::String name;
+
+    std::unique_ptr<juce::Drawable> icon;
 };

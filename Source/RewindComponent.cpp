@@ -23,10 +23,8 @@ RewindComponent::~RewindComponent()
 
 void RewindComponent::paintButton (juce::Graphics& g, bool isHighlighted, bool isDown)
 {
-    
-    auto area = getLocalBounds().toFloat();
+    auto area = getLocalBounds().toFloat().reduced(10, 0);
 
-    area.reduce(0, 25);
     g.setColour (juce::Colour (0xffb9b9b9));
     g.fillRoundedRectangle(area, 25);
 
