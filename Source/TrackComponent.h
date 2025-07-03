@@ -32,6 +32,7 @@ public:
 
     void paint(juce::Graphics &g) override 
     {
+        
     }
 
     void setStepIndex(int index) {
@@ -43,31 +44,31 @@ public:
 
     void resized() override
     {
-        auto area = getLocalBounds();
+        auto area = getLocalBounds().reduced(60, 0);
+        
 
+        juce::FlexBox fb;
+        //fb.flexWrap = juce::FlexBox::Wrap::noWrap;
+        fb.flexDirection = juce::FlexBox::Direction::row;
+        fb.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
 
-        auto stepWidth = area.getWidth() / 12;
-        auto instWidth = stepWidth;
-        auto padding = stepWidth/5;
+        fb.items.add(juce::FlexItem(inst).withMinWidth(200));
 
-        area.removeFromLeft(0.5 * stepWidth);
-        //area.removeFromRight(0.5 * stepWidth);
-
-        inst.setBounds(area.removeFromLeft(instWidth));
-
-        for (auto* step : steps) {
-			area.removeFromLeft(padding);
-            step->setBounds(area.removeFromLeft(stepWidth));
+        for (auto* step : steps) 
+        {
+            fb.items.add(juce::FlexItem(*step).withMinWidth(80));
         }
+
+        fb.performLayout(area);
     }
 
     bool isCurrentStepActive() {
         return steps[currentStepIndex]->checkActive();
     }
 
+    InstrumentSelectorComponent inst;
 
 private:
     juce::OwnedArray<StepComponent> steps;
-    InstrumentSelectorComponent inst;
     int currentStepIndex = 0;
 };

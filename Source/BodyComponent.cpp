@@ -27,6 +27,17 @@ BodyComponent::~BodyComponent()
 
 void BodyComponent::paint (juce::Graphics& g)
 {
+    juce::DropShadow shadow(juce::Colours::black.withAlpha(.7f), 100, { 0, 0 });
+    juce::Path shadowPath;
+
+    for (auto& track : tracks) 
+    {
+        auto instBounds = track->inst.getBoundsInParent();
+        instBounds.setPosition(track->getX() + 90, track->getY());
+        shadowPath.addRoundedRectangle(instBounds, 15);
+    }
+
+    shadow.drawForPath(g, shadowPath);
 }
 
 void BodyComponent::updateStepIndexes(int index) {
@@ -38,11 +49,19 @@ void BodyComponent::updateStepIndexes(int index) {
 void BodyComponent::resized()
 {
     auto area = getLocalBounds();
-    auto padding = area.getHeight() / 20;
-    auto trackHeight = (area.getHeight() - padding * tracks.size()) / 5;
+   
 
-    for (auto* track : tracks) {
-		area.removeFromTop(padding);
-        track->setBounds(area.removeFromTop(trackHeight));
+    juce::FlexBox fb;
+    fb.flexDirection = juce::FlexBox::Direction::column;
+    fb.flexWrap = juce::FlexBox::Wrap::noWrap;
+    fb.justifyContent = juce::FlexBox::JustifyContent::spaceBetween;
+
+    for (auto* track : tracks)
+    {
+        fb.items.add(juce::FlexItem(*track).withMinHeight(75));
     }
+
+    area.reduce(50, 50);
+
+    fb.performLayout(area);
 }

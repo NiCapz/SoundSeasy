@@ -26,26 +26,11 @@ public:
 
         g.setColour(juce::Colour(0xff414141));
         g.fillEllipse(bounds);
-        
-        
-        /*
-        
-        if (highlighted) 
-        {
-            g.setColour(juce::Colours::white);
-            g.drawEllipse(bounds.reduced(5.0f), 5.0f);
-        }
-        else
-        {
-            g.setColour(juce::Colours::darkgrey);
-            g.drawEllipse(bounds.reduced(5.0f), 3.0f);
-        }
 
         if (isActive) {
-            g.setColour(juce::Colours::beige);
+            g.setColour(juce::Colour (0xffb9b9b9));
             g.fillEllipse(bounds.reduced(7.0f));
         }
-        */
 
 
 	}

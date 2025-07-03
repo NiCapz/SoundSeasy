@@ -23,12 +23,12 @@ SwitchComponent::~SwitchComponent()
 
 void SwitchComponent::paint (juce::Graphics& g)
 {
-    auto area = getLocalBounds().toFloat();
+    auto area = getLocalBounds().toFloat().reduced(30, 0);
 
     g.setColour(juce::Colour(0xffb9b9b9));
-    g.fillRoundedRectangle(area, 25);
+    g.fillRoundedRectangle(area, 15);
 
-    area.reduce(25, 25);
+    area.reduce(20, 20);
     if (pianoIcon != nullptr) 
     {
         pianoIcon->drawWithin(g, area, juce::RectanglePlacement::centred, 1);

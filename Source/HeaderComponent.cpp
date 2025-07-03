@@ -40,30 +40,23 @@ void HeaderComponent::paint(juce::Graphics& g)
 {
     g.setColour(juce::Colour (0xFF585858));
     g.fillAll();
-
     auto bpmBounds = minus.getBounds();
     bpmBounds = bpmBounds.getUnion(bpmLabel.getBounds());
     bpmBounds = bpmBounds.getUnion(plus.getBounds());
     
-    juce::DropShadow Shadow(juce::Colours::black.withAlpha(.7f), 100, { 0, 0 });
+    juce::DropShadow shadow(juce::Colours::black.withAlpha(.7f), 100, { 0, 0 });
     
-    juce::Path swShadowPath;
-    juce::Path rwShadowPath;
-    juce::Path ppShadowPath;
-    juce::Path bpmShadowPath;
+    juce::Path shadowPath;
 
-    swShadowPath.addRoundedRectangle(sw.getBounds(), 25.0f);
-    rwShadowPath.addRoundedRectangle(rw.getBounds().reduced(10, 0), 25.0f);
-    ppShadowPath.addRoundedRectangle(pp.getBounds().reduced(10, 0), 25.0f);
-    bpmShadowPath.addRoundedRectangle(bpmBounds, 25.0f);
+    shadowPath.addRoundedRectangle(sw.getBounds().reduced(30, 0), 15.0f);
+    shadowPath.addRoundedRectangle(rw.getBounds().reduced(10, 0), 15.0f);
+    shadowPath.addRoundedRectangle(pp.getBounds().reduced(10, 0), 15.0f);
+    shadowPath.addRoundedRectangle(bpmBounds, 15.0f);
     
-    Shadow.drawForPath(g, swShadowPath);
-    Shadow.drawForPath(g, rwShadowPath);
-    Shadow.drawForPath(g, ppShadowPath);
-    Shadow.drawForPath(g, bpmShadowPath);
+    shadow.drawForPath(g, shadowPath);
 
     g.setColour(juce::Colour(0xffb9b9b9));
-    g.fillRoundedRectangle(bpmBounds.toFloat(), 25);
+    g.fillRoundedRectangle(bpmBounds.toFloat(), 15);
 }
 
 void HeaderComponent::setRewindCallback(std::function <void()> callback) {
@@ -100,17 +93,17 @@ void HeaderComponent::resized()
     juce::FlexBox ppGroup;
     ppGroup.flexDirection = juce::FlexBox::Direction::row;
     ppGroup.items.add(
-        juce::FlexItem(rw).withMinWidth(150),
-        juce::FlexItem(pp).withMinWidth(150)
+        juce::FlexItem(rw).withMinWidth(125),
+        juce::FlexItem(pp).withMinWidth(125)
     );
 
     juce::FlexBox bpmGroup;
     bpmGroup.flexDirection = juce::FlexBox::Direction::row;
     //bpmGroup.alignItems = juce::FlexBox::AlignItems::center;
     bpmGroup.items.add(
-        juce::FlexItem(minus).withMinWidth(150),
-        juce::FlexItem(bpmLabel).withMinWidth(150),
-        juce::FlexItem(plus).withMinWidth(150)
+        juce::FlexItem(minus).withMinWidth(75),
+        juce::FlexItem(bpmLabel).withMinWidth(125),
+        juce::FlexItem(plus).withMinWidth(75)
     );
 
     mainFlex.items.add(
@@ -120,7 +113,8 @@ void HeaderComponent::resized()
     );
 
     auto area = getLocalBounds();
-    area.reduce(70, 35);
+    area.reduce(60, 20);
+    area.removeFromLeft(100);
     mainFlex.performLayout(area);
 }
 

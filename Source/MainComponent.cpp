@@ -143,8 +143,8 @@ void MainComponent::timerCallback() {
 void MainComponent::resized()
 {
     auto area = getLocalBounds();
-    auto headerHeight = area.getHeight() * 0.2;
-    auto bodyheight = area.getHeight() * 0.75;
+    auto headerHeight = area.getHeight() * 0.15;
+    auto bodyheight = area.getHeight() * 0.85;
     
     header.setBounds(area.removeFromTop(headerHeight));
     body.setBounds(area.removeFromTop(bodyheight));

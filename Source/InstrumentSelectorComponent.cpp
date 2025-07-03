@@ -51,11 +51,17 @@ void InstrumentSelectorComponent::paint (juce::Graphics& g)
     auto area = getLocalBounds().toFloat();
 
     g.setColour(juce::Colour(0xffb9b9b9));
-    g.fillRoundedRectangle(area, 25.0f);
+    g.fillRoundedRectangle(area, 15.0f);
 
     if (icon != nullptr)
     {
-        icon->drawWithin(g, area.reduced(30), juce::RectanglePlacement::centred, 1.0f);
+        if (name != "Crash")
+        {
+        icon->drawWithin(g, area.reduced(20), juce::RectanglePlacement::centred, 1.0f);
+        }
+        else {
+        icon->drawWithin(g, area.reduced(22), juce::RectanglePlacement::centred, 1.0f);
+        }
     }
 
     g.setColour(juce::Colours::black);
