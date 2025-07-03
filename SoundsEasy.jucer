@@ -3,6 +3,39 @@
 <JUCERPROJECT id="FCkXQC" name="SoundsEasy" projectType="guiapp" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="arNiCt" name="SoundsEasy">
+    <GROUP id="{07766080-4775-F6BC-FD97-02DAB392F937}" name="Audio">
+      <GROUP id="{D51D3EB8-80E1-0CDA-DA57-754800DC7165}" name="DrumMachine">
+        <FILE id="oTIq5v" name="DrumSampler.cpp" compile="1" resource="0" file="Source/Audio/DrumMachine/DrumSampler.cpp"/>
+        <FILE id="w6msNC" name="DrumSampler.h" compile="0" resource="0" file="Source/Audio/DrumMachine/DrumSampler.h"/>
+        <FILE id="zaVH8d" name="OneShotSamplerTrack.cpp" compile="1" resource="0"
+              file="Source/Audio/DrumMachine/OneShotSamplerTrack.cpp"/>
+        <FILE id="TFfAFb" name="OneShotSamplerTrack.h" compile="0" resource="0"
+              file="Source/Audio/DrumMachine/OneShotSamplerTrack.h"/>
+      </GROUP>
+      <GROUP id="{123FF49E-D4AB-F7A3-0C65-42CE71808F5C}" name="Piano">
+        <FILE id="rLO6zh" name="PianoSampler.cpp" compile="1" resource="0"
+              file="Source/Audio/Piano/PianoSampler.cpp"/>
+        <FILE id="UhcVKW" name="PianoSampler.h" compile="0" resource="0" file="Source/Audio/Piano/PianoSampler.h"/>
+        <FILE id="ys3Dh6" name="SamplerTrack.cpp" compile="1" resource="0"
+              file="Source/Audio/Piano/SamplerTrack.cpp"/>
+        <FILE id="yC5F4P" name="SamplerTrack.h" compile="0" resource="0" file="Source/Audio/Piano/SamplerTrack.h"/>
+      </GROUP>
+      <GROUP id="{BB1205C8-1F7A-CDC8-1B74-B48FD54BE729}" name="Synth">
+        <FILE id="CEoZkW" name="Synth.cpp" compile="1" resource="0" file="Source/Audio/Synth/Synth.cpp"/>
+        <FILE id="JlAruS" name="Synth.h" compile="0" resource="0" file="Source/Audio/Synth/Synth.h"/>
+        <FILE id="qUqj3i" name="Voice.cpp" compile="1" resource="0" file="Source/Audio/Synth/Voice.cpp"/>
+        <FILE id="oMQD72" name="Voice.h" compile="0" resource="0" file="Source/Audio/Synth/Voice.h"/>
+      </GROUP>
+      <FILE id="EWcNmj" name="Envelope.cpp" compile="1" resource="0" file="Source/Audio/Envelope.cpp"/>
+      <FILE id="MPWeCO" name="Envelope.h" compile="0" resource="0" file="Source/Audio/Envelope.h"/>
+      <FILE id="gqInyp" name="MidiInstrument.h" compile="0" resource="0"
+            file="Source/Audio/MidiInstrument.h"/>
+      <FILE id="kaFXf1" name="MidiManager.cpp" compile="1" resource="0" file="Source/Audio/MidiManager.cpp"/>
+      <FILE id="FpC3kc" name="MidiManager.h" compile="0" resource="0" file="Source/Audio/MidiManager.h"/>
+      <FILE id="y9cgqX" name="SmoothedParameter.h" compile="0" resource="0"
+            file="Source/Audio/SmoothedParameter.h"/>
+      <FILE id="IW0ReI" name="Utils.h" compile="0" resource="0" file="Source/Audio/Utils.h"/>
+    </GROUP>
     <GROUP id="{8D1E330C-D155-11A4-6B41-4157CC310D1B}" name="AudioFiles">
       <FILE id="lbXDMY" name="29-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/29-Mezzo.flac"/>
       <FILE id="gF7GHt" name="32-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/32-Mezzo.flac"/>
@@ -19,73 +52,55 @@
       <FILE id="suHuoz" name="OpenHat.wav" compile="0" resource="1" file="AudioFiles/DrumMachine/OpenHat.wav"/>
       <FILE id="JpXPDq" name="Snare.wav" compile="0" resource="1" file="AudioFiles/DrumMachine/Snare.wav"/>
     </GROUP>
-    <GROUP id="{66096B8B-93AC-8C2F-5968-D813BE26D7F8}" name="Source">
-      <GROUP id="{FF469CEF-9C3B-5FAA-6A2F-E2DAFD8CCA9F}" name="Audio">
-        <FILE id="j8k9mK" name="MidiInstrument.h" compile="0" resource="0"
-              file="Source/Audio/MidiInstrument.h"/>
-        <FILE id="wEbyC6" name="MidiManager.cpp" compile="1" resource="0" file="Source/Audio/MidiManager.cpp"/>
-        <FILE id="UoDvNH" name="MidiManager.h" compile="0" resource="0" file="Source/Audio/MidiManager.h"/>
-        <FILE id="BlbnCl" name="Envelope.cpp" compile="1" resource="0" file="Source/Audio/Envelope.cpp"/>
-        <FILE id="IbMKKS" name="Envelope.h" compile="0" resource="0" file="Source/Audio/Envelope.h"/>
-        <FILE id="IkY4Ie" name="SmoothedParameter.h" compile="0" resource="0"
-              file="Source/Audio/SmoothedParameter.h"/>
-        <FILE id="Egd7b4" name="Utils.h" compile="0" resource="0" file="Source/Audio/Utils.h"/>
-        <GROUP id="{9F186B73-BDBA-C1BA-8879-A4BADCC00314}" name="Synth">
-          <FILE id="vs90bh" name="Synth.cpp" compile="1" resource="0" file="Source/Audio/Synth/Synth.cpp"/>
-          <FILE id="FftVIB" name="Synth.h" compile="0" resource="0" file="Source/Audio/Synth/Synth.h"/>
-          <FILE id="gKvtoV" name="Voice.cpp" compile="1" resource="0" file="Source/Audio/Synth/Voice.cpp"/>
-          <FILE id="T0jKCZ" name="Voice.h" compile="0" resource="0" file="Source/Audio/Synth/Voice.h"/>
-        </GROUP>
-        <GROUP id="{6A93FDD2-9620-C6CC-7744-9B3243A5B42D}" name="Piano">
-          <FILE id="C9diz7" name="PianoSampler.cpp" compile="1" resource="0"
-                file="Source/Audio/Piano/PianoSampler.cpp"/>
-          <FILE id="sKQ6IQ" name="PianoSampler.h" compile="0" resource="0" file="Source/Audio/Piano/PianoSampler.h"/>
-          <FILE id="W4emML" name="SamplerTrack.cpp" compile="1" resource="0"
-                file="Source/Audio/Piano/SamplerTrack.cpp"/>
-          <FILE id="NNmwdJ" name="SamplerTrack.h" compile="0" resource="0" file="Source/Audio/Piano/SamplerTrack.h"/>
-        </GROUP>
-        <GROUP id="{47B1D1E2-B52E-037D-FDA2-9CAEEDB9B4CA}" name="DrumMachine">
-          <FILE id="V7dBXx" name="DrumSampler.cpp" compile="1" resource="0" file="Source/Audio/DrumMachine/DrumSampler.cpp"/>
-          <FILE id="RZBIWv" name="DrumSampler.h" compile="0" resource="0" file="Source/Audio/DrumMachine/DrumSampler.h"/>
-          <FILE id="w7ZM3F" name="OneShotSamplerTrack.cpp" compile="1" resource="0"
-                file="Source/Audio/DrumMachine/OneShotSamplerTrack.cpp"/>
-          <FILE id="Et3xT0" name="OneShotSamplerTrack.h" compile="0" resource="0"
-                file="Source/Audio/DrumMachine/OneShotSamplerTrack.h"/>
-        </GROUP>
-      </GROUP>
-      <FILE id="QeeTjn" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="xc0ltm" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="PIHhfp" name="MainComponent.cpp" compile="1" resource="0"
-            file="Source/MainComponent.cpp"/>
-      <FILE id="jGkM05" name="StepComponent.h" compile="0" resource="0" file="Source/StepComponent.h"/>
-      <FILE id="EKOJL0" name="TrackComponent.h" compile="0" resource="0"
-            file="Source/TrackComponent.h"/>
-      <FILE id="ru51ur" name="BodyComponent.cpp" compile="1" resource="0"
-            file="Source/BodyComponent.cpp"/>
-      <FILE id="z3K0Fs" name="BodyComponent.h" compile="0" resource="0" file="Source/BodyComponent.h"/>
-      <FILE id="QBcqHh" name="HeaderComponent.cpp" compile="1" resource="0"
-            file="Source/HeaderComponent.cpp"/>
-      <FILE id="Oebikm" name="HeaderComponent.h" compile="0" resource="0"
-            file="Source/HeaderComponent.h"/>
-      <FILE id="P3AJXi" name="PlayPauseComponent.cpp" compile="1" resource="0"
-            file="Source/PlayPauseComponent.cpp"/>
-      <FILE id="A1YGaW" name="PlayPauseComponent.h" compile="0" resource="0"
-            file="Source/PlayPauseComponent.h"/>
-      <FILE id="TvQ5u8" name="SwitchComponent.cpp" compile="1" resource="0"
-            file="Source/SwitchComponent.cpp"/>
-      <FILE id="HJjOCp" name="SwitchComponent.h" compile="0" resource="0"
-            file="Source/SwitchComponent.h"/>
-      <FILE id="jS5W09" name="InstrumentSelectorComponent.cpp" compile="1"
-            resource="0" file="Source/InstrumentSelectorComponent.cpp"/>
-      <FILE id="RwvO8r" name="InstrumentSelectorComponent.h" compile="0"
-            resource="0" file="Source/InstrumentSelectorComponent.h"/>
-      <FILE id="d5eMcP" name="RewindComponent.cpp" compile="1" resource="0"
-            file="Source/RewindComponent.cpp"/>
-      <FILE id="lsaGfb" name="RewindComponent.h" compile="0" resource="0"
-            file="Source/RewindComponent.h"/>
-      <FILE id="D7jgsF" name="BpmButton.cpp" compile="1" resource="0" file="Source/BpmButton.cpp"/>
-      <FILE id="bWMwdI" name="BpmButton.h" compile="0" resource="0" file="Source/BpmButton.h"/>
+    <GROUP id="{72DD2416-2784-5111-93C5-9CFBBE1FC899}" name="Icons">
+      <FILE id="IdeLNd" name="minus.svg" compile="0" resource="1" file="Icons/minus.svg"/>
+      <FILE id="OMDHSZ" name="plus.svg" compile="0" resource="1" file="Icons/plus.svg"/>
+      <FILE id="GbnnNQ" name="crash.svg" compile="0" resource="1" file="Icons/crash.svg"/>
+      <FILE id="y8wkfv" name="hihat.svg" compile="0" resource="1" file="Icons/hihat.svg"/>
+      <FILE id="eZnU3K" name="hihat_open.svg" compile="0" resource="1" file="Icons/hihat_open.svg"/>
+      <FILE id="INSIpV" name="kick.svg" compile="0" resource="1" file="Icons/kick.svg"/>
+      <FILE id="NlJeVP" name="pause.svg" compile="0" resource="1" file="Icons/pause.svg"/>
+      <FILE id="YhDQV3" name="piano.svg" compile="0" resource="1" file="Icons/piano.svg"/>
+      <FILE id="fgQQc5" name="play.svg" compile="0" resource="1" file="Icons/play.svg"/>
+      <FILE id="agGUpA" name="rewind.svg" compile="0" resource="1" file="Icons/rewind.svg"/>
+      <FILE id="pRV2T9" name="snare.svg" compile="0" resource="1" file="Icons/snare.svg"/>
     </GROUP>
+    <FILE id="fcuMuI" name="BodyComponent.cpp" compile="1" resource="0"
+          file="Source/BodyComponent.cpp"/>
+    <FILE id="mV6vX9" name="BodyComponent.h" compile="0" resource="0" file="Source/BodyComponent.h"/>
+    <FILE id="TWf6DK" name="BpmButton.cpp" compile="1" resource="0" file="Source/BpmButton.cpp"/>
+    <FILE id="ksurnS" name="BpmButton.h" compile="0" resource="0" file="Source/BpmButton.h"/>
+    <FILE id="SjUWDo" name="HeaderComponent.cpp" compile="1" resource="0"
+          file="Source/HeaderComponent.cpp"/>
+    <FILE id="g5AfXd" name="HeaderComponent.h" compile="0" resource="0"
+          file="Source/HeaderComponent.h"/>
+    <FILE id="KKR3lh" name="InstrumentSelectorComponent.cpp" compile="1"
+          resource="0" file="Source/InstrumentSelectorComponent.cpp"/>
+    <FILE id="b0VoPZ" name="InstrumentSelectorComponent.h" compile="0"
+          resource="0" file="Source/InstrumentSelectorComponent.h"/>
+    <FILE id="AmcdMx" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    <FILE id="FSvg3f" name="MainComponent.cpp" compile="1" resource="0"
+          file="Source/MainComponent.cpp"/>
+    <FILE id="x80YDv" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+    <FILE id="UNVNgP" name="PlayPauseComponent.cpp" compile="1" resource="0"
+          file="Source/PlayPauseComponent.cpp"/>
+    <FILE id="pxpaYQ" name="PlayPauseComponent.h" compile="0" resource="0"
+          file="Source/PlayPauseComponent.h"/>
+    <FILE id="TvMVw7" name="RewindComponent.cpp" compile="1" resource="0"
+          file="Source/RewindComponent.cpp"/>
+    <FILE id="iDlgkR" name="RewindComponent.h" compile="0" resource="0"
+          file="Source/RewindComponent.h"/>
+    <FILE id="Gez8hr" name="StepComponent.h" compile="0" resource="0" file="Source/StepComponent.h"/>
+    <FILE id="hmjNEK" name="SwitchComponent.cpp" compile="1" resource="0"
+          file="Source/SwitchComponent.cpp"/>
+    <FILE id="FxznR1" name="SwitchComponent.h" compile="0" resource="0"
+          file="Source/SwitchComponent.h"/>
+    <FILE id="GjHBCa" name="SwitcherComponent.cpp" compile="1" resource="0"
+          file="Source/SwitcherComponent.cpp"/>
+    <FILE id="ucIb2Y" name="SwitcherComponent.h" compile="0" resource="0"
+          file="Source/SwitcherComponent.h"/>
+    <FILE id="whd47c" name="TrackComponent.h" compile="0" resource="0"
+          file="Source/TrackComponent.h"/>
   </MAINGROUP>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>

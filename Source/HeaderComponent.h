@@ -14,6 +14,7 @@
 #include "PlayPauseComponent.h"
 #include "RewindComponent.h"
 #include "BpmButton.h"
+#include "SwitchComponent.h"
 
 //==============================================================================
 /*
@@ -36,18 +37,21 @@ public:
 
     void setTempoLabelText(int);
 
+    // modify this to change the state from drumsampler to cord helper
+    bool showDrumSampler = true;
 
     juce::TextEditor bpmLabel;
     
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(HeaderComponent)
-    
-    
+
+    SwitchComponent sw;
+
     juce::String rwComponentName = "pp";
     RewindComponent rw { rwComponentName };
 
     juce::String ppComponentName = "pp";
-    PlayPauseComponent pp{ ppComponentName };
+    PlayPauseComponent pp { ppComponentName };
     
     juce::String plusName = "plus";
     BpmButton plus { plusName, true};

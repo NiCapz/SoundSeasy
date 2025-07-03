@@ -16,14 +16,19 @@ HeaderComponent::HeaderComponent()
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
+    
+    addAndMakeVisible(sw);
     addAndMakeVisible(pp);
     addAndMakeVisible(rw);
     addAndMakeVisible(bpmLabel);
     addAndMakeVisible(plus);
     addAndMakeVisible(minus);
 
+
+
     bpmLabel.setJustification(juce::Justification::centred);
     bpmLabel.setInputRestrictions(3, "1234567890");
+    bpmLabel.applyColourToAllText(juce::Colours::black);
 }
 
 HeaderComponent::~HeaderComponent()
@@ -38,14 +43,15 @@ void HeaderComponent::setTempoLabelText(int bpm)
 
 void HeaderComponent::paint(juce::Graphics& g)
 {
-    g.setColour(juce::Colours::black);
-    g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
-    g.setColour(juce::Colours::white);
+    g.setColour(juce::Colour (0xFF585858));
+    g.fillAll();
 
-    g.setFont(juce::FontOptions(14.0f));
-    g.drawText("SoundsEasy", getLocalBounds(),
-        juce::Justification::centred, true);   // draw some placeholder text
-
+    auto bpmBounds = minus.getBounds();
+    bpmBounds = bpmBounds.getUnion(bpmLabel.getBounds());
+    bpmBounds = bpmBounds.getUnion(plus.getBounds());
+    bpmBounds.reduce(0, 25);
+    g.setColour(juce::Colour(0xffb9b9b9));
+    g.fillRoundedRectangle(bpmBounds.toFloat(), 25);
 }
 
 void HeaderComponent::setRewindCallback(std::function <void()> callback) {
@@ -68,22 +74,21 @@ void HeaderComponent::setPlayPauseCallback(std::function <void(bool isButtonPlay
     };
 }
 
-
-
 void HeaderComponent::resized()
 {
-    auto area = getLocalBounds();
+    juce::FlexBox fb;
+    fb.flexDirection = juce::FlexBox::Direction::row;
+    fb.flexWrap = juce::FlexBox::Wrap::noWrap;
+    fb.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
 
-    auto paddingWidth = area.getWidth() / 4;
-    auto buttonWidth = paddingWidth / 4;
+    fb.items.add(
+        juce::FlexItem(sw).withMinWidth(150.0f),
+        juce::FlexItem(rw).withMinWidth(150.0f),
+        juce::FlexItem(pp).withMinWidth(150.0f),
+        juce::FlexItem(minus).withMinWidth(150.0f),
+        juce::FlexItem(bpmLabel).withMinWidth(150.0f),
+        juce::FlexItem(plus).withMinWidth(150.0f)
+    );
 
-    area.removeFromLeft(paddingWidth);
-    rw.setBounds(area.removeFromLeft(buttonWidth));
-    pp.setBounds(area.removeFromLeft(buttonWidth));
-
-    area.removeFromRight(paddingWidth/2);
-    minus.setBounds(area.removeFromRight(buttonWidth));
-    bpmLabel.setBounds(area.removeFromRight(buttonWidth * 2));
-    plus.setBounds(area.removeFromRight(buttonWidth));
-
+    fb.performLayout(getLocalBounds());
 }

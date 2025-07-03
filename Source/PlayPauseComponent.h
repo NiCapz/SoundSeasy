@@ -32,6 +32,10 @@ public:
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PlayPauseComponent)
-        bool isPlaying = false;
+    
+    bool isPlaying = false;
+    
+    std::unique_ptr<juce::Drawable> playIcon;
+    std::unique_ptr<juce::Drawable> pauseIcon;
 
 };

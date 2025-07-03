@@ -25,5 +25,7 @@ public:
     void resized() override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SwitchComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SwitchComponent)
+
+        std::unique_ptr<juce::Drawable> pianoIcon;
 };

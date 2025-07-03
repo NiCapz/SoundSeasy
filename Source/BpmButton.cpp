@@ -14,6 +14,8 @@
 //==============================================================================
 BpmButton::BpmButton(juce::String& name, bool isPlus) : Button(name), isPlus(isPlus)
 {
+    plusIcon = juce::Drawable::createFromImageData(BinaryData::plus_svg, BinaryData::plus_svgSize);
+    minusIcon = juce::Drawable::createFromImageData(BinaryData::minus_svg, BinaryData::minus_svgSize);
 }
 
 BpmButton::~BpmButton()
@@ -21,30 +23,19 @@ BpmButton::~BpmButton()
 }
 
 void BpmButton::paintButton(juce::Graphics& g, bool isHighlighted, bool isDown) {
-    g.setColour(juce::Colours::white);
 
-    auto area = getLocalBounds();
+    auto area = getLocalBounds().toFloat();
 
-    auto padding = (area.getHeight() - area.getWidth()) / 2;
-
-    area.removeFromTop(padding);
-    area.removeFromBottom(padding);
-
-    auto padding2 = area.getWidth() * -.1;
-    area.expand(padding2, padding2);
-
-    g.drawEllipse(area.toFloat(), 3.0f);
-
-    g.setFont(juce::FontOptions(50.0f));
-
-    juce::String buttonText = "-";
-
+    area.reduce(0, 50);
+    
     if (isPlus) {
-        buttonText = "+";
+        plusIcon->drawWithin(g, area, juce::RectanglePlacement::centred, 1);
+    }
+    else
+    {
+        minusIcon->drawWithin(g, area, juce::RectanglePlacement::centred, 1);
     }
 
-    g.setFont(juce::FontOptions(14.0f));
-    g.drawText(buttonText, area, juce::Justification::centred);
 }
 
 void BpmButton::resized()

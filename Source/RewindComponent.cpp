@@ -14,6 +14,7 @@
 //==============================================================================
 RewindComponent::RewindComponent(juce::String& name) : juce::Button(name)
 {
+    rewindIcon = juce::Drawable::createFromImageData(BinaryData::rewind_svg, BinaryData::rewind_svgSize);
 }
 
 RewindComponent::~RewindComponent()
@@ -22,35 +23,21 @@ RewindComponent::~RewindComponent()
 
 void RewindComponent::paintButton (juce::Graphics& g, bool isHighlighted, bool isDown)
 {
-    g.setColour (juce::Colours::white);
     
-    auto area = getLocalBounds();
-    //g.drawRect(area);
+    auto area = getLocalBounds().toFloat();
 
-    auto height = area.getHeight();
-    auto paddingLeft = area.getWidth() * 0.1;
-
-    juce::Path p;
-
-    // left bar
-    p.startNewSubPath(paddingLeft, height * 0.3);
-    p.lineTo(paddingLeft, height * 0.7);
-    p.lineTo(paddingLeft * 2, height * 0.7);
-    p.lineTo(paddingLeft * 2, height * 0.3);
-    p.closeSubPath();
+    area.reduce(0, 25);
+    g.setColour (juce::Colour (0xffb9b9b9));
+    g.fillRoundedRectangle(area, 25);
 
 
-    // triangle
-    p.startNewSubPath(paddingLeft, height * 0.5);
-    p.lineTo(paddingLeft + height * 0.4, height * 0.3);
-    p.lineTo(paddingLeft + height * 0.4, height * 0.7);
-    p.closeSubPath();
-
-    g.fillPath(p);
-
-    g.setColour(juce::Colours::black);
-    g.strokePath(p, juce::PathStrokeType(1.0f));
-
+    area.reduce(25, 25);
+    if (rewindIcon != nullptr) 
+    {
+        rewindIcon->drawWithin(g, area, juce::RectanglePlacement::centred, 1);
+    }
+    
+    
 }
 
 void RewindComponent::resized()

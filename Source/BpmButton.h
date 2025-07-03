@@ -29,4 +29,6 @@ protected:
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BpmButton)
         bool isPlus;
+    std::unique_ptr<juce::Drawable> plusIcon;
+    std::unique_ptr<juce::Drawable> minusIcon;
 };

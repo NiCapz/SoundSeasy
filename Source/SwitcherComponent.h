@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    RewindComponent.h
-    Created: 18 Jun 2025 2:31:16pm
+    SwitcherComponent.h
+    Created: 3 Jul 2025 2:59:29pm
     Author:  Niko
 
   ==============================================================================
@@ -15,18 +15,15 @@
 //==============================================================================
 /*
 */
-class RewindComponent  : public juce::Button
+class SwitcherComponent  : public juce::ToggleButton
 {
 public:
-    RewindComponent(juce::String&);
-    ~RewindComponent() override;
+    SwitcherComponent();
+    ~SwitcherComponent() override;
 
-    void paintButton(juce::Graphics&, bool, bool) override;
-
+    void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(RewindComponent)
-
-        std::unique_ptr<juce::Drawable> rewindIcon;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SwitcherComponent)
 };
