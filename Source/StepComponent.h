@@ -27,9 +27,15 @@ public:
         g.setColour(juce::Colour(0xff414141));
         g.fillEllipse(bounds);
 
-        if (isActive) {
+        if (isActive) 
+        {
             g.setColour(juce::Colour (0xffb9b9b9));
-            g.fillEllipse(bounds.reduced(7.0f));
+            g.fillEllipse(bounds.reduced(7));
+        }
+        if (highlighted)
+        {
+            g.setColour(juce::Colour (0xff585858));
+            g.drawEllipse(bounds.reduced(3), 3);
         }
 
 
