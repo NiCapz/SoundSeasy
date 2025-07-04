@@ -14,8 +14,8 @@
 //==============================================================================
 HeaderComponent::HeaderComponent()
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
+    scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600.0f,
+        getTopLevelComponent()->getHeight() / 720.0f);
     
     addAndMakeVisible(sw);
     addAndMakeVisible(pp);
@@ -38,25 +38,45 @@ void HeaderComponent::setTempoLabelText(int bpm)
 
 void HeaderComponent::paint(juce::Graphics& g)
 {
+    
+
     g.setColour(juce::Colour (0xFF585858));
     g.fillAll();
     auto bpmBounds = minus.getBounds();
     bpmBounds = bpmBounds.getUnion(bpmLabel.getBounds());
     bpmBounds = bpmBounds.getUnion(plus.getBounds());
     
-    juce::DropShadow shadow(juce::Colours::black.withAlpha(.7f), 100, { 0, 0 });
+    juce::DropShadow shadow(juce::Colours::black.withAlpha(.5f), 20, { 0, 4 });
     
     juce::Path shadowPath;
 
-    shadowPath.addRoundedRectangle(sw.getBounds().reduced(30, 0), 15.0f);
-    shadowPath.addRoundedRectangle(rw.getBounds().reduced(10, 0), 15.0f);
-    shadowPath.addRoundedRectangle(pp.getBounds().reduced(10, 0), 15.0f);
-    shadowPath.addRoundedRectangle(bpmBounds, 15.0f);
+    shadowPath.addRoundedRectangle(sw.getBounds().reduced(scaled(30), 0), scaled(15.0f));
+    shadowPath.addRoundedRectangle(rw.getBounds().reduced(scaled(10), 0), scaled(15.0f));
+    shadowPath.addRoundedRectangle(pp.getBounds().reduced(scaled(10), 0), scaled(15.0f));
+    shadowPath.addRoundedRectangle(bpmBounds, scaled(15.0f));
     
     shadow.drawForPath(g, shadowPath);
+    
+    /*
+    shadow.drawForRectangle(g, sw.getBounds().reduced(30, 0));
+    shadow.drawForRectangle(g, rw.getBounds().reduced(10, 0));
+    shadow.drawForRectangle(g, pp.getBounds().reduced(10, 0));
+    shadow.drawForRectangle(g, bpmBounds);
+    */
+
 
     g.setColour(juce::Colour(0xffb9b9b9));
-    g.fillRoundedRectangle(bpmBounds.toFloat(), 15);
+    g.fillRoundedRectangle(bpmBounds.toFloat(), scaled(15.0f));
+
+    /*
+    g.setColour(juce::Colours::black);
+    g.drawRect(sw.getBounds(), 2);
+    g.drawRect(rw.getBounds(), 2);
+    g.drawRect(pp.getBounds(), 2);
+    g.drawRect(plus.getBounds(), 2);
+    g.drawRect(minus.getBounds(), 2);
+    g.drawRect(bpmBounds, 2);
+    */
 }
 
 void HeaderComponent::setRewindCallback(std::function <void()> callback) {
@@ -79,8 +99,15 @@ void HeaderComponent::setPlayPauseCallback(std::function <void(bool isButtonPlay
     };
 }
 
+float HeaderComponent::scaled(float val) {
+    return val * scaleFactor;
+}
+
 void HeaderComponent::resized()
 {
+    scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600.0f,
+        getTopLevelComponent()->getHeight() / 720.0f);
+
     juce::FlexBox mainFlex;
     mainFlex.flexDirection = juce::FlexBox::Direction::row;
     mainFlex.flexWrap = juce::FlexBox::Wrap::noWrap;
@@ -88,22 +115,22 @@ void HeaderComponent::resized()
 
     juce::FlexBox switchGroup;
     switchGroup.flexDirection = juce::FlexBox::Direction::row;
-    switchGroup.items.add(juce::FlexItem(sw).withMinWidth(150));
+    switchGroup.items.add(juce::FlexItem(sw).withMinWidth(scaled(150)));
 
     juce::FlexBox ppGroup;
     ppGroup.flexDirection = juce::FlexBox::Direction::row;
     ppGroup.items.add(
-        juce::FlexItem(rw).withMinWidth(125),
-        juce::FlexItem(pp).withMinWidth(125)
+        juce::FlexItem(rw).withMinWidth(scaled(125)),
+        juce::FlexItem(pp).withMinWidth(scaled(125))
     );
 
     juce::FlexBox bpmGroup;
     bpmGroup.flexDirection = juce::FlexBox::Direction::row;
     //bpmGroup.alignItems = juce::FlexBox::AlignItems::center;
     bpmGroup.items.add(
-        juce::FlexItem(minus).withMinWidth(75),
-        juce::FlexItem(bpmLabel).withMinWidth(125),
-        juce::FlexItem(plus).withMinWidth(75)
+        juce::FlexItem(minus).withMinWidth(scaled(75)),
+        juce::FlexItem(bpmLabel).withMinWidth(scaled(125)),
+        juce::FlexItem(plus).withMinWidth(scaled(75))
     );
 
     mainFlex.items.add(
@@ -113,8 +140,8 @@ void HeaderComponent::resized()
     );
 
     auto area = getLocalBounds();
-    area.reduce(60, 20);
-    area.removeFromLeft(100);
+    area.reduce(scaled(60), scaled(20));
+    area.removeFromLeft(scaled(100));
     mainFlex.performLayout(area);
 }
 
@@ -125,11 +152,11 @@ void HeaderComponent::setupBpmLabel(juce::TextEditor& bpmLabel) {
     bpmLabel.setColour(juce::TextEditor::outlineColourId, juce::Colours::transparentWhite);
     bpmLabel.setColour(juce::TextEditor::focusedOutlineColourId, juce::Colours::transparentWhite);
     bpmLabel.setColour(juce::TextEditor::textColourId, juce::Colours::black);
-    /*
+    
     juce::Font interFont = 
         juce::Font(juce::Typeface::createSystemTypefaceFor(BinaryData::InterVariableFont_opszwght_ttf, 
             BinaryData::InterVariableFont_opszwght_ttfSize));
+
+    interFont.setBold(true);
     bpmLabel.setFont(interFont.withPointHeight(32.0f));
-    */
-    bpmLabel.setFont(40.0f);
 }

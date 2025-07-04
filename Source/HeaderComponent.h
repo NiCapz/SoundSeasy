@@ -43,6 +43,8 @@ public:
     bool showDrumSampler = true;
 
     juce::TextEditor bpmLabel;
+
+    float scaled (float val);
     
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(HeaderComponent)
@@ -60,4 +62,6 @@ private:
     
     juce::String minusName = "minus";
     BpmButton minus { minusName, false};
+
+    float scaleFactor;
 };

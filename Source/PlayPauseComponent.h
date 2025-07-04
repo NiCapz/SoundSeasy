@@ -30,6 +30,8 @@ public:
     bool getState();
     void toggleState();
 
+    float scaled(float val);
+
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PlayPauseComponent)
     
@@ -37,5 +39,7 @@ private:
     
     std::unique_ptr<juce::Drawable> playIcon;
     std::unique_ptr<juce::Drawable> pauseIcon;
+
+    float scaleFactor;
 
 };

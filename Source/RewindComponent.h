@@ -25,8 +25,11 @@ public:
 
     void resized() override;
 
+    float scaled(float val);
+
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(RewindComponent)
 
         std::unique_ptr<juce::Drawable> rewindIcon;
+    float scaleFactor;
 };

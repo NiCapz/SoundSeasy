@@ -17,6 +17,7 @@ class TrackComponent : public juce::Component
 {
 public:
     TrackComponent(juce::String instrumentName) {
+        scaleFactor = 1;
 
         addAndMakeVisible(inst);
 
@@ -44,7 +45,10 @@ public:
 
     void resized() override
     {
-        auto area = getLocalBounds().reduced(60, 0);
+        scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600,
+            getTopLevelComponent()->getHeight() / 720);
+
+        auto area = getLocalBounds().reduced(scaled(60), 0);
         
 
         juce::FlexBox fb;
@@ -52,11 +56,11 @@ public:
         fb.flexDirection = juce::FlexBox::Direction::row;
         fb.justifyContent = juce::FlexBox::JustifyContent::spaceAround;
 
-        fb.items.add(juce::FlexItem(inst).withMinWidth(200));
+        fb.items.add(juce::FlexItem(inst).withMinWidth(scaled(200)));
 
         for (auto* step : steps) 
         {
-            fb.items.add(juce::FlexItem(*step).withMinWidth(80));
+            fb.items.add(juce::FlexItem(*step).withMinWidth(scaled(120)));
         }
 
         fb.performLayout(area);
@@ -68,7 +72,13 @@ public:
 
     InstrumentSelectorComponent inst;
 
+    float scaled(float val) 
+    {
+        return val * scaleFactor;
+    }
+
 private:
     juce::OwnedArray<StepComponent> steps;
     int currentStepIndex = 0;
+    float scaleFactor;
 };

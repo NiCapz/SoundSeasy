@@ -20,6 +20,10 @@ InstrumentSelectorComponent::~InstrumentSelectorComponent()
 {
 }
 
+float InstrumentSelectorComponent::scaled(float val) {
+    return val * scaleFactor;
+}
+
 void InstrumentSelectorComponent::setName(juce::String name) {
     this->name = name;
 
@@ -50,17 +54,20 @@ void InstrumentSelectorComponent::paint (juce::Graphics& g)
 {
     auto area = getLocalBounds().toFloat();
 
+    scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600,
+        getTopLevelComponent()->getHeight() / 720);
+
     g.setColour(juce::Colour(0xffb9b9b9));
-    g.fillRoundedRectangle(area, 15.0f);
+    g.fillRoundedRectangle(area, scaled(15.0f));
 
     if (icon != nullptr)
     {
         if (name != "Crash")
         {
-        icon->drawWithin(g, area.reduced(20), juce::RectanglePlacement::centred, 1.0f);
+        icon->drawWithin(g, area.reduced(scaled(20)), juce::RectanglePlacement::centred, 1.0f);
         }
         else {
-        icon->drawWithin(g, area.reduced(22), juce::RectanglePlacement::centred, 1.0f);
+        icon->drawWithin(g, area.reduced(scaled(22)), juce::RectanglePlacement::centred, 1.0f);
         }
     }
 

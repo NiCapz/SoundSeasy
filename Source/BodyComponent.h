@@ -28,7 +28,10 @@ public:
     void updateStepIndexes(int index);
     juce::OwnedArray<TrackComponent> tracks;
 
+    float scaled(float val);
+
 private:
-    juce::String trackNames[5] = { "Crash", "Hi-Hat 1", "Hi-Hat2", "Snare", "Kick" };
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BodyComponent)
+    juce::String trackNames[5] = { "Crash", "Hi-Hat 1", "Hi-Hat2", "Snare", "Kick" };
+    float scaleFactor;
 };

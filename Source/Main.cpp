@@ -69,12 +69,15 @@ public:
 
            #if JUCE_IOS || JUCE_ANDROID
             setFullScreen (true);
+            setResizable (true, true);
            #else
             setResizable (true, true);
             centreWithSize (getWidth(), getHeight());
            #endif
 
             setVisible (true);
+
+            
         }
 
         void closeButtonPressed() override

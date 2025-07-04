@@ -30,15 +30,13 @@ public:
         if (isActive) 
         {
             g.setColour(juce::Colour (0xffb9b9b9));
-            g.fillEllipse(bounds.reduced(7));
+            g.fillEllipse(bounds.reduced(scaled(7)));
         }
         if (highlighted)
         {
-            g.setColour(juce::Colour (0xff585858));
-            g.drawEllipse(bounds.reduced(3), 3);
+            g.setColour(juce::Colour (0xffD0D0D0));
+            g.drawEllipse(bounds.reduced(scaled(3)), scaled(3));
         }
-
-
 	}
    
     void clicked() override
@@ -54,7 +52,19 @@ public:
         return isActive;
     }
 
+    float scaled(float val) 
+    {
+        return val * scaleFactor;
+    }
+
+    void resized() override 
+    {
+        scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600,
+            getTopLevelComponent()->getHeight() / 720);
+    }
+
 private:
     bool highlighted = false;
     bool isActive = false;
+    float scaleFactor;
 };

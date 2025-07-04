@@ -19,10 +19,16 @@ BodyComponent::BodyComponent()
         tracks.add(track);
         addAndMakeVisible(track);
     }
+
+   
 }
 
 BodyComponent::~BodyComponent()
 {
+}
+
+float BodyComponent::scaled(float val) {
+    return val * scaleFactor;
 }
 
 void BodyComponent::paint (juce::Graphics& g)
@@ -33,8 +39,8 @@ void BodyComponent::paint (juce::Graphics& g)
     for (auto& track : tracks) 
     {
         auto instBounds = track->inst.getBoundsInParent();
-        instBounds.setPosition(track->getX() + 90, track->getY());
-        shadowPath.addRoundedRectangle(instBounds, 15);
+        instBounds.setPosition(track->getX() + scaled(90), track->getY());
+        shadowPath.addRoundedRectangle(instBounds, scaled(15));
     }
 
     shadow.drawForPath(g, shadowPath);
@@ -48,6 +54,8 @@ void BodyComponent::updateStepIndexes(int index) {
 
 void BodyComponent::resized()
 {
+    scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600.0f,
+        getTopLevelComponent()->getHeight() / 720.0f);
     auto area = getLocalBounds();
    
 
@@ -58,10 +66,10 @@ void BodyComponent::resized()
 
     for (auto* track : tracks)
     {
-        fb.items.add(juce::FlexItem(*track).withMinHeight(75));
+        fb.items.add(juce::FlexItem(*track).withMinHeight(scaled(75)));
     }
 
-    area.reduce(50, 50);
+    area.reduce(scaled(50), scaled(50));
 
     fb.performLayout(area);
 }

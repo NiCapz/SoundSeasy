@@ -25,10 +25,15 @@ public:
     void resized() override;
 
     void setName(juce::String);
+
+    float scaled(float val);
+
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(InstrumentSelectorComponent)
     
     juce::String name;
 
     std::unique_ptr<juce::Drawable> icon;
+
+    float scaleFactor;
 };

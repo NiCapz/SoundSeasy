@@ -17,19 +17,23 @@ RewindComponent::RewindComponent(juce::String& name) : juce::Button(name)
     rewindIcon = juce::Drawable::createFromImageData(BinaryData::rewind_svg, BinaryData::rewind_svgSize);
 }
 
+float RewindComponent::scaled(float val) {
+    return val * scaleFactor;
+}
+
 RewindComponent::~RewindComponent()
 {
 }
 
 void RewindComponent::paintButton (juce::Graphics& g, bool isHighlighted, bool isDown)
 {
-    auto area = getLocalBounds().toFloat().reduced(10, 0);
+    auto area = getLocalBounds().toFloat().reduced(scaled(10), 0);
 
     g.setColour (juce::Colour (0xffb9b9b9));
-    g.fillRoundedRectangle(area, 15);
+    g.fillRoundedRectangle(area, scaled(15));
 
 
-    area.reduce(25, 25);
+    area.reduce(scaled(25), scaled(25));
     if (rewindIcon != nullptr) 
     {
         rewindIcon->drawWithin(g, area, juce::RectanglePlacement::centred, 1);
@@ -40,7 +44,6 @@ void RewindComponent::paintButton (juce::Graphics& g, bool isHighlighted, bool i
 
 void RewindComponent::resized()
 {
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
-
+    scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600,
+        getTopLevelComponent()->getHeight() / 720);
 }

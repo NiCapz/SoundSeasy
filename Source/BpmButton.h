@@ -23,6 +23,8 @@ public:
 
     void resized() override;
 
+    float scaled(float val);
+
 protected:
     void paintButton(juce::Graphics&, bool, bool) override;
 
@@ -31,4 +33,6 @@ private:
         bool isPlus;
     std::unique_ptr<juce::Drawable> plusIcon;
     std::unique_ptr<juce::Drawable> minusIcon;
+
+    float scaleFactor;
 };

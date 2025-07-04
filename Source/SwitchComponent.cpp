@@ -15,20 +15,27 @@
 SwitchComponent::SwitchComponent()
 {
     pianoIcon = juce::Drawable::createFromImageData(BinaryData::piano_svg, BinaryData::piano_svgSize);
+    
 }
 
 SwitchComponent::~SwitchComponent()
 {
 }
 
+float SwitchComponent::scaled(float val) {
+    return val * scaleFactor;
+}
+
 void SwitchComponent::paint (juce::Graphics& g)
 {
-    auto area = getLocalBounds().toFloat().reduced(30, 0);
+    auto area = getLocalBounds().toFloat().reduced(scaled(30), 0);
+
+
 
     g.setColour(juce::Colour(0xffb9b9b9));
-    g.fillRoundedRectangle(area, 15);
+    g.fillRoundedRectangle(area, scaled(15));
 
-    area.reduce(20, 20);
+    area.reduce(scaled(20), scaled(20));
     if (pianoIcon != nullptr) 
     {
         pianoIcon->drawWithin(g, area, juce::RectanglePlacement::centred, 1);
@@ -37,7 +44,6 @@ void SwitchComponent::paint (juce::Graphics& g)
 
 void SwitchComponent::resized()
 {
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
-
+    scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600,
+        getTopLevelComponent()->getHeight() / 720);
 }

@@ -16,16 +16,22 @@ BpmButton::BpmButton(juce::String& name, bool isPlus) : Button(name), isPlus(isP
 {
     plusIcon = juce::Drawable::createFromImageData(BinaryData::plus_svg, BinaryData::plus_svgSize);
     minusIcon = juce::Drawable::createFromImageData(BinaryData::minus_svg, BinaryData::minus_svgSize);
+
+   
 }
 
 BpmButton::~BpmButton()
 {
 }
 
+float BpmButton::scaled(float val) {
+    return val * scaleFactor;
+}
+
 void BpmButton::paintButton(juce::Graphics& g, bool isHighlighted, bool isDown) {
 
     auto area = getLocalBounds().toFloat();
-    area.reduce(0, 25);
+    area.reduce(0, scaled(25));
     
     if (isPlus) {
         plusIcon->drawWithin(g, area, juce::RectanglePlacement::centred, 1);
@@ -39,7 +45,6 @@ void BpmButton::paintButton(juce::Graphics& g, bool isHighlighted, bool isDown) 
 
 void BpmButton::resized()
 {
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
-
+    scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600.0f,
+        getTopLevelComponent()->getHeight() / 720.0f);
 }
