@@ -25,6 +25,7 @@ HeaderComponent::HeaderComponent()
     addAndMakeVisible(minus);
 
     setupBpmLabel(bpmLabel);
+
 }
 
 HeaderComponent::~HeaderComponent()
@@ -38,45 +39,39 @@ void HeaderComponent::setTempoLabelText(int bpm)
 
 void HeaderComponent::paint(juce::Graphics& g)
 {
-    
-
     g.setColour(juce::Colour (0xFF585858));
     g.fillAll();
+
     auto bpmBounds = minus.getBounds();
     bpmBounds = bpmBounds.getUnion(bpmLabel.getBounds());
     bpmBounds = bpmBounds.getUnion(plus.getBounds());
     
+    static juce::Image shadowImage;
+    static bool shadowsRendered = false;
     juce::DropShadow shadow(juce::Colours::black.withAlpha(.5f), 20, { 0, 4 });
-    
-    juce::Path shadowPath;
 
-    shadowPath.addRoundedRectangle(sw.getBounds().reduced(scaled(30), 0), scaled(15.0f));
-    shadowPath.addRoundedRectangle(rw.getBounds().reduced(scaled(10), 0), scaled(15.0f));
-    shadowPath.addRoundedRectangle(pp.getBounds().reduced(scaled(10), 0), scaled(15.0f));
-    shadowPath.addRoundedRectangle(bpmBounds, scaled(15.0f));
-    
-    shadow.drawForPath(g, shadowPath);
-    
-    /*
-    shadow.drawForRectangle(g, sw.getBounds().reduced(30, 0));
-    shadow.drawForRectangle(g, rw.getBounds().reduced(10, 0));
-    shadow.drawForRectangle(g, pp.getBounds().reduced(10, 0));
-    shadow.drawForRectangle(g, bpmBounds);
-    */
+    if (!shadowsRendered) 
+    {
+        shadowImage = juce::Image(juce::Image::PixelFormat::ARGB,
+            getLocalBounds().getWidth(),
+            getLocalBounds().getHeight(),
+            true);
+        juce::Graphics shadowGraphics(shadowImage);
+        
+        juce::Path shadowPath;
+        shadowPath.addRoundedRectangle(sw.getBounds().reduced(scaled(30), 0), scaled(15.0f));
+        shadowPath.addRoundedRectangle(rw.getBounds().reduced(scaled(10), 0), scaled(15.0f));
+        shadowPath.addRoundedRectangle(pp.getBounds().reduced(scaled(10), 0), scaled(15.0f));
+        shadowPath.addRoundedRectangle(bpmBounds, scaled(15.0f));
+        shadow.drawForPath(shadowGraphics, shadowPath);
+        shadowsRendered = true;
+    }
 
-
+    g.drawImage(shadowImage, getLocalBounds().toFloat());
+   
     g.setColour(juce::Colour(0xffb9b9b9));
     g.fillRoundedRectangle(bpmBounds.toFloat(), scaled(15.0f));
 
-    /*
-    g.setColour(juce::Colours::black);
-    g.drawRect(sw.getBounds(), 2);
-    g.drawRect(rw.getBounds(), 2);
-    g.drawRect(pp.getBounds(), 2);
-    g.drawRect(plus.getBounds(), 2);
-    g.drawRect(minus.getBounds(), 2);
-    g.drawRect(bpmBounds, 2);
-    */
 }
 
 void HeaderComponent::setRewindCallback(std::function <void()> callback) {
@@ -143,6 +138,7 @@ void HeaderComponent::resized()
     area.reduce(scaled(60), scaled(20));
     area.removeFromLeft(scaled(100));
     mainFlex.performLayout(area);
+
 }
 
 void HeaderComponent::setupBpmLabel(juce::TextEditor& bpmLabel) {

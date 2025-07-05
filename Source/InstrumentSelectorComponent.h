@@ -36,4 +36,5 @@ private:
     std::unique_ptr<juce::Drawable> icon;
 
     float scaleFactor;
+
 };

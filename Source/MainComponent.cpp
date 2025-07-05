@@ -5,8 +5,8 @@ MainComponent::MainComponent()
 {
     addAndMakeVisible(header);
     addAndMakeVisible(body);
-    setSize(1600, 720);
-    //setSize(2400, 1080);
+    //setSize(1600, 720);
+    setSize(2400, 1080);
 
     header.setTempoLabelText(bpm);
     header.bpmLabel.addListener(this);
@@ -113,14 +113,28 @@ void MainComponent::textEditorTextChanged(juce::TextEditor& editor) {
 
 void MainComponent::paint (juce::Graphics& g)
 {
-
     g.setColour(juce::Colour(0xff585858));
     g.fillAll();
 
-    juce::DropShadow headerShadow(juce::Colours::black.withAlpha(.7f), 100, { 0, 0 });
-    juce::Path headerPath;
-    headerPath.addRectangle(header.getBounds());
-    headerShadow.drawForPath(g, headerPath);
+    static juce::Image shadowImage;
+
+    static bool shadowsRendered = false;
+
+    if (!shadowsRendered)
+    {
+        shadowImage = juce::Image(juce::Image::PixelFormat::ARGB,
+            1 * header.getBounds().getWidth(),
+            1 * (header.getBounds().getHeight() + 30),
+            true);
+        juce::Graphics shadowGraphics{ shadowImage };
+        juce::DropShadow headerShadow(juce::Colours::black.withAlpha(.25f), 100, { 0, 10 });
+        juce::Path headerPath;
+        headerPath.addRectangle(header.getBounds());
+        headerShadow.drawForPath(shadowGraphics, headerPath);
+        shadowsRendered = true;
+    }
+
+    g.drawImage(shadowImage, header.getBounds().expanded(0, 30).toFloat());
 }
 
 void MainComponent::timerCallback() {
@@ -144,9 +158,12 @@ void MainComponent::timerCallback() {
 void MainComponent::resized()
 {
     auto area = getLocalBounds();
+
+
     auto headerHeight = area.getHeight() * 0.15;
     auto bodyheight = area.getHeight() * 0.85;
     
     header.setBounds(area.removeFromTop(headerHeight));
     body.setBounds(area.removeFromTop(bodyheight));
+
 }

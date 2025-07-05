@@ -16,8 +16,6 @@ BpmButton::BpmButton(juce::String& name, bool isPlus) : Button(name), isPlus(isP
 {
     plusIcon = juce::Drawable::createFromImageData(BinaryData::plus_svg, BinaryData::plus_svgSize);
     minusIcon = juce::Drawable::createFromImageData(BinaryData::minus_svg, BinaryData::minus_svgSize);
-
-   
 }
 
 BpmButton::~BpmButton()

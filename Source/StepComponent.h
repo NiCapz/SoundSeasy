@@ -64,6 +64,7 @@ public:
     }
 
 private:
+
     bool highlighted = false;
     bool isActive = false;
     float scaleFactor;

@@ -7,6 +7,7 @@
 #include "./Audio/Synth/Synth.h"
 #include "./Audio/Piano/PianoSampler.h"
 #include "./Audio/MidiManager.h"
+#include "Shadower.h"
 
 
 using namespace juce;
@@ -57,5 +58,6 @@ private:
 
     MidiManager midiManager{};
     double startTime;
-    
+
+    Shadower shadower;
 };

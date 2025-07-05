@@ -19,8 +19,6 @@ BodyComponent::BodyComponent()
         tracks.add(track);
         addAndMakeVisible(track);
     }
-
-   
 }
 
 BodyComponent::~BodyComponent()
@@ -33,7 +31,7 @@ float BodyComponent::scaled(float val) {
 
 void BodyComponent::paint (juce::Graphics& g)
 {
-    juce::DropShadow shadow(juce::Colours::black.withAlpha(.7f), 100, { 0, 0 });
+    //juce::DropShadow shadow(juce::Colours::black.withAlpha(.7f), 100, { 0, 0 });
     juce::Path shadowPath;
 
     for (auto& track : tracks) 
@@ -43,7 +41,24 @@ void BodyComponent::paint (juce::Graphics& g)
         shadowPath.addRoundedRectangle(instBounds, scaled(15));
     }
 
-    shadow.drawForPath(g, shadowPath);
+    static juce::Image shadowImage;
+    static bool shadowsRendered = false;
+    juce::DropShadow shadow(juce::Colours::black.withAlpha(.5f), 20, { 0, 4 });
+
+    if (!shadowsRendered)
+    {
+        shadowImage = juce::Image(juce::Image::PixelFormat::ARGB,
+            getLocalBounds().getWidth(),
+            getLocalBounds().getHeight(),
+            true);
+        juce::Graphics shadowGraphics(shadowImage);
+        shadow.drawForPath(shadowGraphics, shadowPath);
+        shadowsRendered = true;
+    }
+
+    g.drawImage(shadowImage, getLocalBounds().toFloat());
+
+     //shadow.drawForPath(g, shadowPath);
 }
 
 void BodyComponent::updateStepIndexes(int index) {

@@ -16,7 +16,9 @@
 class TrackComponent : public juce::Component
 {
 public:
-    TrackComponent(juce::String instrumentName) {
+    
+    TrackComponent(juce::String instrumentName)
+    {
         scaleFactor = 1;
 
         addAndMakeVisible(inst);

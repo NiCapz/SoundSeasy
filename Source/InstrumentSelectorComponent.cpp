@@ -34,7 +34,6 @@ void InstrumentSelectorComponent::setName(juce::String name) {
     else if (name == "Hi-Hat 1")
     {
         icon = juce::Drawable::createFromImageData(BinaryData::hihat_svg, BinaryData::hihat_svgSize);
-
     }
     else if (name == "Hi-Hat2")
     {
