@@ -76,6 +76,7 @@
     <FILE id="mV6vX9" name="BodyComponent.h" compile="0" resource="0" file="Source/BodyComponent.h"/>
     <FILE id="TWf6DK" name="BpmButton.cpp" compile="1" resource="0" file="Source/BpmButton.cpp"/>
     <FILE id="ksurnS" name="BpmButton.h" compile="0" resource="0" file="Source/BpmButton.h"/>
+    <FILE id="dK885N" name="DropShadowest.h" compile="0" resource="0" file="Source/DropShadowest.h"/>
     <FILE id="SjUWDo" name="HeaderComponent.cpp" compile="1" resource="0"
           file="Source/HeaderComponent.cpp"/>
     <FILE id="g5AfXd" name="HeaderComponent.h" compile="0" resource="0"
