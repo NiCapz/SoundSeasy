@@ -30,8 +30,15 @@ public:
 
     float scaled(float val);
 
+    void setShowAccordSequencer(bool show);
+
+
+
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BodyComponent)
     juce::String trackNames[5] = { "Crash", "Hi-Hat 1", "Hi-Hat2", "Snare", "Kick" };
-    float scaleFactor;
+    float scaleFactor = 1.0f;
+    bool shadowsRendered = false;
+
+    bool showAccordSequencer = false;
 };

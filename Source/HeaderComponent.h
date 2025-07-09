@@ -49,7 +49,8 @@ public:
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(HeaderComponent)
 
-    SwitchComponent sw;
+        juce::String swComponentName = "sw";
+    SwitchComponent sw { swComponentName } ;
 
     juce::String rwComponentName = "pp";
     RewindComponent rw { rwComponentName };
@@ -64,4 +65,6 @@ private:
     BpmButton minus { minusName, false};
 
     float scaleFactor;
+
+    bool shadowsRendered = false;
 };

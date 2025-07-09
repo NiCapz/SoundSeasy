@@ -7,7 +7,6 @@
 #include "./Audio/Synth/Synth.h"
 #include "./Audio/Piano/PianoSampler.h"
 #include "./Audio/MidiManager.h"
-#include "Shadower.h"
 
 
 using namespace juce;
@@ -36,7 +35,8 @@ public:
 
     void timerCallback() override;
 
-    void textEditorTextChanged(juce::TextEditor& editor) override;
+    void textEditorReturnKeyPressed(juce::TextEditor& editor) override;
+    void textEditorFocusLost(juce::TextEditor& editor) override;
 
     void bpmChanged();
 
@@ -47,6 +47,7 @@ private:
     HeaderComponent header;
     BodyComponent body;
     int bpm = 120;
+    bool bpmJustChanged = false;
     int currentStepIndex = 0;
     const int stepsTotal = 8;
     bool isPlaying = false;
@@ -59,5 +60,4 @@ private:
     MidiManager midiManager{};
     double startTime;
 
-    Shadower shadower;
 };

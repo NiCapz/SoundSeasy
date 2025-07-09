@@ -26,6 +26,8 @@ HeaderComponent::HeaderComponent()
 
     setupBpmLabel(bpmLabel);
 
+    bpmLabel.setKeyboardType(juce::TextInputTarget::VirtualKeyboardType::numericKeyboard);
+
 }
 
 HeaderComponent::~HeaderComponent()
@@ -47,8 +49,12 @@ void HeaderComponent::paint(juce::Graphics& g)
     bpmBounds = bpmBounds.getUnion(plus.getBounds());
     
     static juce::Image shadowImage;
-    static bool shadowsRendered = false;
-    juce::DropShadow shadow(juce::Colours::black.withAlpha(.5f), 20, { 0, 4 });
+    juce::DropShadow shadow(juce::Colours::black.withAlpha(.5f), 100, { 0, 4 });
+        juce::Path shadowPath;
+        shadowPath.addRoundedRectangle(sw.getBounds().reduced(scaled(0), 0), scaled(10.0f));
+        shadowPath.addRoundedRectangle(rw.getBounds().reduced(scaled(0), 0), scaled(10.0f));
+        shadowPath.addRoundedRectangle(pp.getBounds().reduced(scaled(0), 0), scaled(10.0f));
+        shadowPath.addRoundedRectangle(bpmBounds, scaled(15.0f));
 
     if (!shadowsRendered) 
     {
@@ -58,20 +64,14 @@ void HeaderComponent::paint(juce::Graphics& g)
             true);
         juce::Graphics shadowGraphics(shadowImage);
         
-        juce::Path shadowPath;
-        shadowPath.addRoundedRectangle(sw.getBounds().reduced(scaled(30), 0), scaled(15.0f));
-        shadowPath.addRoundedRectangle(rw.getBounds().reduced(scaled(10), 0), scaled(15.0f));
-        shadowPath.addRoundedRectangle(pp.getBounds().reduced(scaled(10), 0), scaled(15.0f));
-        shadowPath.addRoundedRectangle(bpmBounds, scaled(15.0f));
         shadow.drawForPath(shadowGraphics, shadowPath);
         shadowsRendered = true;
     }
 
-    g.drawImage(shadowImage, getLocalBounds().toFloat());
+    g.drawImage(shadowImage, getLocalBounds().toFloat(), juce::RectanglePlacement::doNotResize);
    
     g.setColour(juce::Colour(0xffb9b9b9));
     g.fillRoundedRectangle(bpmBounds.toFloat(), scaled(15.0f));
-
 }
 
 void HeaderComponent::setRewindCallback(std::function <void()> callback) {
@@ -110,13 +110,13 @@ void HeaderComponent::resized()
 
     juce::FlexBox switchGroup;
     switchGroup.flexDirection = juce::FlexBox::Direction::row;
-    switchGroup.items.add(juce::FlexItem(sw).withMinWidth(scaled(150)));
+    switchGroup.items.add(juce::FlexItem(sw).withMinWidth(scaled(100)));
 
     juce::FlexBox ppGroup;
     ppGroup.flexDirection = juce::FlexBox::Direction::row;
     ppGroup.items.add(
-        juce::FlexItem(rw).withMinWidth(scaled(125)),
-        juce::FlexItem(pp).withMinWidth(scaled(125))
+        juce::FlexItem(rw).withMinWidth(scaled(100)).withMargin(juce::FlexItem::Margin(0, 20, 0, 0)),
+        juce::FlexItem(pp).withMinWidth(scaled(100))
     );
 
     juce::FlexBox bpmGroup;
@@ -138,6 +138,7 @@ void HeaderComponent::resized()
     area.reduce(scaled(60), scaled(20));
     area.removeFromLeft(scaled(100));
     mainFlex.performLayout(area);
+    shadowsRendered = false;
 
 }
 

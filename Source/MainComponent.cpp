@@ -67,10 +67,15 @@ MainComponent::~MainComponent()
 
 void MainComponent::bpmChanged() {
     repaint();
-    if (isPlaying) {
+    bpmJustChanged = true;
+    if (bpm < 50) bpm = 50;
+    header.setTempoLabelText(bpm);
+    
+    if (bpm < 70) {
         stopTimer();
         startTimer((60.0 / bpm) * 1000);
     }
+    
 }
 
 void MainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
@@ -104,9 +109,18 @@ void MainComponent::releaseResources()
 
 }
 
-void MainComponent::textEditorTextChanged(juce::TextEditor& editor) {
+void MainComponent::textEditorReturnKeyPressed(juce::TextEditor& editor) {
     juce::String value = editor.getText();
     int intValue = value.getIntValue();
+
+    bpm = intValue;
+    bpmChanged();
+}
+
+void MainComponent::textEditorFocusLost(juce::TextEditor& editor) {
+    juce::String value = editor.getText();
+    int intValue = value.getIntValue();
+
     bpm = intValue;
     bpmChanged();
 }
@@ -141,7 +155,6 @@ void MainComponent::timerCallback() {
     body.updateStepIndexes(currentStepIndex);
     repaint();
 
-    
 
     for (int i = 0; i < 5; i++) {
         if (body.tracks[i]->isCurrentStepActive()) {
@@ -153,6 +166,12 @@ void MainComponent::timerCallback() {
 
     currentStepIndex++;
     currentStepIndex %= stepsTotal;
+    if (bpmJustChanged && bpm > 0)
+    {
+        stopTimer();
+        startTimer((60.0 / bpm) * 1000);
+        bpmJustChanged = false;
+    }
 }
 
 void MainComponent::resized()

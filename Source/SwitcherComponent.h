@@ -18,7 +18,7 @@
 class SwitcherComponent  : public juce::ToggleButton
 {
 public:
-    SwitcherComponent();
+    SwitcherComponent(juce::String&);
     ~SwitcherComponent() override;
 
     void paint (juce::Graphics&) override;

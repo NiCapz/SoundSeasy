@@ -19,6 +19,8 @@ BodyComponent::BodyComponent()
         tracks.add(track);
         addAndMakeVisible(track);
     }
+
+    
 }
 
 BodyComponent::~BodyComponent()
@@ -29,34 +31,43 @@ float BodyComponent::scaled(float val) {
     return val * scaleFactor;
 }
 
+void BodyComponent::setShowAccordSequencer(bool show) {
+    showAccordSequencer = show;
+}
+
 void BodyComponent::paint (juce::Graphics& g)
 {
     //juce::DropShadow shadow(juce::Colours::black.withAlpha(.7f), 100, { 0, 0 });
     juce::Path shadowPath;
 
+    auto area = getLocalBounds().toFloat();
+
+    if (!showAccordSequencer)
+    {
+
     for (auto& track : tracks) 
     {
-        auto instBounds = track->inst.getBoundsInParent();
-        instBounds.setPosition(track->getX() + scaled(90), track->getY());
+        auto instBounds = track->inst.getBounds();
+        instBounds.setPosition(track->getX()+ scaled(75), track->getY());
         shadowPath.addRoundedRectangle(instBounds, scaled(15));
+    }
     }
 
     static juce::Image shadowImage;
-    static bool shadowsRendered = false;
-    juce::DropShadow shadow(juce::Colours::black.withAlpha(.5f), 20, { 0, 4 });
+    juce::DropShadow shadow(juce::Colours::black.withAlpha(.5f), 100, { 0, 0 });
 
     if (!shadowsRendered)
     {
         shadowImage = juce::Image(juce::Image::PixelFormat::ARGB,
-            getLocalBounds().getWidth(),
-            getLocalBounds().getHeight(),
+            area.getWidth(),
+            area.getHeight(),
             true);
         juce::Graphics shadowGraphics(shadowImage);
         shadow.drawForPath(shadowGraphics, shadowPath);
         shadowsRendered = true;
     }
 
-    g.drawImage(shadowImage, getLocalBounds().toFloat());
+    g.drawImage(shadowImage, area);
 
      //shadow.drawForPath(g, shadowPath);
 }
@@ -69,22 +80,25 @@ void BodyComponent::updateStepIndexes(int index) {
 
 void BodyComponent::resized()
 {
+    if (!showAccordSequencer)
+    {
     scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600.0f,
         getTopLevelComponent()->getHeight() / 720.0f);
     auto area = getLocalBounds();
-   
-
     juce::FlexBox fb;
     fb.flexDirection = juce::FlexBox::Direction::column;
     fb.flexWrap = juce::FlexBox::Wrap::noWrap;
     fb.justifyContent = juce::FlexBox::JustifyContent::spaceBetween;
-
     for (auto* track : tracks)
     {
         fb.items.add(juce::FlexItem(*track).withMinHeight(scaled(75)));
     }
-
     area.reduce(scaled(50), scaled(50));
-
     fb.performLayout(area);
+    shadowsRendered = false;
+    }
+    else
+    {
+
+    }
 }

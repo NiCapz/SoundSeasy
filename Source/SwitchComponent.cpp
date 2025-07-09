@@ -12,7 +12,7 @@
 #include "SwitchComponent.h"
 
 //==============================================================================
-SwitchComponent::SwitchComponent()
+SwitchComponent::SwitchComponent(juce::String& name) : Button(name)
 {
     pianoIcon = juce::Drawable::createFromImageData(BinaryData::piano_svg, BinaryData::piano_svgSize);
 }
@@ -25,9 +25,9 @@ float SwitchComponent::scaled(float val) {
     return val * scaleFactor;
 }
 
-void SwitchComponent::paint (juce::Graphics& g)
+void SwitchComponent::paintButton(juce::Graphics& g, bool isHighlighted, bool isDown)
 {
-    auto area = getLocalBounds().toFloat().reduced(scaled(30), 0);
+    auto area = getLocalBounds().toFloat(); //.reduced(scaled(30), 0);
 
     g.setColour(juce::Colour(0xffb9b9b9));
     g.fillRoundedRectangle(area, scaled(15));

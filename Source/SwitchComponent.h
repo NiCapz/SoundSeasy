@@ -15,13 +15,14 @@
 //==============================================================================
 /*
 */
-class SwitchComponent  : public juce::Component
+class SwitchComponent  : public juce::Button
 {
 public:
-    SwitchComponent();
+    SwitchComponent(juce::String&);
     ~SwitchComponent() override;
 
-    void paint (juce::Graphics&) override;
+    void paintButton(juce::Graphics&, bool, bool) override;
+
     void resized() override;
     float scaled(float val);
 
@@ -29,5 +30,5 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SwitchComponent)
 
         std::unique_ptr<juce::Drawable> pianoIcon;
-    float scaleFactor;
+    float scaleFactor = 1;
 };

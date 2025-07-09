@@ -12,7 +12,7 @@
 #include "SwitcherComponent.h"
 
 //==============================================================================
-SwitcherComponent::SwitcherComponent()
+SwitcherComponent::SwitcherComponent(juce::String& name)
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
