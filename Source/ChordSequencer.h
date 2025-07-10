@@ -46,10 +46,14 @@ private:
         void setBaseNoteNumber(int noteNumber) { baseNoteNumber = noteNumber; }
         
         bool getActive() { return isActive; }
-        void setActive(bool val) { isActive = val; }
+        void setActive(bool val)
+        {
+            isActive = val;
+            repaint();
+        }
     private:
         const ChordTree* chordTree;
-        int baseNoteNumber = 63;
+        int baseNoteNumber = 60;
         bool isActive = false;
     };
     
@@ -57,7 +61,7 @@ private:
     std::array<juce::OwnedArray<ChordButton>, numSteps - 1> steps;
     int activeStepIndex = 0;
     
-    int baseNoteNumber = 63;
+    int baseNoteNumber = 60;
     
     const juce::String buttonName{"Chord Button"};
     

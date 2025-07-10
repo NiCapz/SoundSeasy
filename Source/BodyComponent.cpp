@@ -42,7 +42,9 @@ void BodyComponent::setShowAccordSequencer(bool show) {
 void BodyComponent::toggleChordSequencer()
 {
     showAccordSequencer = !showAccordSequencer;
+    repaint();
     resized();
+    shadowsRendered = false;
 }
 
 void BodyComponent::paint (juce::Graphics& g)
@@ -54,13 +56,12 @@ void BodyComponent::paint (juce::Graphics& g)
 
     if (!showAccordSequencer)
     {
-
-    for (auto& track : tracks) 
-    {
-        auto instBounds = track->inst.getBounds();
-        instBounds.setPosition(track->getX()+ scaled(75), track->getY());
-        shadowPath.addRoundedRectangle(instBounds, scaled(15));
-    }
+        for (auto& track : tracks)
+        {
+            auto instBounds = track->inst.getBounds();
+            instBounds.setPosition(track->getX()+ scaled(75), track->getY());
+            shadowPath.addRoundedRectangle(instBounds, scaled(15));
+        }
     }
 
     static juce::Image shadowImage;

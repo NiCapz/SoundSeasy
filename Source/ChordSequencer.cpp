@@ -29,18 +29,34 @@ ChordSequencer::~ChordSequencer()
 
 void ChordSequencer::paint(juce::Graphics& g)
 {
-    g.setColour(juce::Colour(0xff000000));
-    g.drawRect(getLocalBounds());
+    auto area = getLocalBounds();
+    juce::Path backgroundPath;
+    for(auto col : columnLayout)
+        backgroundPath.addRoundedRectangle(col, 20);
+    
+    g.setColour(juce::Colour(0xff414141));
+    g.fillPath(backgroundPath);
+    
+    g.setColour(juce::Colour(0xffb9b9b9));
+    g.fillRoundedRectangle(columnLayout[0], 20);
+    
+    g.setFont(area.getHeight() / 5);
+    g.setColour(juce::Colours::black);
+    g.drawText(noteNumberToName(baseNoteNumber), columnLayout[0].reduced(0, area.getHeight() / 3), juce::Justification(36));
+ 
 }
 
 void ChordSequencer::resized()
 {
     auto area = getLocalBounds();
+    const float leftMargin = area.getWidth() / 4;
+    area.removeFromRight(leftMargin);
+    
     float columnWidth = (area.getWidth() - (numSteps - 1) * columnMarign) / numSteps;
     float xIncrement = columnWidth + columnMarign;
     
     for(int i = 0; i < numSteps; i++)
-        columnLayout[i] = juce::Rectangle<float>(i * xIncrement, 0, columnWidth, area.getHeight());
+        columnLayout[i] = juce::Rectangle<float>(leftMargin + i * xIncrement, 0, columnWidth, area.getHeight());
     
     for(int i = 0; i < numSteps - 1; i++)
     {
@@ -49,8 +65,14 @@ void ChordSequencer::resized()
         flex.flexWrap = juce::FlexBox::Wrap::noWrap;
         flex.justifyContent = juce::FlexBox::JustifyContent::spaceBetween;
         
-        for(ChordButton* b : steps[i])
-            flex.items.add(juce::FlexItem(*b).withFlex(1, 1).withMargin({10, 0, 0, 0}));
+        for(int button = 0; button < steps[i].size(); button++)
+        {
+            ChordButton* b = steps[i][button];
+            if(button == 0)
+                flex.items.add(juce::FlexItem(*b).withFlex(1, 1));
+            else
+                flex.items.add(juce::FlexItem(*b).withFlex(1, 1).withMargin({(float) area.getHeight() / 30, 0, 0, 0}));
+        }
         
         flex.performLayout(columnLayout[i + 1]);
     }
@@ -74,10 +96,7 @@ void ChordSequencer::onChordButtonClicked(int stepIndex, int chordIndex)
         }
         else
         {
-            if(button->getActive())
-            {
-                button->setActive(false);
-            }
+            button->setActive(false);
         }
     }
     
@@ -108,16 +127,21 @@ void ChordSequencer::ChordButton::resized()
 
 void ChordSequencer::ChordButton::paintButton(juce::Graphics& g, bool down, bool highlighted)
 {
-    g.setColour(juce::Colour(0xffb9b9b9));
-    g.drawRect(getLocalBounds());
-    
-    if(highlighted)    
+    auto area = getLocalBounds();
+    if(isActive)
     {
-        g.fillRect(getLocalBounds());
+        g.setColour(juce::Colour(0xffb9b9b9));
+    }
+    else
+    {
+        g.setColour(juce::Colour(0xff919191));
     }
     
+    g.fillRoundedRectangle(area.toFloat(), 20);
+    
+    g.setFont(area.getHeight() / 5);
     g.setColour(juce::Colours::black);
-    g.drawText(chordName(baseNoteNumber, chordTree->chord), getLocalBounds(), juce::Justification(36));
+    g.drawText(chordName(baseNoteNumber, chordTree->chord), area, juce::Justification(36));
     
     
 }
