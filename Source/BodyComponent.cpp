@@ -21,6 +21,10 @@ BodyComponent::BodyComponent()
     }
 
     
+    addAndMakeVisible(chordSequencer);
+    //make the chord sequencer invisible at the start
+    //chordSequencer.setBounds(0, 0, 0, 0);
+    
 }
 
 BodyComponent::~BodyComponent()
@@ -33,6 +37,12 @@ float BodyComponent::scaled(float val) {
 
 void BodyComponent::setShowAccordSequencer(bool show) {
     showAccordSequencer = show;
+}
+
+void BodyComponent::toggleChordSequencer()
+{
+    showAccordSequencer = !showAccordSequencer;
+    resized();
 }
 
 void BodyComponent::paint (juce::Graphics& g)
@@ -80,11 +90,6 @@ void BodyComponent::updateStepIndexes(int index) {
 
 void BodyComponent::resized()
 {
-    if (!showAccordSequencer)
-    {
-    scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600.0f,
-        getTopLevelComponent()->getHeight() / 720.0f);
-    auto area = getLocalBounds();
     juce::FlexBox fb;
     fb.flexDirection = juce::FlexBox::Direction::column;
     fb.flexWrap = juce::FlexBox::Wrap::noWrap;
@@ -93,12 +98,27 @@ void BodyComponent::resized()
     {
         fb.items.add(juce::FlexItem(*track).withMinHeight(scaled(75)));
     }
-    area.reduce(scaled(50), scaled(50));
-    fb.performLayout(area);
-    shadowsRendered = false;
+    
+    if (!showAccordSequencer)
+    {
+        scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600.0f,
+            getTopLevelComponent()->getHeight() / 720.0f);
+        auto area = getLocalBounds();
+        
+        area.reduce(scaled(50), scaled(50));
+        fb.performLayout(area);
+        shadowsRendered = false;
+        //hide chord sequencer
+        chordSequencer.setBounds({0, 0, 0, 0});
     }
     else
     {
-
+        //hide drum sequencer
+        fb.performLayout(juce::Rectangle<float>(0, 0, 0, 0));
+        scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600.0f,
+            getTopLevelComponent()->getHeight() / 720.0f);
+        auto area = getLocalBounds();
+        area.reduce(scaled(50), scaled(50));
+        chordSequencer.setBounds(area);
     }
 }

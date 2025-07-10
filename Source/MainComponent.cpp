@@ -33,6 +33,10 @@ MainComponent::MainComponent()
             stopTimer();
         }
     });
+    
+    header.setSwitchCallback([&] () {
+        body.toggleChordSequencer();
+    });
 
     header.setRewindCallback([&]() {
         currentStepIndex = 0;

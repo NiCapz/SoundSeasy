@@ -76,6 +76,12 @@
     <FILE id="mV6vX9" name="BodyComponent.h" compile="0" resource="0" file="Source/BodyComponent.h"/>
     <FILE id="TWf6DK" name="BpmButton.cpp" compile="1" resource="0" file="Source/BpmButton.cpp"/>
     <FILE id="ksurnS" name="BpmButton.h" compile="0" resource="0" file="Source/BpmButton.h"/>
+    <FILE id="pbuqHm" name="ChordProgressions.h" compile="0" resource="0"
+          file="Source/ChordProgressions.h"/>
+    <FILE id="qLib6U" name="ChordSequencer.cpp" compile="1" resource="0"
+          file="Source/ChordSequencer.cpp"/>
+    <FILE id="uNIhbc" name="ChordSequencer.h" compile="0" resource="0"
+          file="Source/ChordSequencer.h"/>
     <FILE id="dK885N" name="DropShadowest.h" compile="0" resource="0" file="Source/DropShadowest.h"/>
     <FILE id="SjUWDo" name="HeaderComponent.cpp" compile="1" resource="0"
           file="Source/HeaderComponent.cpp"/>

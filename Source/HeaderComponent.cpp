@@ -86,6 +86,11 @@ void HeaderComponent::setTempoDecrementCallback(std::function <void()> callback)
     minus.onClick = callback;
 }
 
+void HeaderComponent::setSwitchCallback(std::function<void()> callback)
+{
+    sw.onClick = callback;
+}
+
 void HeaderComponent::setPlayPauseCallback(std::function <void(bool isButtonPlaying)> callback) 
 {
     pp.onClick = [this, callback]() {

@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "TrackComponent.h"
+#include "ChordSequencer.h"
 
 //==============================================================================
 /*
@@ -32,7 +33,7 @@ public:
 
     void setShowAccordSequencer(bool show);
 
-
+    void toggleChordSequencer();
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BodyComponent)
@@ -41,4 +42,6 @@ private:
     bool shadowsRendered = false;
 
     bool showAccordSequencer = false;
+    
+    ChordSequencer chordSequencer{};
 };

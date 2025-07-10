@@ -35,6 +35,8 @@ public:
 
     void setRewindCallback(std::function <void()>);
 
+    void setSwitchCallback(std::function<void()>);
+
     void setTempoLabelText(int);
 
     void setupBpmLabel(juce::TextEditor&);
