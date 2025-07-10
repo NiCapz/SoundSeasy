@@ -34,20 +34,33 @@ void MidiManager::addMessageToQueue(const juce::MidiMessage& message)
     auto messageIterator = messages.begin();
     
     if(messageIterator == messages.end())
+    {
         messages.insert(messageIterator, message);
+        return;
+    }
     
-    
+    bool isNoteOff = message.isNoteOff();
+    double t = message.getTimeStamp();
     while(messageIterator != messages.end())
     {
-        if(messageIterator->getTimeStamp() < message.getTimeStamp())
+        double t1 = messageIterator->getTimeStamp();
+        if(messageIterator->getTimeStamp() >= message.getTimeStamp())
         {
-            messages.insert(++messageIterator, message);
-            break;
+            messages.insert(messageIterator, message);
+            return;
         }
         else
         {
             messageIterator++;
         }
+    }
+    
+    if(messageIterator == messages.end())
+        messages.push_back(message);
+    
+    if(messages.size() == 6)
+    {
+        
     }
 }
 

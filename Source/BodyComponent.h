@@ -26,8 +26,10 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
 
-    void updateStepIndexes(int index);
-    juce::OwnedArray<TrackComponent> tracks;
+    void setDrumSequencerIndex(int index);
+    void setChordSequencerIndex(int index);
+    std::array<bool, 5> getDrumSequencerStep();
+    std::optional<std::array<int, 3>> getChordStep();
 
     float scaled(float val);
 
@@ -40,8 +42,9 @@ private:
     juce::String trackNames[5] = { "Crash", "Hi-Hat 1", "Hi-Hat2", "Snare", "Kick" };
     float scaleFactor = 1.0f;
     bool shadowsRendered = false;
-
+    
     bool showAccordSequencer = false;
     
+    juce::OwnedArray<TrackComponent> tracks;
     ChordSequencer chordSequencer{};
 };

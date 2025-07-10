@@ -40,7 +40,8 @@ MainComponent::MainComponent()
 
     header.setRewindCallback([&]() {
         currentStepIndex = 0;
-        body.updateStepIndexes(currentStepIndex);
+        body.setDrumSequencerIndex(currentStepIndex);
+        body.setChordSequencerIndex(currentStepIndex);
     });
 
     // Some platforms require permissions to open input channels so request that here
@@ -156,15 +157,37 @@ void MainComponent::paint (juce::Graphics& g)
 }
 
 void MainComponent::timerCallback() {
-    body.updateStepIndexes(currentStepIndex);
+    body.setDrumSequencerIndex(currentStepIndex);
     repaint();
 
-
+    double currentTimeS = Time::getMillisecondCounterHiRes() * 0.001;
+    std::array<bool, 5> drumSequencerState = body.getDrumSequencerStep();
     for (int i = 0; i < 5; i++) {
-        if (body.tracks[i]->isCurrentStepActive()) {
-            MidiMessage message = MidiMessage::noteOn(1, 60 + 4- i, (juce::uint8)100);
-            message.setTimeStamp(Time::getMillisecondCounterHiRes() * 0.001);
+        if (drumSequencerState[i]) {
+            MidiMessage message = MidiMessage::noteOn(1, 60 + 4 - i, (juce::uint8)100);
+            message.setTimeStamp(currentTimeS);
             midiManager.addMessageToQueue(message);
+        }
+    }
+    
+    const int stepDivider = 2;
+    double noteLength = (60.0 / bpm) * 0.9;
+    if(currentStepIndex % stepDivider == 0)
+    {
+        body.setChordSequencerIndex(currentStepIndex / stepDivider);
+        std::optional<std::array<int, 3>> chord = body.getChordStep();
+        if(chord.has_value())
+        {
+            for(int note : chord.value())
+            {
+                MidiMessage noteOnMessage = MidiMessage::noteOn(2, note, (juce::uint8)100);
+                noteOnMessage.setTimeStamp(currentTimeS);
+                midiManager.addMessageToQueue(noteOnMessage);
+                
+                MidiMessage noteOffMessage = MidiMessage::noteOff(2, note, (juce::uint8)100);
+                noteOffMessage.setTimeStamp(currentTimeS + noteLength);
+                midiManager.addMessageToQueue(noteOffMessage);
+            }
         }
     }
 

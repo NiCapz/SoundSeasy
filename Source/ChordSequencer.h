@@ -21,6 +21,11 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     
+    void increment();
+    void setIndex(int);
+    
+    std::optional<std::array<int, 3>> getCurrentChord();
+    
 private:
     
     class ChordButton : public juce::Button
@@ -41,6 +46,7 @@ private:
 
         void paintButton(juce::Graphics&, bool, bool) override;
         
+        const Chord getChord() { return chordTree->chord; }
         const std::list<ChordTree>* getNextChords() { return &(chordTree->nextChords); }
         
         void setBaseNoteNumber(int noteNumber) { baseNoteNumber = noteNumber; }
@@ -51,10 +57,16 @@ private:
             isActive = val;
             repaint();
         }
+        void setHighlighted(bool val)
+        {
+            isHighlighted = val;
+            repaint();
+        }
     private:
         const ChordTree* chordTree;
         int baseNoteNumber = 60;
         bool isActive = false;
+        bool isHighlighted = false;
     };
     
     static constexpr int numSteps = 4;

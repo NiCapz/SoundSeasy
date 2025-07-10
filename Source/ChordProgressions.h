@@ -106,7 +106,7 @@ inline std::string chordName(int baseNote, Chord chord)
 {
     static const int scaleIndex[] = {0, 2, 4, 5, 7, 9, 11};
 
-    std::string name = noteNumberToName(baseNote + scaleIndex[chord.degree]);
+    std::string name = noteNumberToName(baseNote + scaleIndex[chord.degree - 1]);
 
     if(chord.type.noteOffsets == MAJOR.noteOffsets)
         name.append(" major");
@@ -116,4 +116,16 @@ inline std::string chordName(int baseNote, Chord chord)
         name.append(" diminished");
 
     return name;
+}
+
+inline std::array<int, 3> chordToNotes(int baseNote, Chord chord)
+{
+    static const int scaleIndex[] = {0, 2, 4, 5, 7, 9, 11};
+    
+    std::array<int, 3> notes{0};
+    
+    for(int note = 0; note < 3; note++)
+        notes[note] = baseNote + scaleIndex[chord.degree - 1] + chord.type.noteOffsets[note];
+    
+    return notes;
 }

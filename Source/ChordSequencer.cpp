@@ -44,19 +44,28 @@ void ChordSequencer::paint(juce::Graphics& g)
     g.setColour(juce::Colours::black);
     g.drawText(noteNumberToName(baseNoteNumber), columnLayout[0].reduced(0, area.getHeight() / 3), juce::Justification(36));
  
+    if(activeStepIndex == 0)
+    {
+        g.setColour(juce::Colour(0xffD0D0D0));
+        g.drawRoundedRectangle(columnLayout[0], 20, 3);
+    }
 }
 
 void ChordSequencer::resized()
 {
     auto area = getLocalBounds();
     const float leftMargin = area.getWidth() / 4;
+    const float topMargin = area.getHeight() / 40;
     area.removeFromRight(leftMargin);
+    area.removeFromTop(topMargin);
+    area.removeFromBottom(topMargin);
+    area.translate(leftMargin, topMargin / 2);
     
     float columnWidth = (area.getWidth() - (numSteps - 1) * columnMarign) / numSteps;
     float xIncrement = columnWidth + columnMarign;
     
     for(int i = 0; i < numSteps; i++)
-        columnLayout[i] = juce::Rectangle<float>(leftMargin + i * xIncrement, 0, columnWidth, area.getHeight());
+        columnLayout[i] = juce::Rectangle<float>(area.getX() + i * xIncrement, area.getY(), columnWidth, area.getHeight());
     
     for(int i = 0; i < numSteps - 1; i++)
     {
@@ -76,6 +85,60 @@ void ChordSequencer::resized()
         
         flex.performLayout(columnLayout[i + 1]);
     }
+}
+
+void ChordSequencer::increment()
+{
+    if(activeStepIndex != 0)
+    {
+        for(auto* button : steps[activeStepIndex - 1])
+            if(button->getActive())
+                button->setHighlighted(false);
+    }
+    
+    activeStepIndex++;
+    activeStepIndex %= numSteps;
+    
+    if(activeStepIndex != 0)
+    {
+        for(auto* button : steps[activeStepIndex - 1])
+            if(button->getActive())
+                button->setHighlighted(true);
+    }
+    
+}
+
+void ChordSequencer::setIndex(int i)
+{
+    if(activeStepIndex != 0)
+    {
+        for(auto* button : steps[activeStepIndex - 1])
+            if(button->getActive())
+                button->setHighlighted(false);
+    }
+    
+    activeStepIndex = i % numSteps;
+    
+    if(activeStepIndex != 0)
+    {
+        for(auto* button : steps[activeStepIndex - 1])
+            if(button->getActive())
+                button->setHighlighted(true);
+    }
+}
+
+std::optional<std::array<int, 3>> ChordSequencer::getCurrentChord()
+{
+    if(activeStepIndex == 0)
+    {
+        return chordToNotes(baseNoteNumber, {1, MAJOR});
+    }
+    
+    for(auto* button : steps[activeStepIndex - 1])
+        if(button->getActive())
+            return chordToNotes(baseNoteNumber, button->getChord());
+        
+    return {};
 }
 
 void ChordSequencer::onChordButtonClicked(int stepIndex, int chordIndex)
@@ -138,6 +201,12 @@ void ChordSequencer::ChordButton::paintButton(juce::Graphics& g, bool down, bool
     }
     
     g.fillRoundedRectangle(area.toFloat(), 20);
+    
+    if(isHighlighted)
+    {
+        g.setColour(juce::Colour(0xffD0D0D0));
+        g.drawRoundedRectangle(area.toFloat(), 20, 3);
+    }
     
     g.setFont(area.getHeight() / 5);
     g.setColour(juce::Colours::black);

@@ -83,10 +83,27 @@ void BodyComponent::paint (juce::Graphics& g)
      //shadow.drawForPath(g, shadowPath);
 }
 
-void BodyComponent::updateStepIndexes(int index) {
+std::array<bool, 5> BodyComponent::getDrumSequencerStep()
+{
+    std::array<bool, 5> state;
+    for(int i = 0; i < 5; i++)
+        state[i] = tracks[i]->isCurrentStepActive();
+    return state;
+}
+
+std::optional<std::array<int, 3>> BodyComponent::getChordStep()
+{
+    return chordSequencer.getCurrentChord();
+}
+
+void BodyComponent::setDrumSequencerIndex(int index) {
     for (auto* track : tracks) {
         track->setStepIndex(index);
     }
+}
+
+void BodyComponent::setChordSequencerIndex(int index) {
+    chordSequencer.setIndex(index);
 }
 
 void BodyComponent::resized()
