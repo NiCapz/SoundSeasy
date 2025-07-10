@@ -74,7 +74,7 @@ void BodyComponent::paint (juce::Graphics& g)
             area.getHeight(),
             true);
         juce::Graphics shadowGraphics(shadowImage);
-        shadow.drawForPath(shadowGraphics, shadowPath);
+        //shadow.drawForPath(shadowGraphics, shadowPath);
         shadowsRendered = true;
     }
 
