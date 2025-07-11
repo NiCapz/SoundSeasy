@@ -11,6 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 #include "ChordProgressions.h"
+#include "SVGButton.h"
 
 class ChordSequencer : public juce::Component
 {
@@ -82,4 +83,12 @@ private:
     std::array<juce::Rectangle<float>, numSteps> columnLayout;
     static constexpr float columnMarign = 20;
     static constexpr float buttonPadding = 7;
+    
+    
+    const juce::String n{"Transpose Button"};
+    
+    SVGButton transposeUpButton{n,
+        juce::Colour(0x00000000)};
+    SVGButton transposeDownButton{n,
+        juce::Colour(0x00000000)};
 };

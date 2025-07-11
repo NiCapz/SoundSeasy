@@ -20,6 +20,36 @@ ChordSequencer::ChordSequencer()
         steps[0].add(b);
         newChordIndex++;
     }
+    
+    transposeUpButton.setIcon(juce::Drawable::createFromImageData(BinaryData::up_arrow_svg, BinaryData::up_arrow_svgSize));
+    transposeDownButton.setIcon(juce::Drawable::createFromImageData(BinaryData::down_arrrow_svg, BinaryData::down_arrrow_svgSize));
+    
+    transposeUpButton.onClick = [&] ()
+    {
+        if(baseNoteNumber < 100)
+            baseNoteNumber += 1;
+        
+        for(auto& step : steps)
+            for(auto* button : step)
+                button->setBaseNoteNumber(baseNoteNumber);
+        
+        repaint();
+    };
+    
+    transposeDownButton.onClick = [&] ()
+    {
+        if(baseNoteNumber >= 48)
+            baseNoteNumber -= 1;
+        
+        for(auto& step : steps)
+            for(auto* button : step)
+                button->setBaseNoteNumber(baseNoteNumber);
+        
+        repaint();
+    };
+    
+    addAndMakeVisible(&transposeUpButton);
+    addAndMakeVisible(&transposeDownButton);
 }
 
 ChordSequencer::~ChordSequencer()
@@ -88,6 +118,18 @@ void ChordSequencer::resized()
         
         flex.performLayout(columnLayout[i + 1]);
     }
+    
+    juce::FlexBox flex;
+    flex.flexDirection = juce::FlexBox::Direction::column;
+    flex.flexWrap = juce::FlexBox::Wrap::noWrap;
+    flex.justifyContent = juce::FlexBox::JustifyContent::center;
+    
+    const float outerMargin = area.getHeight() / 7;
+    const float horizontalMargin = columnLayout[0].getWidth() / 2.7;
+    
+    flex.items.add(juce::FlexItem(transposeUpButton).withFlex(1).withMargin({outerMargin, horizontalMargin, 0, horizontalMargin}));
+    flex.items.add(juce::FlexItem(transposeDownButton).withFlex(1).withMargin({0, horizontalMargin, outerMargin, horizontalMargin}));
+    flex.performLayout(columnLayout[0]);
 }
 
 void ChordSequencer::increment()
