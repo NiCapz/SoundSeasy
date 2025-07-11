@@ -37,8 +37,11 @@ void ChordSequencer::paint(juce::Graphics& g)
     g.setColour(juce::Colour(0xff414141));
     g.fillPath(backgroundPath);
     
+    auto mainButtonArea = columnLayout[0].reduced(buttonPadding, buttonPadding);
+    const float strokeWeight = 3;
+    
     g.setColour(juce::Colour(0xffb9b9b9));
-    g.fillRoundedRectangle(columnLayout[0], 20);
+    g.fillRoundedRectangle(mainButtonArea.toFloat(), 15);
     
     g.setFont(area.getHeight() / 5);
     g.setColour(juce::Colours::black);
@@ -47,7 +50,7 @@ void ChordSequencer::paint(juce::Graphics& g)
     if(activeStepIndex == 0)
     {
         g.setColour(juce::Colour(0xffD0D0D0));
-        g.drawRoundedRectangle(columnLayout[0], 20, 3);
+        g.drawRoundedRectangle(columnLayout[0].reduced(1.3 * strokeWeight, 1.3 * strokeWeight), 20, strokeWeight);
     }
 }
 
@@ -169,6 +172,7 @@ void ChordSequencer::onChordButtonClicked(int stepIndex, int chordIndex)
         else
         {
             button->setActive(false);
+            button->setHighlighted(false);
         }
     }
     
@@ -200,6 +204,9 @@ void ChordSequencer::ChordButton::resized()
 void ChordSequencer::ChordButton::paintButton(juce::Graphics& g, bool down, bool highlighted)
 {
     auto area = getLocalBounds();
+    auto innerArea = area.reduced(buttonPadding, buttonPadding);
+    const float strokeWeight = 3;
+    auto highlightArea = area.reduced(1.3 * strokeWeight, 1.3 * strokeWeight);
     if(isActive)
     {
         g.setColour(juce::Colour(0xffb9b9b9));
@@ -209,12 +216,12 @@ void ChordSequencer::ChordButton::paintButton(juce::Graphics& g, bool down, bool
         g.setColour(juce::Colour(0xff919191));
     }
     
-    g.fillRoundedRectangle(area.toFloat(), 20);
+    g.fillRoundedRectangle(innerArea.toFloat(), 15);
     
     if(isHighlighted)
     {
         g.setColour(juce::Colour(0xffD0D0D0));
-        g.drawRoundedRectangle(area.toFloat(), 20, 3);
+        g.drawRoundedRectangle(highlightArea.toFloat(), 20, strokeWeight);
     }
     
     g.setFont(area.getHeight() / 5);

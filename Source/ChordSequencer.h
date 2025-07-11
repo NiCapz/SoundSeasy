@@ -80,5 +80,6 @@ private:
     void onChordButtonClicked(int step, int chordIndex);
     
     std::array<juce::Rectangle<float>, numSteps> columnLayout;
-    const float columnMarign = 20;
+    static constexpr float columnMarign = 20;
+    static constexpr float buttonPadding = 7;
 };
