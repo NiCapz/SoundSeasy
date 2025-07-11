@@ -135,8 +135,17 @@ std::optional<std::array<int, 3>> ChordSequencer::getCurrentChord()
     }
     
     for(auto* button : steps[activeStepIndex - 1])
+    {
         if(button->getActive())
-            return chordToNotes(baseNoteNumber, button->getChord());
+        {
+            Chord chord = button->getChord();
+            int offset = 0;
+            if(chord.degree > 5)
+                offset = -12;
+            
+            return chordToNotes(baseNoteNumber + offset, button->getChord());
+        }
+    }
         
     return {};
 }
