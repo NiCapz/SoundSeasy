@@ -188,6 +188,14 @@ void MainComponent::timerCallback() {
                 noteOffMessage.setTimeStamp(currentTimeS + noteLength);
                 midiManager.addMessageToQueue(noteOffMessage);
             }
+            
+            MidiMessage noteOnMessage = MidiMessage::noteOn(2, chord.value()[0] - 24, (juce::uint8)100);
+            noteOnMessage.setTimeStamp(currentTimeS);
+            midiManager.addMessageToQueue(noteOnMessage);
+            
+            MidiMessage noteOffMessage = MidiMessage::noteOff(2, chord.value()[0] - 24, (juce::uint8)100);
+            noteOffMessage.setTimeStamp(currentTimeS + noteLength);
+            midiManager.addMessageToQueue(noteOffMessage);
         }
     }
 
