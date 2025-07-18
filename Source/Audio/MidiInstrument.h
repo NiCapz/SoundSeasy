@@ -18,7 +18,7 @@ public:
     void setGainDB(float val) { outputGain = pow(10, val / 20.0); }
     void setMidiChannel(int channel) { midiChannel = std::clamp(channel, 1, 128); }
     
-    virtual void addToBuffer(juce::AudioBuffer<float>& buffer, const juce::MidiBuffer& midiBuffer) {}
+    virtual void addToBuffer(juce::AudioBuffer<float>& buffer, const juce::MidiBuffer& midiBuffer) = 0;
     
 protected:
     double sampleRate = 44100;
