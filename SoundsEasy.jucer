@@ -20,6 +20,13 @@
               file="Source/Audio/Piano/SamplerTrack.cpp"/>
         <FILE id="yC5F4P" name="SamplerTrack.h" compile="0" resource="0" file="Source/Audio/Piano/SamplerTrack.h"/>
       </GROUP>
+      <GROUP id="{93F643A4-BB9D-8DFF-2E86-EC729CD2479F}" name="Reverb">
+        <FILE id="b1ORWl" name="AllPass.cpp" compile="1" resource="0" file="Source/Audio/Reverb/AllPass.cpp"/>
+        <FILE id="fyqSoa" name="AllPass.h" compile="0" resource="0" file="Source/Audio/Reverb/AllPass.h"/>
+        <FILE id="rEH2Gh" name="MatrixReverb.cpp" compile="1" resource="0"
+                file="Source/Audio/Reverb/MatrixReverb.cpp"/>
+        <FILE id="ePw35d" name="MatrixReverb.h" compile="0" resource="0" file="Source/Audio/Reverb/MatrixReverb.h"/>
+      </GROUP>
       <GROUP id="{BB1205C8-1F7A-CDC8-1B74-B48FD54BE729}" name="Synth">
         <FILE id="CEoZkW" name="Synth.cpp" compile="1" resource="0" file="Source/Audio/Synth/Synth.cpp"/>
         <FILE id="JlAruS" name="Synth.h" compile="0" resource="0" file="Source/Audio/Synth/Synth.h"/>
