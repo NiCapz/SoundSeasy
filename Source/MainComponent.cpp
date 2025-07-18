@@ -157,7 +157,7 @@ void MainComponent::paint (juce::Graphics& g)
 }
 
 void MainComponent::timerCallback() {
-    body.setDrumSequencerIndex(currentStepIndex);
+    body.setDrumSequencerIndex(currentStepIndex % stepsTotal);
     repaint();
 
     double currentTimeS = Time::getMillisecondCounterHiRes() * 0.001;
@@ -170,8 +170,8 @@ void MainComponent::timerCallback() {
         }
     }
     
-    const int stepDivider = 2;
-    double noteLength = (60.0 / bpm) * 0.9;
+    const int stepDivider = 4;
+    double noteLength = (stepDivider * 60.0 / (1 * bpm)) * 0.9;
     if(currentStepIndex % stepDivider == 0)
     {
         body.setChordSequencerIndex(currentStepIndex / stepDivider);
@@ -200,7 +200,7 @@ void MainComponent::timerCallback() {
     }
 
     currentStepIndex++;
-    currentStepIndex %= stepsTotal;
+    currentStepIndex %= 2 * stepsTotal;
     if (bpmJustChanged && bpm > 0)
     {
         stopTimer();
