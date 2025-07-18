@@ -31,8 +31,16 @@ private:
         const float pitch;
     };
     
-    std::array<BinaryDataFile, 9> sampleFiles =
+    std::array<BinaryDataFile, 17> sampleFiles =
     {{
+        { BinaryData::_05Mezzo_flac, BinaryData::_05Mezzo_flacSize,  34.64 },
+        { BinaryData::_08Mezzo_flac, BinaryData::_08Mezzo_flacSize,  41.20 },
+        { BinaryData::_11Mezzo_flac, BinaryData::_11Mezzo_flacSize,  49.00 },
+        { BinaryData::_14Mezzo_flac, BinaryData::_14Mezzo_flacSize,  58.27 },
+        { BinaryData::_17Mezzo_flac, BinaryData::_17Mezzo_flacSize,  69.30 },
+        { BinaryData::_20Mezzo_flac, BinaryData::_20Mezzo_flacSize,  82.41 },
+        { BinaryData::_23Mezzo_flac, BinaryData::_23Mezzo_flacSize,  98.00 },
+        { BinaryData::_26Mezzo_flac, BinaryData::_26Mezzo_flacSize, 116.54 },
         { BinaryData::_29Mezzo_flac, BinaryData::_29Mezzo_flacSize, 138.58 },
         { BinaryData::_32Mezzo_flac, BinaryData::_32Mezzo_flacSize, 164.81 },
         { BinaryData::_35Mezzo_flac, BinaryData::_35Mezzo_flacSize, 196.00 },

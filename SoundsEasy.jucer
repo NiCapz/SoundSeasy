@@ -24,7 +24,7 @@
         <FILE id="b1ORWl" name="AllPass.cpp" compile="1" resource="0" file="Source/Audio/Reverb/AllPass.cpp"/>
         <FILE id="fyqSoa" name="AllPass.h" compile="0" resource="0" file="Source/Audio/Reverb/AllPass.h"/>
         <FILE id="rEH2Gh" name="MatrixReverb.cpp" compile="1" resource="0"
-                file="Source/Audio/Reverb/MatrixReverb.cpp"/>
+              file="Source/Audio/Reverb/MatrixReverb.cpp"/>
         <FILE id="ePw35d" name="MatrixReverb.h" compile="0" resource="0" file="Source/Audio/Reverb/MatrixReverb.h"/>
       </GROUP>
       <GROUP id="{BB1205C8-1F7A-CDC8-1B74-B48FD54BE729}" name="Synth">
@@ -44,6 +44,14 @@
       <FILE id="IW0ReI" name="Utils.h" compile="0" resource="0" file="Source/Audio/Utils.h"/>
     </GROUP>
     <GROUP id="{8D1E330C-D155-11A4-6B41-4157CC310D1B}" name="AudioFiles">
+      <FILE id="bdnJhF" name="05-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/05-Mezzo.flac"/>
+      <FILE id="RfJ6q7" name="08-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/08-Mezzo.flac"/>
+      <FILE id="MsGJcG" name="11-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/11-Mezzo.flac"/>
+      <FILE id="KWgO07" name="14-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/14-Mezzo.flac"/>
+      <FILE id="Xs6aMh" name="17-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/17-Mezzo.flac"/>
+      <FILE id="CHtdDb" name="20-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/20-Mezzo.flac"/>
+      <FILE id="SB4JNw" name="23-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/23-Mezzo.flac"/>
+      <FILE id="Us4Ddc" name="26-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/26-Mezzo.flac"/>
       <FILE id="lbXDMY" name="29-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/29-Mezzo.flac"/>
       <FILE id="gF7GHt" name="32-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/32-Mezzo.flac"/>
       <FILE id="dMi1O7" name="35-Mezzo.flac" compile="0" resource="1" file="AudioFiles/Piano/35-Mezzo.flac"/>

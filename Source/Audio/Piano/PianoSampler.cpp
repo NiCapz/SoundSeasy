@@ -176,7 +176,7 @@ void PianoSampler::addToBuffer(juce::AudioBuffer<float>& buffer, const juce::Mid
                 {
                     int sampleIndex = 0;
                     
-                    for(int i = 0; i < 9; i++)
+                    for(int i = 0; i < pianoSamples.size(); i++)
                     {
                         if(pianoSamples[i].pitch > notePitch)
                             break;
