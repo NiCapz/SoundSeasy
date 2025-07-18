@@ -31,11 +31,11 @@ void InstrumentSelectorComponent::setName(juce::String name) {
     {
         icon = juce::Drawable::createFromImageData(BinaryData::crash_svg, BinaryData::crash_svgSize);
     }
-    else if (name == "Hi-Hat 1")
+    else if (name == "Hi-Hat 2")
     {
         icon = juce::Drawable::createFromImageData(BinaryData::hihat_svg, BinaryData::hihat_svgSize);
     }
-    else if (name == "Hi-Hat2")
+    else if (name == "Hi-Hat 1")
     {
         icon = juce::Drawable::createFromImageData(BinaryData::hihat_open_svg, BinaryData::hihat_open_svgSize);
     } 
