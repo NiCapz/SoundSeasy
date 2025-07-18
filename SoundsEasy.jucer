@@ -97,6 +97,8 @@
     <FILE id="FSvg3f" name="MainComponent.cpp" compile="1" resource="0"
           file="Source/MainComponent.cpp"/>
     <FILE id="x80YDv" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+    <FILE id="jptFPa" name="PianoSynthSwitch.h" compile="0" resource="0"
+          file="Source/PianoSynthSwitch.h"/>
     <FILE id="UNVNgP" name="PlayPauseComponent.cpp" compile="1" resource="0"
           file="Source/PlayPauseComponent.cpp"/>
     <FILE id="pxpaYQ" name="PlayPauseComponent.h" compile="0" resource="0"

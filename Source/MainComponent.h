@@ -51,6 +51,7 @@ private:
     int currentStepIndex = 0;
     const int stepsTotal = 8;
     bool isPlaying = false;
+    bool playPiano = true;
 
 
     DrumSampler drumSampler{};

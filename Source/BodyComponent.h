@@ -13,6 +13,7 @@
 #include <JuceHeader.h>
 #include "TrackComponent.h"
 #include "ChordSequencer.h"
+#include "PianoSynthSwitch.h"
 
 //==============================================================================
 /*
@@ -36,6 +37,8 @@ public:
     void setShowAccordSequencer(bool show);
 
     void toggleChordSequencer();
+    
+    void setPianoSynthSwitchCallback(std::function<void(bool)>);
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BodyComponent)
@@ -47,4 +50,7 @@ private:
     
     juce::OwnedArray<TrackComponent> tracks;
     ChordSequencer chordSequencer{};
+    
+    const juce::String pianoSynthName{"PianoSynthSwitch"};
+    PianoSynthSwitch pianoSynthSwitch{pianoSynthName};
 };

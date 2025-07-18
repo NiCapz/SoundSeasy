@@ -43,6 +43,10 @@ MainComponent::MainComponent()
         body.setDrumSequencerIndex(currentStepIndex);
         body.setChordSequencerIndex(currentStepIndex);
     });
+    
+    body.setPianoSynthSwitchCallback([&] (bool piano) {
+        playPiano = piano;
+    });
 
     // Some platforms require permissions to open input channels so request that here
     if (juce::RuntimePermissions::isRequired(juce::RuntimePermissions::recordAudio)
@@ -172,6 +176,7 @@ void MainComponent::timerCallback() {
     
     const int stepDivider = 4;
     double noteLength = (stepDivider * 60.0 / (1 * bpm)) * 0.9;
+    int channel = playPiano ? 3 : 2;
     if(currentStepIndex % stepDivider == 0)
     {
         body.setChordSequencerIndex(currentStepIndex / stepDivider);
@@ -180,20 +185,20 @@ void MainComponent::timerCallback() {
         {
             for(int note : chord.value())
             {
-                MidiMessage noteOnMessage = MidiMessage::noteOn(2, note, (juce::uint8)100);
+                MidiMessage noteOnMessage = MidiMessage::noteOn(channel, note, (juce::uint8)100);
                 noteOnMessage.setTimeStamp(currentTimeS);
                 midiManager.addMessageToQueue(noteOnMessage);
                 
-                MidiMessage noteOffMessage = MidiMessage::noteOff(2, note, (juce::uint8)100);
+                MidiMessage noteOffMessage = MidiMessage::noteOff(channel, note, (juce::uint8)100);
                 noteOffMessage.setTimeStamp(currentTimeS + noteLength);
                 midiManager.addMessageToQueue(noteOffMessage);
             }
             
-            MidiMessage noteOnMessage = MidiMessage::noteOn(2, chord.value()[0] - 24, (juce::uint8)100);
+            MidiMessage noteOnMessage = MidiMessage::noteOn(channel, chord.value()[0] - 24, (juce::uint8)100);
             noteOnMessage.setTimeStamp(currentTimeS);
             midiManager.addMessageToQueue(noteOnMessage);
             
-            MidiMessage noteOffMessage = MidiMessage::noteOff(2, chord.value()[0] - 24, (juce::uint8)100);
+            MidiMessage noteOffMessage = MidiMessage::noteOff(channel, chord.value()[0] - 24, (juce::uint8)100);
             noteOffMessage.setTimeStamp(currentTimeS + noteLength);
             midiManager.addMessageToQueue(noteOffMessage);
         }

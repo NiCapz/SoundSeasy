@@ -22,9 +22,8 @@ BodyComponent::BodyComponent()
 
     
     addAndMakeVisible(chordSequencer);
-    //make the chord sequencer invisible at the start
-    //chordSequencer.setBounds(0, 0, 0, 0);
     
+    addChildComponent(pianoSynthSwitch);
 }
 
 BodyComponent::~BodyComponent()
@@ -106,8 +105,14 @@ void BodyComponent::setChordSequencerIndex(int index) {
     chordSequencer.setIndex(index);
 }
 
+void BodyComponent::setPianoSynthSwitchCallback(std::function<void(bool)> callback)
+{
+    pianoSynthSwitch.setCallback(callback);
+}
+
 void BodyComponent::resized()
 {
+    auto area = getLocalBounds();
     juce::FlexBox fb;
     fb.flexDirection = juce::FlexBox::Direction::column;
     fb.flexWrap = juce::FlexBox::Wrap::noWrap;
@@ -121,13 +126,13 @@ void BodyComponent::resized()
     {
         scaleFactor = juce::jmin(getTopLevelComponent()->getWidth() / 1600.0f,
             getTopLevelComponent()->getHeight() / 720.0f);
-        auto area = getLocalBounds();
         
         area.reduce(scaled(50), scaled(50));
         fb.performLayout(area);
         shadowsRendered = false;
         //hide chord sequencer
         chordSequencer.setBounds({0, 0, 0, 0});
+        pianoSynthSwitch.setVisible(false);
     }
     else
     {
@@ -138,5 +143,11 @@ void BodyComponent::resized()
         auto area = getLocalBounds();
         area.reduce(scaled(50), scaled(50));
         chordSequencer.setBounds(area);
+        pianoSynthSwitch.setVisible(true);
     }
+    
+    pianoSynthSwitch.setBounds(0.05 * area.getWidth(),
+                               0.1 * area.getHeight(),
+                               0.2 * area.getWidth(),
+                               0.1 * area.getHeight());
 }
