@@ -229,6 +229,7 @@ void ChordSequencer::onChordButtonClicked(int stepIndex, int chordIndex)
             for(const ChordTree& chord : *nextChords)
             {
                 ChordButton* b = new ChordButton(buttonName, &chord, [&, stepIndex, newChordIndex] () { onChordButtonClicked(stepIndex + 1, newChordIndex); });
+                b->setBaseNoteNumber(baseNoteNumber);
                 addAndMakeVisible(b);
                 steps[stepIndex + 1].add(b);
                 newChordIndex++;

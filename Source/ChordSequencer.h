@@ -87,8 +87,6 @@ private:
     
     const juce::String n{"Transpose Button"};
     
-    SVGButton transposeUpButton{n,
-        juce::Colour(0x00000000)};
-    SVGButton transposeDownButton{n,
-        juce::Colour(0x00000000)};
+    SVGButton transposeUpButton{n, juce::Colour(0x00000000)};
+    SVGButton transposeDownButton{n, juce::Colour(0x00000000)};
 };
